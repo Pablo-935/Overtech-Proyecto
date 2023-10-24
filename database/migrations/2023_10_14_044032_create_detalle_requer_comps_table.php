@@ -26,12 +26,12 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+ 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalle_requer_comps');
+        Schema::dropIfExists('detalle_requer_compras');
     }
 };
