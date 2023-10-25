@@ -3,6 +3,7 @@
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\ProveedorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaProductoController;
 
 Route::get('/', function () {
     return view('panel.index');
@@ -14,5 +15,7 @@ Route::resource('/proveedor', ProveedorController::class)->names('proveedor');
 Route::get('/vista', function(){
     return view('prueba.vista2');
 });
+
+Route::resource('/categorias', CategoriaProductoController::class)->names('categoria');
 
 ?>
