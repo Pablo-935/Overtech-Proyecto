@@ -291,23 +291,25 @@ return [
 
     'menu' => [
         [
-                'text'       => 'COTIZACIONES',
-                'route'        => 'cotizacion.index',
-                'icon'        => 'fas fa-money-bill-wave',
+            'text'       => 'Lista de Cotizaciones',
+            'route'        => 'cotizacion.index',
+            'icon'        => 'fas fa-money-bill-wave',
         ],
         [
-            'text'       => 'PROVEEDORES',
+            'text'       => 'Lista de Proveedores',
             'route'        => 'proveedor.index',
             'icon'        => 'fas fa-ship',
         ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
         [
             'text' => 'Lista de Categorías',
             'route' => 'categoria.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+        ],
+
+        [
+            'text' => 'Lista de Empleados',
+            'route' => 'empleado.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
         ],
     ],
