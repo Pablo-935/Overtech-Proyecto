@@ -301,16 +301,29 @@ return [
             'icon'        => 'fas fa-ship',
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text' => 'Lista de Clientes',
+            'route' => 'cliente.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+
+        ],
+        [
+            'text' => 'Lista de Categorias',
+            'route' => 'categoria.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+
+        ],
+        [
+            'text' => 'Lista de Productos',
+            'route' => 'producto.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+
         ],
         [
             'text' => 'Lista de Categorías',
             'route' => 'categoria.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
         ],
-    ],
+ 
 
     /*
     |--------------------------------------------------------------------------
