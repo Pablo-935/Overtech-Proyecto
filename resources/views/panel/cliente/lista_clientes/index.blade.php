@@ -4,11 +4,11 @@
 @section('plugins.Datatables', true)
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Categorías')
+@section('title', 'Clientes')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')
-    <h1>Lista de Categoría</h1>
+    <h1>Lista de Clientes</h1>
 @stop
 
 {{-- Contenido de la Pagina --}}
@@ -17,8 +17,8 @@
     <div class="row">
         <div class="col-12 mb-3">
             
-            <a href="{{ route('categoria.create') }}" class="btn btn-success text-uppercase">
-                Nueva Categoría
+            <a href="{{ route('cliente.create') }}" class="btn btn-success text-uppercase">
+                Nuevo Cliente
             </a>
         </div>
         
@@ -46,30 +46,34 @@
                 <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
                     <thead>
                         <tr>
+                            <th scope="col" class="text-uppercase">ID</th>
+                            <th scope="col" class="text-uppercase">CUIT</th>
                             <th scope="col" class="text-uppercase">Nombre</th>
-                            <th scope="col" class="text-uppercase">Descripción</th>
+                            <th scope="col" class="text-uppercase">Celular</th>
                             <th scope="col" class="text-uppercase">Fecha Creación</th>
                             <th scope="col" class="text-uppercase">Fecha Actualización</th>
                             <th scope="col" class="text-uppercase">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categorias as $categoria)
+                        @foreach ($clientes as $cliente)
                         <tr>
-                            <td>{{ $categoria->nombre_cat }}</td>
-                            <td>{{ $categoria->descripcion_cat }}</td>
-                            <td>{{ $categoria->created_at }}</td>
-                            <td>{{ $categoria->updated_at }}</td>
+                            <td>{{ $cliente->id }}</td>
+                            <td>{{ $cliente->cuit_cli }}</td>
+                            <td>{{ $cliente->nombre_cli }}</td>
+                            <td>{{ $cliente->celular_cli }}</td>
+                            <td>{{ $cliente->created_at }}</td>
+                            <td>{{ $cliente->updated_at }}</td>
 
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('categoria.show', $categoria->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
+                                    <a href="{{ route('cliente.show', $cliente->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('categoria.edit', $categoria->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
                                         Editar
                                     </a>
-                                    <form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST" class="formulario-eliminar">
+                                    <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" class="formulario-eliminar">
                                         @csrf 
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">

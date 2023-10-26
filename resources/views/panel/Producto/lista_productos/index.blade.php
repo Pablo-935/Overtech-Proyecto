@@ -4,11 +4,11 @@
 @section('plugins.Datatables', true)
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Categorías')
+@section('title', 'Productos')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')
-    <h1>Lista de Categoría</h1>
+    <h1>Lista de Productos</h1>
 @stop
 
 {{-- Contenido de la Pagina --}}
@@ -17,8 +17,8 @@
     <div class="row">
         <div class="col-12 mb-3">
             
-            <a href="{{ route('categoria.create') }}" class="btn btn-success text-uppercase">
-                Nueva Categoría
+            <a href="{{ route('producto.create') }}" class="btn btn-success text-uppercase">
+                Nuevo Producto
             </a>
         </div>
         
@@ -46,30 +46,39 @@
                 <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
                     <thead>
                         <tr>
+                            <th scope="col" class="text-uppercase">ID</th>
                             <th scope="col" class="text-uppercase">Nombre</th>
-                            <th scope="col" class="text-uppercase">Descripción</th>
-                            <th scope="col" class="text-uppercase">Fecha Creación</th>
-                            <th scope="col" class="text-uppercase">Fecha Actualización</th>
+                            <th scope="col" class="text-uppercase">Precio unitario</th>
+                            <th scope="col" class="text-uppercase">Stock actual</th>
+                            <th scope="col" class="text-uppercase">Imagen</th>
+                            <th scope="col" class="text-uppercase">Categoria</th>
                             <th scope="col" class="text-uppercase">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categorias as $categoria)
+                        @foreach ($productos as $producto)
                         <tr>
-                            <td>{{ $categoria->nombre_cat }}</td>
-                            <td>{{ $categoria->descripcion_cat }}</td>
-                            <td>{{ $categoria->created_at }}</td>
-                            <td>{{ $categoria->updated_at }}</td>
+                            <td>{{ $producto->id }}</td>
+                            <td>{{ $producto->nombre_prod }}</td>
+                            <td>{{ $producto->precio_uni_prod }}</td>
+                            <td>{{ $producto->stock_actual_prod }}</td>
+                            <td><img src="{{ $producto->imagen_prod }}" alt="{{ $producto->nombre_prod }}" class="img-fluid" style="width: 150px;"></td>
+                            <td>
+                                @if ($producto->categoria)
+                                    {{ $producto->categoria->nombre_cat }}
+                                @endif
+                            </td>
+
 
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('categoria.show', $categoria->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
+                                    <a href="{{ route('producto.show', $producto->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('categoria.edit', $categoria->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    <a href="{{ route('producto.edit', $producto->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
                                         Editar
                                     </a>
-                                    <form action="{{ route('categoria.destroy', $categoria->id) }}" method="POST" class="formulario-eliminar">
+                                    <form action="{{ route('producto.destroy', $producto->id) }}" method="POST" class="formulario-eliminar">
                                         @csrf 
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">
