@@ -12,7 +12,8 @@ class CotizacionController extends Controller
      */
     public function index()
     {
-        //
+        $cotizacion = Cotizacion::all();
+        return view('panel.cotizacion.cotizacion_lista.index', compact('cotizacion'));
     }
 
     /**
@@ -20,7 +21,11 @@ class CotizacionController extends Controller
      */
     public function create()
     {
-        //
+        $cotizacion = new Cotizacion();
+
+        return view('panel.cotizacion.cotizacion_lista.create', compact('cotizacion'));
+
+
     }
 
     /**
@@ -28,7 +33,16 @@ class CotizacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validar = $request->validate([
+            'nombre_cotizacion' => 'required|string|max:20',
+            'valor_cotizacion' => 'required|numeric|gt:0',
+
+
+        ]);
+
+        cotizacion::create($validar);
+
+        return redirect()->route('cotizacion.index')->with('alert', 'Nueva cotizacion creada satisfactoriamente');
     }
 
     /**
@@ -42,24 +56,47 @@ class CotizacionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cotizacion $cotizacion)
+    public function edit($id)
     {
-        //
+        $cotizacion = Cotizacion::findOrFail($id);
+
+        return view('panel.cotizacion.cotizacion_lista.edit', ['cotizacion' => $cotizacion]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cotizacion $cotizacion)
+    public function update(Request $request,  $id)
     {
-        //
+        $validar = $request->validate([
+            'nombre_cotizacion' => 'required|string|max:20',
+            'valor_cotizacion' => 'required|numeric|gt:0',
+
+
+        ]);
+        //busqueda del producto
+        $cotizacion = cotizacion::findOrFail($id);
+
+        //actualizar
+        $cotizacion->update($validar);
+
+        return redirect()->route('cotizacion.index')->with('status2', 'Cotizacion actualizada satisfactoriamente');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cotizacion $cotizacion)
+    public function destroy($id)
     {
-        //
+                        //busqueda del producto
+                        $cotizacion = cotizacion::findOrFail($id);
+
+
+                        //Eliminacion del producto
+                        $cotizacion->delete();
+                
+                        //Redireccion con un mensaje flash de sesion
+                        return redirect()->route('cotizacion.index')->with('alert3', 'Cotizacion Eliminada');
     }
 }
