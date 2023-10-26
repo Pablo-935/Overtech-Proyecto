@@ -318,12 +318,8 @@ return [
             'icon' => 'fa fa-tag', // icono de fontawesome
 
         ],
-        [
-            'text' => 'Lista de Categorías',
-            'route' => 'categoria.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
-        ],
- 
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
