@@ -4,11 +4,11 @@
 @section('plugins.Datatables', true)
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Categorías')
+@section('title', 'Ventas')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')
-    <h1>Lista de Empleados</h1>
+    <h1>Lista de Ventas</h1>
 @stop
 
 {{-- Contenido de la Pagina --}}
@@ -17,8 +17,8 @@
     <div class="row">
         <div class="col-12 mb-3">
             
-            <a href="{{ route('empleado.create') }}" class="btn btn-success text-uppercase">
-                Nuevo empleado
+            <a href="{{ route('venta.create') }}" class="btn btn-success text-uppercase">
+                Nuevo ventas
             </a>
         </div>
         
@@ -46,38 +46,39 @@
                 <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-uppercase">dni</th>
-                            <th scope="col" class="text-uppercase">Nombre</th>
-                            <th scope="col" class="text-uppercase">apellido</th>
-                            <th scope="col" class="text-uppercase">celular</th>
-                            <th scope="col" class="text-uppercase">correo</th>
-                            <th scope="col" class="text-uppercase">domicilio</th>
-                            <th scope="col" class="text-uppercase">tipo</th>
-                            <th scope="col" class="text-uppercase">usuario</th>
+                            <th scope="col" class="text-uppercase">id</th>
+                            <th scope="col" class="text-uppercase">dni_venta</th>
+                            <th scope="col" class="text-uppercase">fecha_venta</th>
+                            <th scope="col" class="text-uppercase">hora_venta</th>
+                            <th scope="col" class="text-uppercase">total_venta</th>
+                            <th scope="col" class="text-uppercase">estado_venta</th>
+                            <th scope="col" class="text-uppercase">empleado_id</th>
+                            <th scope="col" class="text-uppercase">caja_id</th>
+                            <th scope="col" class="text-uppercase">cliente_id</th>
                             <th scope="col" class="text-uppercase">opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($empleados as $empleado)
+                        @foreach ($ventas as $venta)
                         <tr>
-                            <td>{{ $empleado->dni_empl }}</td>
-                            <td>{{ $empleado->nombre_empl}}</td>
-                            <td>{{ $empleado->apellido_empl }}</td>
-                            <td>{{ $empleado->celular_empl }}</td>
-                            <td>{{ $empleado->correo_empl }}</td>
-                            <td>{{ $empleado->domicilio_empl }}</td>
-                            <td>{{ $empleado->tipo_empl }}</td>
-                            <td>{{ $empleado->user->name}}</td>
-
+                            <td>{{ $venta->id }}</td>
+                            <td>{{ $venta->dni_venta}}</td>
+                            <td>{{ $venta->fecha_venta }}</td>
+                            <td>{{ $venta->hora_venta }}</td>
+                            <td>{{ $venta->total_venta }}</td>
+                            <td>{{ $venta->estado_venta }}</td>
+                            <td>{{ $venta->empleado->nombre_empl }}</td>
+                            <td>{{ $venta->caja->id}}</td>
+                            <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('empleado.show', $empleado->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
+                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('empleado.edit', $empleado->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
                                         Editar
                                     </a>
-                                    <form action="{{ route('empleado.destroy', $empleado->id) }}" method="POST" class="formulario-eliminar">
+                                    <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="formulario-eliminar">
                                         @csrf 
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">

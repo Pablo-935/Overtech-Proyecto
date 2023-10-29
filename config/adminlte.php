@@ -312,6 +312,12 @@ return [
             'route' => 'empleado.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
         ],
+
+        [
+            'text' => 'Lista de Ventas',
+            'route' => 'venta.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+        ],
     ],
 
     /*

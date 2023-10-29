@@ -51,7 +51,7 @@
                             <select id="usuario_empl" name="usuario_empl" class="form-control mb-1">
                                 <option value="{{ $empleado->user->id}}">{{ $empleado->user->name }}</option>
                                 @foreach ($usuarios as $usuario)
-                                    <option  value="{{ $usuario->id }}"> 
+                                    <option value="{{ $usuario->id }}"> 
                                         {{ $usuario->name }}
                                     </option>
                                 @endforeach
