@@ -69,6 +69,7 @@ class VentaController extends Controller
     public function show($id)
     {
         $venta = Venta::findOrFail($id);
+        
         $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         
 
@@ -79,24 +80,55 @@ class VentaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Venta $venta)
+    public function edit($id)
     {
-        //
+        $venta = Venta::findOrFail($id);
+        $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
+        $productos = Producto::all();
+        $empleados = Empleado::all();
+        $cajas = Caja::all();
+        $clientes = Cliente::all();
+        return view('panel.venta.lista_venta.edit', compact('venta', 'detalleVenta', 'productos', 'empleados', 'cajas', 'clientes'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Venta $venta)
+    public function update(Request $request, $id)
     {
-        //
+        $venta = Venta::findOrFail($id);
+    
+        $venta->dni_venta = $request->input('dni_venta');
+        $venta->fecha_venta = $request->input('fecha_venta');
+        $venta->hora_venta = $request->input('hora_venta');
+        $venta->total_venta = $request->input('total_venta');
+        $venta->estado_venta = $request->input('estado_venta');
+        $venta->empleado_id = $request->input('empleado_id');
+        $venta->caja_id = $request->input('caja_id');
+        $venta->cliente_id = $request->input('cliente_id');
+        $venta->save();
+    
+        // Actualización de detalle de venta
+        $detalleVenta = DetalleVenta::where('venta_id', $id)->update([
+            'producto_id' => $request->input('producto_id'),
+            'cantidad_prod_venta' => $request->input('cantidad_prod_venta'),
+            'sub_total_det_venta' => $request->input('sub_total_det_venta')
+        ]);
+    
+        return redirect()->route("venta.index");
     }
+    
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Venta $venta)
+    public function destroy($id)
     {
-        //
+        $venta = Venta::findOrFail($id);
+        $venta->delete();
+        return redirect()->route("venta.index")->with('alert3', 'Venta Eliminada');
+
     }
 }
