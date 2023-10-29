@@ -291,32 +291,49 @@ return [
 
     'menu' => [
         [
-                'text'       => 'COTIZACIONES',
-                'route'        => 'cotizacion.index',
-                'icon'        => 'fas fa-money-bill-wave',
+            'text'       => 'Lista de Cotizaciones',
+            'route'        => 'cotizacion.index',
+            'icon'        => 'fas fa-money-bill-wave',
         ],
         [
-            'text'       => 'PROVEEDORES',
+            'text'       => 'Lista de Proveedores',
             'route'        => 'proveedor.index',
             'icon'        => 'fas fa-ship',
         ],
+
         [
             'text' => 'Lista de Clientes',
             'route' => 'cliente.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
 
         ],
+
+
+
         [
             'text' => 'Lista de Categorias',
             'route' => 'categoria.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
 
         ],
+
         [
             'text' => 'Lista de Productos',
             'route' => 'producto.index',
             'icon' => 'fa fa-tag', // icono de fontawesome
 
+        ],
+
+        [
+            'text' => 'Lista de Empleados',
+            'route' => 'empleado.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
+        ],
+
+        [
+            'text' => 'Lista de Ventas',
+            'route' => 'venta.index',
+            'icon' => 'fa fa-tag', // icono de fontawesome
         ],
 
     ],

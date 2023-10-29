@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaProductoController;
@@ -21,5 +23,7 @@ Route::get('/vista', function(){
 });
 
 Route::resource('/categorias', CategoriaProductoController::class)->names('categoria');
+Route::resource('/empleados', EmpleadoController::class)->names('empleado');
+Route::resource('/ventas', VentaController::class)->names('venta');
 
 ?>
