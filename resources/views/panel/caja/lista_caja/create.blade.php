@@ -4,6 +4,24 @@
 
 @section('content')
 
+@if (session('alert3'))
+<div class="col-12">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('alert3') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if (session('alert1'))
+<div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('alert1') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
             <div class="col-10 col-md-6 col-lg-6">
@@ -37,15 +55,15 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Saldo Inicial</label>
-                                <input type="text" class="form-control" name="saldo_inicial_caja" aria-describedby="emailHelp" value="$ {{ old('saldo_inicial_caja') }}">
+                                <input type="number" class="form-control" name="saldo_inicial_caja" aria-describedby="emailHelp" value="{{ old('saldo_inicial_caja') }}">
                               @error('saldo_inicial_caja')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
                               </div>
         
                               <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Fecha Apertura de Caja</label>
-                                <input type="text" class="form-control" id="fecha_hs_aper_caja" name="fecha_hs_aper_caja" aria-describedby="emailHelp" value="{{ old('fecha_hs_aper_caja') }}">
+                                {{-- <label for="exampleInputEmail1" class="form-label">Fecha Apertura de Caja</label> --}}
+                                <input type="hidden" class="form-control" id="fecha_hs_aper_caja" name="fecha_hs_aper_caja" aria-describedby="emailHelp" value="{{ old('fecha_hs_aper_caja') }}">
                               @error('fecha_hs_aper_caja')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
@@ -53,7 +71,7 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Total de Ingresos</label>
-                                <input type="text" class="form-control" name="total_ingresos_caja" aria-describedby="emailHelp" value="$ {{ old('total_ingresos_caja') }}">
+                                <input type="number" class="form-control" name="total_ingresos_caja" aria-describedby="emailHelp" value="{{ old('total_ingresos_caja') }}">
                               @error('total_ingresos_caja')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
@@ -61,7 +79,7 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Total de Egresos</label>
-                                <input type="text" class="form-control" name="total_egresos_caja" aria-describedby="emailHelp" value="$ {{ old('total_egresos_caja') }}">
+                                <input type="number" class="form-control" name="total_egresos_caja" aria-describedby="emailHelp" value="{{ old('total_egresos_caja') }}">
                               @error('total_egresos_caja')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
@@ -69,7 +87,7 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Total Saldo Caja</label>
-                                <input type="text" class="form-control" name="total_saldo_caja" aria-describedby="emailHelp" value="$ {{ old('total_saldo_caja') }}">
+                                <input type="number" class="form-control" name="total_saldo_caja" aria-describedby="emailHelp" value="{{ old('total_saldo_caja') }}">
                               @error('total_saldo_caja')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
@@ -79,7 +97,7 @@
                             
                                  <!-- Suponiendo que $detalleVenta es una colección de detalles de venta -->
                            
-                            <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
+                            <button type="submit" class="btn btn-success btn-sm mt-3">Abrir Caja</button>
                             <a class="btn btn-warning btn-sm mt-3" href="{{route('caja.index')}}" role="button">Volver</a>      
                         </form>
                     </div>

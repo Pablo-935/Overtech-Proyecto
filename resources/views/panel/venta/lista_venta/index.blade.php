@@ -20,9 +20,6 @@
     <div class="row">
         <div class="col-12 mb-3">
             
-            <a href="{{ route('venta.create') }}" class="btn btn-success text-uppercase">
-                Nuevo ventas
-            </a>
         </div>
         
         @if (session('status'))
@@ -75,19 +72,19 @@
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
+                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-warning text-white text-uppercase m-1">
                                         Editar
                                     </a>
-                                    <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="form_delete">
+                                    {{-- <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="form_delete">
                                         @csrf 
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">
                                             Eliminar
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
                         </tr>

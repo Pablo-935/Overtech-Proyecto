@@ -3,13 +3,15 @@
 @section('title', 'Hacer Venta')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif --}}
+
+@if (session('alert1'))
+<div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('alert1') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
 
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">

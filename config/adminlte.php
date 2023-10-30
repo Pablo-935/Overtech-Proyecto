@@ -330,15 +330,29 @@ return [
             'icon' => 'fas fa-briefcase',
         ],
 
+
+
         [
-            'text' => 'Lista de Ventas',
-            'route' => 'venta.index',
+            'text' => 'Ventas',
             'icon' => 'fas fa-shopping-cart',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Ventas',
+                    'route' => 'venta.index',
+                    'icon' => 'fas fa-clock',
+
+                ],
+                [
+                    'text' => 'Nueva Venta',
+                    'route' => 'venta.create',
+                    'icon' => 'fas fa-shopping-bag',
+                ],
+            ]
         ],
 
         [
             'text' => 'Caja',
-            'icon' => 'fas fa-wallet',
+            'icon' => 'fas fa-cash-register',
             'submenu' => [
                 [
                     'text' => 'Abrir Caja',

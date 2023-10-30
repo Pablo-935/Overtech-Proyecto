@@ -51,6 +51,8 @@ class VentaController extends Controller
         $ventas->caja_id = $request->get('caja_id');
         $ventas->cliente_id = $request->get('cliente_id');
         $ventas->save();
+        return redirect()->route('venta.create')->with('alert1', 'Venta Guardada Satisfactoriamente !!');
+
 
         $detalleVenta = new DetalleVenta();
         $detalleVenta->producto_id = $request->get('producto_id');
@@ -58,8 +60,7 @@ class VentaController extends Controller
         $detalleVenta->sub_total_det_venta = $request->get('sub_total_det_venta');
 
         $ventas->DetalleVenta()->save($detalleVenta);
-        
-        return redirect()->route("venta.index");
+
 
     }
 

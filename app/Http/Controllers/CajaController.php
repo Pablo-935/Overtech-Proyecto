@@ -33,6 +33,12 @@ class CajaController extends Controller
      */
     public function store(Request $request)
     {
+        $ultimoRegistro = Caja::latest()->first();
+
+        if ($ultimoRegistro && $ultimoRegistro->abierta_caja == 'Si') {
+            return redirect()->route('caja.create')->with('alert3', 'No puede Abrir 2 veces caja, cierre la caja actual para abrir una nueva');
+        }
+    
         $caja = new Caja();
         $caja->numero_caja = $request->get('numero_caja');
         $caja->saldo_inicial_caja = $request->get('saldo_inicial_caja');
@@ -42,9 +48,10 @@ class CajaController extends Controller
         $caja->total_egresos_caja = $request->input('total_egresos_caja');
         $caja->total_saldo_caja = $request->get('total_saldo_caja');
         $caja->empleado_id = $request->get('empleado_id');
+        
         $caja->save();
-
-        return redirect()->route("caja.index");
+    
+        return redirect()->route('caja.index')->with('status', 'Nueva Caja abierta');
 
     }
 
@@ -75,8 +82,10 @@ class CajaController extends Controller
     {
         $caja = Caja::findOrFail($id);
         $caja->abierta_caja = 'No';
+        $caja->fecha_hs_cier_caja = now()->toDateString();
         $caja ->save();
-        return redirect()->route("caja.index");
+        return redirect()->route('caja.index')->with('alert3', 'Caja cerrada exitosamente');
+
 
 
     }
