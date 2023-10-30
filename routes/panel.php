@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CajaController;
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ProveedorController;
@@ -25,5 +26,7 @@ Route::get('/vista', function(){
 Route::resource('/categorias', CategoriaProductoController::class)->names('categoria');
 Route::resource('/empleados', EmpleadoController::class)->names('empleado');
 Route::resource('/ventas', VentaController::class)->names('venta');
+Route::resource('/caja', CajaController::class)->names('caja');
+
 
 ?>

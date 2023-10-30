@@ -336,6 +336,23 @@ return [
             'icon' => 'fas fa-shopping-cart',
         ],
 
+        [
+            'text' => 'Caja',
+            'icon' => 'fas fa-wallet',
+            'submenu' => [
+                [
+                    'text' => 'Abrir Caja',
+                    'route' => 'caja.create',
+                    'icon' => 'fas fa-calculator',
+                ],
+                [
+                    'text' => 'Historial de Caja',
+                    'route' => 'caja.index',
+                    'icon' => 'fas fa-clock',
+                ],
+            ]
+        ],
+
     ],
 
     /*

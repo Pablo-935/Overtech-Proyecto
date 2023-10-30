@@ -24,16 +24,16 @@
                             <input type="number" class="form-control mb-1" name="dni_venta" value="{{old('dni_venta')}}">
 
                             <label for="fecha_venta" class="form-label mb-1">Fecha: </label>
-                            <input type="date" class="form-control mb-1" name="fecha_venta" value="{{old('fecha_venta')}}">
+                            <input type="date" class="form-control mb-1" id="fecha_venta" name="fecha_venta" value="{{old('fecha_venta')}}">
 
                             <label for="hora_venta" class="form-label mb-1">Hora Venta: </label>
-                            <input type="text" class="form-control mb-1" name="hora_venta" value="{{old('hora_venta')}}">
+                            <input type="time" class="form-control mb-1" id="hora_venta" name="hora_venta" value="{{old('hora_venta')}}">
 
                             <label for="total_venta" class="form-label mb-1">Total Venta: </label>
                             <input type="number" class="form-control mb-1" name="total_venta" value="{{old('total_venta')}}">
 
-                            <label for="estado_venta" class="form-label mb-1">Estado Venta: </label>
-                            <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('estado_venta')}}">
+                            {{-- <label for="estado_venta" class="form-label mb-1">Estado Venta: </label>
+                            <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('estado_venta')}}"> --}}
 
                             <label for="Empleados" class="col-sm-4 col-form-label">Empleados:</label>
                             <select id="empleado_id" name="empleado_id" class="form-control mb-1">
@@ -82,6 +82,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>   
+
                                         </td>
                                         <td>
                                             <input type="number" class="form-control mb-1" name="cantidad_prod_venta" value="{{old('cantidad_prod_venta')}}">
@@ -103,4 +104,11 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/venta_create.js') }}"></script>
+
+
+
+
+    
 @endsection

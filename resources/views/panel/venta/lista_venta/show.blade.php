@@ -10,70 +10,104 @@
             @endforeach
         </ul>
     @endif --}}
-    <h1>Estado: <span class="badge bg-warning">{{old('correo_empl', $venta->estado_venta)}}</span></h1>
 
 
-    <div class="container">
-        <div class="row min-vh-100 justify-content-center align-items-center">
-            <div class="col-10 col-md-6 col-lg-6">
-                <h3 class="text-center">Venta Nº: {{$venta->id}}</h3>
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" novalidate>
-                            @csrf 
+    <div class="container-fluid">
 
-                            <label for="dni_empl" class="form-label mb-1">ID: </label>
-                            <input type="number" class="form-control mb-1" name="venta_id" value="{{old('venta_id', $venta->id)}}" disabled>
+        <div class="row mt-2">
+            <div class="col-6">
+                <h1>Estado: <p id="estado" class="">{{old('correo_empl', $venta->estado_venta)}}</p></h1>
 
-                            <label for="nombre_empl" class="form-label mb-1">DNI ventas: </label>
-                            <input type="text" class="form-control mb-1" name="dni_venta" value="{{old('dni_venta', $venta->dni_venta)}}" disabled>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <h1 class="text-end">Venta Numero: <span class="badge bg-secondary">{{old('correo_empl', $venta->id)}}</span></h1>
 
-                            <label for="apellido_empl" class="form-label mb-1">Fecha: </label>
-                            <input type="text" class="form-control mb-1" name="apellido_empl" value="{{old('apellido_empl', $venta->fecha_venta)}}" disabled>
-
-                            <label for="celular_empl" class="form-label mb-1">Hora: </label>
-                            <input type="text" class="form-control mb-1" name="celular_empl" value="{{old('celular_empl', $venta->hora_venta)}}" disabled>
-
-                            <label for="correo_empl" class="form-label mb-1">Venta: </label>
-                            <input type="text" class="form-control mb-1" name="correo_empl" value="{{old('correo_empl', $venta->total_venta)}}" disabled>
-
-                            <label for="Estado" class="form-label mb-1">Venta: </label>
-                            <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('correo_empl', $venta->estado_venta)}}" disabled>
-                            <h2>Detalle Venta: </h2>
-                            
-
-                            <table class="table table-sm table-striped table-hover w-100">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Cantidad</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($detalleVenta as $detalle)
-                                
-                                    <tr>
-                                        <td>{{$detalle->producto->nombre_prod }}</td>
-                                        <td>{{$detalle->producto->precio_uni_prod }}</td>
-                                        <td>{{$detalle->cantidad_prod_venta}}</td>
-                                        <td>{{$detalle->sub_total_det_venta}}</td>
-                                    </tr>
-                                    <!-- Aquí puedes acceder a las propiedades de cada detalle de venta -->
-                                    <!-- Añade más propiedades según tus necesidades -->
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            
-                                 <!-- Suponiendo que $detalleVenta es una colección de detalles de venta -->
-                           
-
-                            <a class="btn btn-warning btn-sm mt-3" href="{{route('venta.index')}}" role="button">Volver</a>      
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
+
+
+
+        <div class="row justify-content-center align-items-center my-5">
+            <div class="col-10 col-md-6 col-lg-6">
+
+
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Venta DNI:</div>
+                            <div class="col-3">{{old('dni_venta', $venta->dni_venta)}}</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Fecha:</div>
+                            <div class="col-3">{{old('fecha_venta', $venta->fecha_venta)}}</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Hora:</div>
+                            <div class="col-3">{{old('hora_venta', $venta->hora_venta)}}</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Numero de Caja:</div>
+                            <div class="col-3">{{old('caja', $venta->caja->numero_caja)}}</div>
+                        </div>
+                    </li>
+
+                  </ul>
+
+
+
+
+
+
+      
+
+            </div>
+        </div>
+
+        <table class="table table-sm table-striped table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($detalleVenta as $detalle)
+            
+                <tr>
+                    <td>{{$detalle->producto->nombre_prod }}</td>
+                    <td>{{$detalle->producto->precio_uni_prod }}</td>
+                    <td>{{$detalle->cantidad_prod_venta}}</td>
+                    <td>{{$detalle->sub_total_det_venta}}</td>
+                </tr>
+                <!-- Aquí puedes acceder a las propiedades de cada detalle de venta -->
+                <!-- Añade más propiedades según tus necesidades -->
+                @endforeach
+            </tbody>
+        </table>
+        
+        
+        <div class="row my-3">
+            <div class="col-8"></div>
+            <div class="col-4 justify-content-end"><h1 class="">Total: &nbsp; <b>{{old('correo_empl', $venta->total_venta)}}</b></h1></div>
+        </div>
+
+        <div class="row my-2">
+            <div class="col-1"><a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a></div>
+            <div class="col-1"><a class="btn btn-success" href="#" role="button">Facturar</a></div>
+            <div class="col-1"><a class="btn btn-danger" href="#" role="button">Anular</a></div>
+
+        </div>
+
     </div>
+    <script src="{{ asset('js/venta_show.js') }}"></script>
+
 @endsection

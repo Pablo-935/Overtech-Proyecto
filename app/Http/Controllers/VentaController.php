@@ -17,7 +17,7 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::all();
+        $ventas = Venta::orderBy('id', 'desc')->get();
         return view('panel.venta.lista_venta.index', compact('ventas'));
     }
 
@@ -46,7 +46,7 @@ class VentaController extends Controller
         $ventas->fecha_venta = $request->get('fecha_venta');
         $ventas->hora_venta = $request->get('hora_venta');
         $ventas->total_venta = $request->get('total_venta');
-        $ventas->estado_venta = $request->get('estado_venta');
+        $ventas->estado_venta = $request->input('estado_venta', 'Pendiente');
         $ventas->empleado_id = $request->get('empleado_id');
         $ventas->caja_id = $request->get('caja_id');
         $ventas->cliente_id = $request->get('cliente_id');
