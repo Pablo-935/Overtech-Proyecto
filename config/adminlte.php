@@ -304,7 +304,7 @@ return [
         [
             'text' => 'Lista de Clientes',
             'route' => 'cliente.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-user-tie', 
 
         ],
 
@@ -313,27 +313,27 @@ return [
         [
             'text' => 'Lista de Categorias',
             'route' => 'categoria.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-folder', 
 
         ],
 
         [
             'text' => 'Lista de Productos',
             'route' => 'producto.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-cube', 
 
         ],
 
         [
             'text' => 'Lista de Empleados',
             'route' => 'empleado.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-briefcase',
         ],
 
         [
             'text' => 'Lista de Ventas',
             'route' => 'venta.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-shopping-cart',
         ],
 
     ],

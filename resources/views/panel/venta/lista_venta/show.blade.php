@@ -10,6 +10,8 @@
             @endforeach
         </ul>
     @endif --}}
+    <h1>Estado: <span class="badge bg-warning">{{old('correo_empl', $venta->estado_venta)}}</span></h1>
+
 
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
@@ -35,7 +37,10 @@
                             <label for="correo_empl" class="form-label mb-1">Venta: </label>
                             <input type="text" class="form-control mb-1" name="correo_empl" value="{{old('correo_empl', $venta->total_venta)}}" disabled>
 
+                            <label for="Estado" class="form-label mb-1">Venta: </label>
+                            <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('correo_empl', $venta->estado_venta)}}" disabled>
                             <h2>Detalle Venta: </h2>
+                            
 
                             <table class="table table-sm table-striped table-hover w-100">
                                 <thead>
