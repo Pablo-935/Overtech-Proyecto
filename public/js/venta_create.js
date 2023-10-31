@@ -1,5 +1,19 @@
+$('#producto_id').select2({
+    tags: true,       
+    multiple: true,  
+    maximumSelectionLength: 1
+});
+
+
+
+
 window.addEventListener("DOMContentLoaded", function() {
 
+$('#producto_id').val(null).trigger('change');
+
+    
+
+    
 
 let fechaActual = new Date();
 
@@ -21,6 +35,10 @@ console.log(horaFormateada);
 
 let hora_venta = document.getElementById("hora_venta").value = horaFormateada;
 let fecha_venta = document.getElementById("fecha_venta").value = fechaFormateada;
+
+
+
+
 
 
 

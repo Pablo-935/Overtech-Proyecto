@@ -337,16 +337,17 @@ return [
             'icon' => 'fas fa-shopping-cart',
             'submenu' => [
                 [
+                    'text' => 'Nueva Venta',
+                    'route' => 'venta.create',
+                    'icon' => 'fas fa-shopping-bag',
+                ],
+                [
                     'text' => 'Listado de Ventas',
                     'route' => 'venta.index',
                     'icon' => 'fas fa-clock',
 
                 ],
-                [
-                    'text' => 'Nueva Venta',
-                    'route' => 'venta.create',
-                    'icon' => 'fas fa-shopping-bag',
-                ],
+
             ]
         ],
 
