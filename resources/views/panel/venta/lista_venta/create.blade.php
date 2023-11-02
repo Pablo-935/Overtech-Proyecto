@@ -98,7 +98,7 @@
 
                         <select style="width: 200px" name="producto_id" id="producto_id" multiple>
                             @foreach ($productos as $producto)
-                            <option value="{{ $producto->id }}" data-codigo="{{ $producto->codigo_prod }}" data-nombre="{{ $producto->nombre_prod }}" data-stock="{{ $producto->stock_actual_prod }}" data-precio="{{ $producto->precio_uni_prod }}"> 
+                            <option value="{{ $producto->id }}" data-id="{{ $producto->id }}" data-codigo="{{ $producto->codigo_prod }}" data-nombre="{{ $producto->nombre_prod }}" data-stock="{{ $producto->stock_actual_prod }}" data-precio="{{ $producto->precio_uni_prod }}"> 
                                 {{ $producto->nombre_prod }}
                             </option>
                         @endforeach
@@ -115,6 +115,7 @@
                                 <th>Cantidad</th>
                                 <th>Precio Unitario</th>
                                 <th>Stock</th>
+                                <th>Sub total</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -133,10 +134,12 @@
                         <div class="col-9"></div>
                         <div class="col-3">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Total</span>
-                                <input type="number" class="form-control mb-1" name="total_venta" id="total_venta" value="{{ old('total_venta', 0) }}">
+                                {{-- <span class="input-group-text" id="inputGroup-sizing-default">Total</span> --}}
+                                <h4 class="total_ver"></h4>
+                                <input type="hidden" class="form-control mb-1" name="total_venta" id="total_venta" value="{{ old('total_venta', 0) }}">
                             </div>
 
+                            <input type="hidden" id="contador" name="contador">
                         </div>
                     </div>
 
@@ -144,7 +147,7 @@
                     <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
                     <a class="btn btn-warning btn-sm mt-3" href="{{route('venta.index')}}" role="button">Volver</a>      
                 </form>
-               
+                
             </div>
         </div>
 

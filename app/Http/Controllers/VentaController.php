@@ -52,13 +52,18 @@ class VentaController extends Controller
         $ventas->cliente_id = $request->get('cliente_id');
         $ventas->save();
 
+        $fila = $request->get('contador');
 
-        $detalleVenta = new DetalleVenta();
-        $detalleVenta->producto_id = $request->get('producto_id');
-        $detalleVenta->cantidad_prod_venta = $request->get('cantidad_prod_venta');
-        $detalleVenta->sub_total_det_venta = $request->get('sub_total_det_venta');
+        for ($i=0; $i < $fila; $i++) { 
+            $detalleVenta = new DetalleVenta();
+            $detalleVenta->producto_id = $request->get('id_producto')[$i];
+            $detalleVenta->cantidad_prod_venta = $request->get('cantidad_prod_venta')[$i];
+            $detalleVenta->sub_total_det_venta = $request->get('sub_total')[$i];
+    
+            $ventas->DetalleVenta()->save($detalleVenta);
+        }
 
-        $ventas->DetalleVenta()->save($detalleVenta);
+
         return redirect()->route('venta.create')->with('alert1', 'Venta Guardada Satisfactoriamente !!');
 
 
