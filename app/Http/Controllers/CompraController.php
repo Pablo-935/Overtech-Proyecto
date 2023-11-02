@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\RequerimientoCompra;
 use Illuminate\Http\Request;
 
 class CompraController extends Controller
@@ -12,7 +13,8 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
+        $compras = Compra::all();
+        return view("panel.Compra.lista_compra.index", compact('compras'));
     }
 
     /**
@@ -34,9 +36,12 @@ class CompraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Compra $compra)
+    public function show($id)
     {
-        //
+        $compra = Compra::findOrFail($id);
+
+        // $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
+        return view('panel.Compra.lista_compra.show', compact('compra'));
     }
 
     /**

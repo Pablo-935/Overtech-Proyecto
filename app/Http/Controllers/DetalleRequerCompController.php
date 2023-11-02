@@ -58,8 +58,10 @@ class DetalleRequerCompController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetalleRequerComp $detalleRequerComp)
-    {
-        //
+    public function destroy($id)
+    {   
+        // dd('hola');
+        $detalleRequerimiento = DetalleRequerComp::findOrFail($id);
+        $detalleRequerimiento->delete();
     }
 }

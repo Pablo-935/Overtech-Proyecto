@@ -336,6 +336,18 @@ return [
             'icon' => 'fas fa-shopping-cart',
         ],
 
+        [
+            'text' => 'Lista de Requerimientos de Compras',
+            'route' => 'requerimiento.index',
+            'icon' => 'fa fa-clipboard',
+        ],
+
+        [
+            'text' => 'Lista de Compras',
+            'route' => 'compra.index',
+            'icon' => 'fa fa-store',
+        ],
+
     ],
 
     /*
