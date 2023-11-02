@@ -94,64 +94,47 @@
                             </div>
                         </div>
                         
-                        <h2 class="mb-5">Detalle Venta</h2>
+                        <h2 class="mb-5">Venta</h2>
+
+                        <select style="width: 200px" name="producto_id" id="producto_id" multiple>
+                            @foreach ($productos as $producto)
+                            <option value="{{ $producto->id }}" data-codigo="{{ $producto->codigo_prod }}" data-nombre="{{ $producto->nombre_prod }}" data-stock="{{ $producto->stock_actual_prod }}" data-precio="{{ $producto->precio_uni_prod }}"> 
+                                {{ $producto->nombre_prod }}
+                            </option>
+                        @endforeach
+                        </select>
+
+                        <button id="seleccionar" type="button" class="btn btn-primary">Seleccionar</button>
 
 
-                    <table class="table table table-striped table-hover mt-5" id="miTabla">
+                    <table id="tablaProductos" class="table mt-5">
                         <thead>
                             <tr>
+                                <th>Codigo</th>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th>Precio Unitario</th>
                                 <th>Stock</th>
                                 <th>Opciones</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <select id="producto_id" name="producto_id" class="form-control mb-1" multiple>
-                                        <!-- Agrega una opción en blanco con el atributo "selected" -->
-                                        @foreach ($productos as $producto)
-                                            <option value="{{ $producto->id }}"> 
-                                                {{ $producto->nombre_prod }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    
-                                    
-
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control mb-1" id="cantidad_prod_venta" name="cantidad_prod_venta" value="{{old('cantidad_prod_venta')}}">
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control mb-1" id="sub_total_det_venta" name="sub_total_det_venta" value="{{old('sub_total_det_venta')}}">
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control mb-1" name="cantidad_stock" value="">
-                                </td>
-                                <td>
-                                    <button type="button" class="btn-sm btn-danger text-uppercase" onclick="eliminarFila(this)">
-                                        Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                            
                         </tbody>
-                        
-                    </table> 
+                    </table>
+                    
+                    
     
-                    <button type="button" class="btn btn-sm btn-warning" onclick="agregarFila()">Agregar Fila</button>
-                    <br>
+    <div class="tabla-container">
+
+    </div>
+
     
                     <div class="row mt-4">
                         <div class="col-9"></div>
                         <div class="col-3">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Total</span>
-                                <input type="number" class="form-control mb-1" name="total_venta" value="{{old('total_venta')}}">
+                                <input type="number" class="form-control mb-1" name="total_venta" id="total_venta" value="{{ old('total_venta', 0) }}">
                             </div>
 
                         </div>
