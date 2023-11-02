@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\CategoriaProducto;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -30,9 +31,9 @@ class ProductoController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $producto = new Producto;
-
+    
         $producto->codigo_prod = $request->get('codigo_prod');
         $producto->nombre_prod = $request->get('nombre_prod');
         $producto->descripcion_prod = $request->get('descripcion_prod');
@@ -40,23 +41,30 @@ class ProductoController extends Controller
         $producto->stock_min_prod = $request->get('stock_min_prod');
         $producto->stock_actual_prod = $request->get('stock_actual_prod');
         $producto->stock_max_prod = $request->get('stock_max_prod');
+        $producto->imagen_prod = '';
+
+    
+        // Resto de tus atributos
+    
         if ($request->hasFile('imagen_prod')) {
-            // Subida de imagen al servidor (public > storage)
-            $image_url = $request->file('imagen_prod')->store('public/producto');
-            $producto->imagen_prod = asset(str_replace('public'
-            ,
-            'storage'
-            , $image_url));
-            } else {
-            $producto->imagen_prod = '';
-            }
+            $file = $request->file('imagen_prod');
+            $destinationPath = 'imagenes/imagenprod/';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('imagen_prod')->move($destinationPath, $filename);
+    
+            // Guarda la ruta relativa en la base de datos (sin la carpeta public)
+            $producto->imagen_prod = $destinationPath . $filename;
+        }
+    
         $producto->categoria_id = $request->get('categoria_id');
-
+    
         $producto->save();
-        
-        return redirect()->route("producto.index")->with("status","Producto creado satisfactoriamente");
-
+    
+        return redirect()->route("producto.index")->with("status", "Producto creado satisfactoriamente");
     }
+    
+    
+    
 
     /**
      * Display the specified resource.
@@ -86,7 +94,7 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
-
+    
         $producto->codigo_prod = $request->get('codigo_prod');
         $producto->nombre_prod = $request->get('nombre_prod');
         $producto->descripcion_prod = $request->get('descripcion_prod');
@@ -94,21 +102,22 @@ class ProductoController extends Controller
         $producto->stock_min_prod = $request->get('stock_min_prod');
         $producto->stock_actual_prod = $request->get('stock_actual_prod');
         $producto->stock_max_prod = $request->get('stock_max_prod');
-        if ($request->hasFile('imagen_prod')) {
-            // Subida de la imagen nueva al servidor
-            $image_url = $request->file('imagen_prod')->store('public/producto');
-            $producto->imagen_prod = asset(str_replace('public'
-            ,
-            'storage'
-            , $image_url));
-            }
         $producto->categoria_id = $request->get('categoria_id');
-
+    
+        if ($request->hasFile('imagen_prod')) {
+            $file = $request->file('imagen_prod');
+            $destinationPath = 'imagenes/imagenprod/';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('imagen_prod')->move($destinationPath, $filename);
+    
+            $producto->imagen_prod = $destinationPath . $filename;
+        }
+    
         $producto->update();
-
-        return redirect()->route("producto.index")->with("status","Producto Actualizado satisfactoriamente");
-
+    
+        return redirect()->route("producto.index")->with("status", "Producto actualizado satisfactoriamente");
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -116,8 +125,14 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
+    
+        // Elimina la imagen si existe
+        if (Storage::disk('public')->exists($producto->imagen_prod)) {
+            Storage::disk('public')->delete($producto->imagen_prod);
+        }
+    
         $producto->delete();
-
+    
         return redirect()->route('producto.index')->with('status3', 'Producto eliminado satisfactoriamente!');
     }
 }

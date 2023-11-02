@@ -303,7 +303,7 @@ return [
         [
             'text' => 'Lista de Clientes',
             'route' => 'cliente.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fa fa-user-circle', // icono de fontawesome
 
         ],
         [
@@ -315,7 +315,7 @@ return [
         [
             'text' => 'Lista de Productos',
             'route' => 'producto.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-shipping-fast', // icono de fontawesome
 
         ],
 
