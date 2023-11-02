@@ -1,67 +1,74 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Nueva Producto')
+@section('title', 'Crear Nuevo Producto')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif --}}
-
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
-            <div class="col-10 col-md-6 col-lg-6">
-                <h3 class="text-center">Crear producto</h3>
+            <div class="col-12 col-md-8 col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('producto.store')}}" method="POST" novalidate>
+                        <h3 class="text-center mb-4">Crear Producto</h3>
+                        <form action="{{ route('producto.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf 
-
-                            <label for="codigo_prod" class="form-label mb-1">Codigo: </label>
-                            <input type="text" class="form-control mb-1" name="codigo_prod" value="{{old('codigo_prod')}}">
-
-                            <label for="nombre_prod" class="form-label mb-1">Nombre: </label> <br>
-                            <input type="text" class="form-control mb-1" name="nombre_prod" value="{{old('nombre_prod')}}">
-
-                            <label for="descripcion_prod" class="form-label mb-1">Descripción: </label> <br>
-                            <input type="text" class="form-control mb-1" name="descripcion_prod" value="{{old('descripcion_prod')}}">
-
-                            <label for="precio_uni_prod" class="form-label mb-1">Precio por unidad: </label> <br>
-                            <input type="text" class="form-control mb-1" name="precio_uni_prod" value="{{old('precio_uni_prod')}}">
-
-                            <label for="stock_min_prod" class="form-label mb-1">Stock minimo: </label> <br>
-                            <input type="number" class="form-control mb-1" name="stock_min_prod" value="{{old('stock_min_prod')}}">
-
-                            <label for="stock_actual_prod" class="form-label mb-1">Stock actual: </label> <br>
-                            <input type="text" class="form-control mb-1" name="stock_actual_prod" value="{{old('stock_actual_prod')}}">
-
-                            <label for="stock_max_prod" class="form-label mb-1">Stock maximo: </label> <br>
-                            <input type="text" class="form-control mb-1" name="stock_max_prod" value="{{old('stock_max_prod')}}">
-
-                            <label for="imagen_prod" class="form-label mb-1">Imagen: </label>
-                            <input type="text" class="form-control mb-1" name="imagen_prod" value="{{ 'https://via.placeholder.com/640x480.png/0099aa?text=ea' }}">
                             
-                            <div class="mb-3 row">
-                
-                            <label for="categoria" class="col-sm-4 col-form-label"> * Categoria </label>
-                                <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="codigo_prod" class="form-label">Código:</label>
+                                    <input type="text" class="form-control" name="codigo_prod" value="{{ old('codigo_prod') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombre_prod" class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre_prod" value="{{ old('nombre_prod') }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="descripcion_prod" class="form-label">Descripción:</label>
+                                    <input type="text" class="form-control" name="descripcion_prod" value="{{ old('descripcion_prod') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="precio_uni_prod" class="form-label">Precio por unidad:</label>
+                                    <input type="text" class="form-control" name="precio_uni_prod" value="{{ old('precio_uni_prod') }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="stock_min_prod" class="form-label">Stock mínimo:</label>
+                                    <input type="number" class="form-control" name="stock_min_prod" value="{{ old('stock_min_prod') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="stock_actual_prod" class="form-label">Stock actual:</label>
+                                    <input type="text" class="form-control" name="stock_actual_prod" value="{{ old('stock_actual_prod') }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="stock_max_prod" class="form-label">Stock máximo:</label>
+                                    <input type="text" class="form-control" name="stock_max_prod" value="{{ old('stock_max_prod') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="imagen_prod" class="form-label">Imagen:</label>
+                                    <input type="file" class="form-control" name="imagen_prod" value="{{ old('imagen_prod') }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="categoria_id" class="form-label">Categoría:</label>
                                 <select name="categoria_id" class="form-control">
                                     @foreach ($categorias as $categoria)
                                         <option value="{{ $categoria->id }}">{{ $categoria->nombre_cat }}</option>
                                     @endforeach
                                 </select>
-    
-                                     {{--                     @error('categoria')
-                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                    @enderror --}}
-                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Producto</button>
-                            <a class="btn btn-warning btn-sm mt-3" href="{{route('producto.index')}}" role="button">Volver</a>      
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-sm">Guardar Producto</button>
+                                <a class="btn btn-warning btn-sm" href="{{ route('producto.index') }}" role="button">Volver</a>
+                            </div>
                         </form>
                     </div>
                 </div>

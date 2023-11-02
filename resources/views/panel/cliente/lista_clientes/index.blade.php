@@ -16,7 +16,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 mb-3">
-            
             <a href="{{ route('cliente.create') }}" class="btn btn-success text-uppercase">
                 Nuevo Cliente
             </a>
@@ -43,21 +42,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
+                <table id="tabla-productos" class="table table-sm table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-uppercase">ID</th>
-                            <th scope="col" class="text-uppercase">CUIT</th>
-                            <th scope="col" class="text-uppercase">Nombre</th>
-                            <th scope="col" class="text-uppercase">Celular</th>
-                            <th scope="col" class="text-uppercase">Fecha Creación</th>
-                            <th scope="col" class="text-uppercase">Fecha Actualización</th>
-                            <th scope="col" class="text-uppercase">Opciones</th>
+                            <th scope="col" class="text-uppercase text-center">ID</th>
+                            <th scope="col" class="text-uppercase text-center">CUIT</th>
+                            <th scope="col" class="text-uppercase text-center">Nombre</th>
+                            <th scope="col" class="text-uppercase text-center">Celular</th>
+                            <th scope="col" class="text-uppercase text-center">Fecha Creación</th>
+                            <th scope="col" class="text-uppercase text-center">Fecha Actualización</th>
+                            <th scope="col" class="text-uppercase text-center">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($clientes as $cliente)
-                        <tr>
+                        <tr class="text-center">
                             <td>{{ $cliente->id }}</td>
                             <td>{{ $cliente->cuit_cli }}</td>
                             <td>{{ $cliente->nombre_cli }}</td>
@@ -70,7 +69,7 @@
                                     <a href="{{ route('cliente.show', $cliente->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-sm btn-warning text-white text-uppercase mx-1">
                                         Editar
                                     </a>
                                     <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" class="formulario-eliminar">
