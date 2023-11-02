@@ -3,9 +3,12 @@
 @section('title', 'Hacer Venta')
 
 @section('content')
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2-i18n@latest/dist/js/i18n/es.js"></script>
+
 
 @if (session('alert1'))
 <div class="col-12">
@@ -33,7 +36,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">DNI Cliente</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-default">DNI Pedido</span>
                                     <input type="number" class="form-control mb-1" name="dni_venta" value="{{old('dni_venta')}}">
                                 </div>
                             </div>
@@ -96,15 +99,23 @@
                         
                         <h2 class="mb-5">Venta</h2>
 
-                        <select style="width: 200px" name="producto_id" id="producto_id" multiple>
-                            @foreach ($productos as $producto)
-                            <option value="{{ $producto->id }}" data-id="{{ $producto->id }}" data-codigo="{{ $producto->codigo_prod }}" data-nombre="{{ $producto->nombre_prod }}" data-stock="{{ $producto->stock_actual_prod }}" data-precio="{{ $producto->precio_uni_prod }}"> 
-                                {{ $producto->nombre_prod }}
-                            </option>
-                        @endforeach
-                        </select>
+                        <div class="row">
+                            <div class="col-9"></div>
 
-                        <button id="seleccionar" type="button" class="btn btn-primary">Seleccionar</button>
+                            <div class="col-3 justify-content-end">
+                                <select style="width: 200px" name="producto_id" id="producto_id" multiple>
+                                    @foreach ($productos as $producto)
+                                    <option value="{{ $producto->id }}" data-id="{{ $producto->id }}" data-codigo="{{ $producto->codigo_prod }}" data-nombre="{{ $producto->nombre_prod }}" data-stock="{{ $producto->stock_actual_prod }}" data-precio="{{ $producto->precio_uni_prod }}"> 
+                                        {{ $producto->nombre_prod }}
+                                    </option>
+                                @endforeach
+                                </select>
+        
+                                <button id="seleccionar" type="button" class="btn btn-primary">Seleccionar</button>
+        
+                            </div>
+                        </div>
+
 
 
                     <table id="tablaProductos" class="table mt-5">

@@ -1,7 +1,8 @@
 $('#producto_id').select2(
     {  
-    maximumSelectionLength: 1,
-    placeholder: "Seleccione los productos"
+        language: 'es',
+        maximumSelectionLength: 1,
+        placeholder: "Seleccione los productos"
 }
 );
 
