@@ -9,6 +9,7 @@ let configurationDataTable = {
     searching: true,
 	pageLength: 5,
 	lengthMenu: [[5,10,20,-1],[5,10,20,'Todos']], 
+	order: [[0, "desc"]], // Reemplaza columnIndex con el índice de la columna que desees ordenar
 	language: {
 		"sProcessing": "Procesando...",
 		"sLengthMenu": "Mostrar _MENU_ registros",
@@ -35,7 +36,10 @@ let configurationDataTable = {
 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 		}
 	},
+
 }
+
+
 
 $(function() {
     table = $('#tabla-productos').DataTable(configurationDataTable);

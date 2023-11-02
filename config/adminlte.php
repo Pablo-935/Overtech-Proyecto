@@ -291,32 +291,81 @@ return [
 
     'menu' => [
         [
-                'text'       => 'COTIZACIONES',
-                'route'        => 'cotizacion.index',
-                'icon'        => 'fas fa-money-bill-wave',
+            'text'       => 'Lista de Cotizaciones',
+            'route'        => 'cotizacion.index',
+            'icon'        => 'fas fa-money-bill-wave',
         ],
         [
-            'text'       => 'PROVEEDORES',
+            'text'       => 'Lista de Proveedores',
             'route'        => 'proveedor.index',
             'icon'        => 'fas fa-ship',
         ],
+
         [
             'text' => 'Lista de Clientes',
             'route' => 'cliente.index',
-            'icon' => 'fa fa-user-circle', // icono de fontawesome
+            'icon' => 'fas fa-user-tie', 
 
         ],
+
+
+
         [
             'text' => 'Lista de Categorias',
             'route' => 'categoria.index',
-            'icon' => 'fa fa-tag', // icono de fontawesome
+            'icon' => 'fas fa-folder', 
 
         ],
+
         [
             'text' => 'Lista de Productos',
             'route' => 'producto.index',
-            'icon' => 'fas fa-shipping-fast', // icono de fontawesome
+            'icon' => 'fas fa-cube', 
 
+        ],
+
+        [
+            'text' => 'Lista de Empleados',
+            'route' => 'empleado.index',
+            'icon' => 'fas fa-briefcase',
+        ],
+
+
+
+        [
+            'text' => 'Ventas',
+            'icon' => 'fas fa-shopping-cart',
+            'submenu' => [
+                [
+                    'text' => 'Nueva Venta',
+                    'route' => 'venta.create',
+                    'icon' => 'fas fa-shopping-bag',
+                ],
+                [
+                    'text' => 'Listado de Ventas',
+                    'route' => 'venta.index',
+                    'icon' => 'fas fa-clock',
+
+                ],
+
+            ]
+        ],
+
+        [
+            'text' => 'Caja',
+            'icon' => 'fas fa-cash-register',
+            'submenu' => [
+                [
+                    'text' => 'Abrir Caja',
+                    'route' => 'caja.create',
+                    'icon' => 'fas fa-calculator',
+                ],
+                [
+                    'text' => 'Historial de Caja',
+                    'route' => 'caja.index',
+                    'icon' => 'fas fa-clock',
+                ],
+            ]
         ],
 
     ],
