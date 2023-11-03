@@ -6,6 +6,9 @@ use App\Models\Caja;
 use Illuminate\Http\Request;
 use App\Models\Empleado;
 use Illuminate\Validation\Rules\Can;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class CajaController extends Controller
 {
@@ -24,7 +27,10 @@ class CajaController extends Controller
     public function create()
     {
         $empleados = Empleado::all();
-        return view('panel.caja.lista_caja.create', compact('empleados'));
+        $usuarios = User::all();
+        $user = Auth::user();
+
+        return view('panel.caja.lista_caja.create', compact('empleados', 'user'));
 
     }
 
@@ -48,7 +54,7 @@ class CajaController extends Controller
         $caja->total_egresos_caja = $request->input('total_egresos_caja');
         $caja->total_saldo_caja = $request->get('total_saldo_caja');
         $caja->empleado_id = $request->get('empleado_id');
-        
+
         $caja->save();
     
         return redirect()->route('caja.index')->with('status', 'Nueva Caja abierta');

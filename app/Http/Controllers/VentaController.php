@@ -76,6 +76,7 @@ class VentaController extends Controller
     {
         $venta = Venta::findOrFail($id);
         
+        
         $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         
 

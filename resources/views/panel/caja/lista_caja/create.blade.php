@@ -41,12 +41,9 @@
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Operador</label>
                                 <select id="empleado_id" name="empleado_id" class="form-control mb-1">
-                                    @foreach ($empleados as $empleado)
-                                        <option value="{{ $empleado->id }}"> 
-                                            {{ $empleado->nombre_empl }}
-                                        </option>
-                                    @endforeach
-                                </select>   
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                </select>
+                                
                                 
                               @error('Operador')
                               <p class="text-danger"> {{ $message }} </p>

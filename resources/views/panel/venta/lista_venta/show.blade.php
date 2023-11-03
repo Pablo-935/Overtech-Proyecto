@@ -41,6 +41,12 @@
                     </li>
                     <li class="list-group-item">
                         <div class="row">
+                            <div class="col-9">Cliente:</div>
+                            <div class="col-3">{{old('dni_venta', $venta->dni_venta)}}</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
                             <div class="col-9">Fecha:</div>
                             <div class="col-3">{{old('fecha_venta', $venta->fecha_venta)}}</div>
                         </div>

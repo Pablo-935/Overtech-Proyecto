@@ -85,8 +85,8 @@ $('#seleccionar').click(function() {
         var productoStock = $(this).data('stock');
         var productoCodigo = $(this).data('codigo');
         var productoPrecio = $(this).data('precio');
-        let productoPrecio_format = productoPrecio.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        console.log(productoPrecio_format);
+        var productoPrecioFormatted = parseFloat(productoPrecio).toLocaleString('es-US', { minimumFractionDigits: 2 });
+
         var newRow = '<tr>' +
             '<td>' + productoCodigo + '</td>' +
             '<input type="hidden" class="form-control codigo" data-codigo="' + productoCodigo + '" value="' + productoCodigo + '">' +
@@ -97,7 +97,7 @@ $('#seleccionar').click(function() {
 
             ' <td> <input type="number" class="form-control cantidad" name="cantidad_prod_venta[]" value="1"></td>' +
 
-            '<td>' + productoPrecio_format + '</td>'+
+            '<td>' + productoPrecioFormatted + '</td>' +
             '<input type="hidden" name="sub_total_det_venta" class="form-control precio" data-precio="' + productoPrecio + '" value="' + productoPrecio + '">' +
 
             '<td>' + productoStock + '</td>' +
