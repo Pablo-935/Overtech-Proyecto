@@ -26,11 +26,10 @@ class CajaController extends Controller
      */
     public function create()
     {
-        $empleados = Empleado::all();
         $usuarios = User::all();
         $user = Auth::user();
 
-        return view('panel.caja.lista_caja.create', compact('empleados', 'user'));
+        return view('panel.caja.lista_caja.create', compact('user'));
 
     }
 
@@ -53,7 +52,7 @@ class CajaController extends Controller
         $caja->abierta_caja = "Si";
         $caja->total_egresos_caja = $request->input('total_egresos_caja');
         $caja->total_saldo_caja = $request->get('total_saldo_caja');
-        $caja->empleado_id = $request->get('empleado_id');
+        $caja->user_id = $request->get('usuario_id');
 
         $caja->save();
     
@@ -75,11 +74,11 @@ class CajaController extends Controller
     public function edit($id)
     {
         $caja = Caja::findOrFail($id);
-        $empleados = Empleado::all();
-        return view('panel.caja.lista_caja.edit', compact('caja', 'empleados'));
-
-
+        $usuarios = User::all();
+        $user = Auth::user();
+        return view('panel.caja.lista_caja.edit', compact('caja', 'user'));
     }
+    
 
     /**
      * Update the specified resource in storage.

@@ -34,7 +34,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-9">Operador:</div>
-                                    <div class="col-3">{{ old('total_saldo_caja', $caja->empleado->nombre_empl) }}</div>
+                                    <div class="col-3">{{ old('user_id', $caja->user->name) }}</div>
                                 </div>
                             </li>
                             <li class="list-group-item">

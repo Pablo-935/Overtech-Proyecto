@@ -47,7 +47,7 @@
                             <tr>
                                 <th scope="col" class="text-uppercase text-center">ID</th>
                                 <th scope="col" class="text-uppercase text-center">Nombre</th>
-                                <th scope="col" class="text-uppercase text-center">Precio unitario</th>
+                                <th scope="col" class="text-uppercase text-center">Precio Costo</th>
                                 <th scope="col" class="text-uppercase text-center">Stock actual</th>
                                 <th scope="col" class="text-uppercase text-center">Imagen</th>
                                 <th scope="col" class="text-uppercase text-center">Categoría</th>

@@ -40,7 +40,7 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Operador</label>
-                                <select id="empleado_id" name="empleado_id" class="form-control mb-1">
+                                <select id="usuario_id" name="usuario_id" class="form-control mb-1">
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 </select>
                                 

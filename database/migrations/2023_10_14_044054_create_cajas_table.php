@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cajas', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
             $table->integer('numero_caja');
             $table->decimal('saldo_inicial_caja', 10, 2);
             $table->date('fecha_hs_aper_caja');
@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('abierta_caja', 60);
             // $table->tinyInteger('abierta_caja');
 
-            $table->unsignedBigInteger('empleado_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             // FK de tabla Empleados
-            $table->foreign('empleado_id')->references('id')->on('empleados')
+            $table->foreign('user_id')->references('id')->on('users')
                             ->onDelete('cascade') //set null
                             ->onUpdate('cascade');
             $table->timestamps();

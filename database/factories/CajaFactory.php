@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Empleado;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 /**
@@ -17,7 +17,7 @@ class CajaFactory extends Factory
      */
     public function definition(): array
     {
-        $empleado = Empleado::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
 
         return [
             'numero_caja' => $this->faker->randomNumber(4),
@@ -28,7 +28,7 @@ class CajaFactory extends Factory
             'total_egresos_caja' => $this->faker->randomFloat(2, 0, 5000),
             'total_saldo_caja' => $this->faker->randomFloat(2, 0, 5000),
             'abierta_caja' => $this->faker->randomElement(['Si', 'No']), // Opción aleatoria entre "Si" y "No"
-            'empleado_id' => $empleado->id,
+            'user_id' => $user->id,
         ];
     }
 }
