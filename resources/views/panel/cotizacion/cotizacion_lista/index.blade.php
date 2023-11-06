@@ -5,7 +5,7 @@
 @section('plugins.Datatables', true)
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Productos')
+@section('title', 'Cotizaciones')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')

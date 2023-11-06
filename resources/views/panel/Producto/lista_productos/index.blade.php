@@ -59,7 +59,7 @@
                             <tr class="text-center">
                                 <td>{{ $producto->id }}</td>
                                 <td>{{ $producto->nombre_prod }}</td>
-                                <td>${{ $producto->precio_uni_prod }}</td>
+                                <td>$ {{ $producto->precio_uni_prod }}</td>
                                 <td>{{ $producto->stock_actual_prod }}</td>
                                 <td>
                                     <img src="{{ asset($producto->imagen_prod) }}" alt="{{ $producto->nombre_prod }}" class="img-fluid border border-secondary" style="width: 130px;">

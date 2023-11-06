@@ -33,13 +33,15 @@
                             <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('estado_venta', $venta->estado_venta)}}">
 
                             <label for="Empleados" class="col-sm-4 col-form-label">Empleados:</label>
-                            <select id="empleado_id" name="empleado_id" class="form-control">
+                            <input type="text" class="form-control mb-1" name="empleado_id" value="{{old('Operador', $user->name)}}">
+
+                            {{-- <select id="empleado_id" name="empleado_id" class="form-control">
                                 @foreach ($empleados as $empleado)
                                     <option {{ $venta->empleado_id && $venta->empleado_id == $empleado->id ? 'selected': ''}} value="{{ $empleado->id }}"> 
                                         {{ $empleado->nombre_empl }}
                                     </option>
                                 @endforeach
-                            </select>
+                            </select> --}}
 
 
 

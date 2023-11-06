@@ -19,12 +19,17 @@
 </div>
 @endif
 
+@foreach ($cotizacion as $cotizaciones)
+    @if ($cotizaciones->nombre_cotizacion === 'DOLAR')
+    <input type="hidden" class="form-control mb-1" id="valor_dolar" name="valor_dolar" value="{{ $cotizaciones->valor_cotizacion }}">
+    @endif
+@endforeach
 
-
-
-
-
-
+@foreach ($cotizacion as $cotizaciones)
+    @if ($cotizaciones->nombre_cotizacion === 'VENTA')
+        <input type="hidden" class="form-control mb-1" id="valor_venta" value="{{ $cotizaciones->valor_cotizacion }}" >
+    @endif
+@endforeach
 
 
         <div class="card m-3">
@@ -61,11 +66,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Operador</span>
                                     <select id="empleado_id" name="empleado_id" class="form-control mb-1">
-                                        @foreach ($empleados as $empleado)
-                                            <option value="{{ $empleado->id }}"> 
-                                                {{ $empleado->nombre_empl }}
-                                            </option>
-                                        @endforeach
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     </select>     
                                 </div>
                             </div>
@@ -154,9 +155,9 @@
                         </div>
                     </div>
 
-                    
-                    <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
-                    <a class="btn btn-warning btn-sm mt-3" href="{{route('venta.index')}}" role="button">Volver</a>      
+                    <div class="d-none text-danger h3" id="mensaje">No hay suficiente cantidad en algun producto</div>
+
+                    <button type="submit" id="venta_guardar" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
                 </form>
                 
             </div>

@@ -43,18 +43,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
+                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100 text-center">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-uppercase">id</th>
-                            <th scope="col" class="text-uppercase">dni_venta</th>
-                            <th scope="col" class="text-uppercase">fecha_venta</th>
-                            <th scope="col" class="text-uppercase">hora_venta</th>
-                            <th scope="col" class="text-uppercase">total_venta</th>
-                            <th scope="col" class="text-uppercase">estado_venta</th>
-                            <th scope="col" class="text-uppercase">empleado_id</th>
-                            <th scope="col" class="text-uppercase">caja_id</th>
-                            <th scope="col" class="text-uppercase">cliente_id</th>
+                            <th scope="col" class="text-uppercase">Numero</th>
+                            <th scope="col" class="text-uppercase">Dni Venta</th>
+                            <th scope="col" class="text-uppercase">Fecha</th>
+                            <th scope="col" class="text-uppercase">Hora</th>
+                            <th scope="col" class="text-uppercase">Total</th>
+                            <th scope="col" class="text-uppercase">Estado</th>
+                            <th scope="col" class="text-uppercase">Operador</th>
+                            <th scope="col" class="text-uppercase">Numero Caja</th>
+                            <th scope="col" class="text-uppercase">Cliente</th>
                             <th scope="col" class="text-uppercase">opciones</th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                             <td>{{ $venta->hora_venta }}</td>
                             <td>{{ $venta->total_venta }}</td>
                             <td>{{ $venta->estado_venta }}</td>
-                            <td>{{ $venta->empleado->nombre_empl }}</td>
+                            <td>{{ $venta->user->name }}</td>
                             <td>{{ $venta->caja->id}}</td>
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>

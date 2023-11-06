@@ -13,21 +13,18 @@ window.addEventListener("DOMContentLoaded", function() {
 
 $('#producto_id').val(null).trigger('change');
 
-    
-
-    
 
 let fechaActual = new Date();
 
 let anio = fechaActual.getFullYear();
-let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Agregamos 1 y formateamos el mes con dos dígitos
-let dia = fechaActual.getDate().toString().padStart(2, '0'); // Formateamos el día con dos dígitos
+let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
+let dia = fechaActual.getDate().toString().padStart(2, '0'); 
 
 let fechaFormateada = anio + '-' + mes + '-' + dia;
 
 
-let hora = fechaActual.getHours().toString().padStart(2, '0'); // Formateamos la hora con dos dígitos
-let minuto = fechaActual.getMinutes().toString().padStart(2, '0'); // Formateamos el minuto con dos dígitos
+let hora = fechaActual.getHours().toString().padStart(2, '0'); 
+let minuto = fechaActual.getMinutes().toString().padStart(2, '0'); 
 
 let horaFormateada = hora + ':' + minuto;
 
@@ -39,32 +36,35 @@ let hora_venta = document.getElementById("hora_venta").value = horaFormateada;
 let fecha_venta = document.getElementById("fecha_venta").value = fechaFormateada;
 
 
-
-
-
-
-
-
-
 //carga dinamica
 let contar = 0;
 
 // Función para calcular y actualizar el total
+
 function actualizarTotal() {
     let total = 0;
+    let stockSuperado = false;
 
     // Iterar sobre las filas de la tabla
     $('#tablaProductos tbody tr').each(function() {
         let cantidad = parseInt($(this).find('.cantidad').val());
         let precio = parseFloat($(this).find('.precio').val());
+        var productoStock = $(this).find('.stock').data('stock');
         let subTotal = cantidad * precio;
 
-        total += subTotal;
-        
-        // Actualizar el input sub_total solo en la fila actual
-        $(this).find('.sub_total').val(subTotal.toFixed(2));
-        $(this).find('.sub_total_ver').text(subTotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        if (cantidad > productoStock) {
+            console.log("mayor");
+            stockSuperado = true;
+            $(this).find('.cantidad').addClass('border border-danger');
+        } else {
+            $(this).find('.cantidad').removeClass('border border-danger');
+        }
 
+        total += subTotal;
+
+                // Actualizar el input sub_total solo en la fila actual
+                $(this).find('.sub_total').val(subTotal.toFixed(2));
+                $(this).find('.sub_total_ver').text(subTotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
         
     });
 
@@ -72,11 +72,26 @@ function actualizarTotal() {
     $('#total_venta').val(total.toFixed(2));
     document.querySelector(".total_ver").textContent ='TOTAL: ' + total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+    // Actualizar el botón de guardar y el mensaje de error
+    if (stockSuperado) {
+        $('#venta_guardar').prop('disabled', true);
+        $('#mensaje').removeClass('d-none');
+    } else {
+        $('#venta_guardar').prop('disabled', false);
+        $('#mensaje').addClass('d-none');
+    }
 }
+
+
+
+//cargar datos en tabla de forma dinamica
 
 $('#seleccionar').click(function() {
     var selectedOptions = $('#producto_id option:selected');
     var tablaProductos = $('#tablaProductos tbody');
+
+    var valor_dolar = parseFloat(document.getElementById('valor_dolar').value);
+    var valor_venta = parseFloat(document.getElementById('valor_venta').value);
 
     selectedOptions.each(function() {
         var productoId = $(this).val();
@@ -84,8 +99,12 @@ $('#seleccionar').click(function() {
         var productoid = $(this).data('id');
         var productoStock = $(this).data('stock');
         var productoCodigo = $(this).data('codigo');
-        var productoPrecio = $(this).data('precio');
-        var productoPrecioFormatted = parseFloat(productoPrecio).toLocaleString('es-US', { minimumFractionDigits: 2 });
+        var productoPrecio = parseFloat($(this).data('precio')) 
+
+        var producto_calculo = (((productoPrecio * valor_venta) / 100) + productoPrecio) * valor_dolar;
+        var productoPrecioFormatted = parseFloat(producto_calculo).toLocaleString('es-US', { minimumFractionDigits: 2 });
+
+
 
         var newRow = '<tr>' +
             '<td>' + productoCodigo + '</td>' +
@@ -98,7 +117,7 @@ $('#seleccionar').click(function() {
             ' <td> <input type="number" class="form-control cantidad" name="cantidad_prod_venta[]" value="1"></td>' +
 
             '<td>' + productoPrecioFormatted + '</td>' +
-            '<input type="hidden" name="sub_total_det_venta" class="form-control precio" data-precio="' + productoPrecio + '" value="' + productoPrecio + '">' +
+            '<input type="hidden" name="sub_total_det_venta" class="form-control precio" data-precio="' + producto_calculo + '" value="' + producto_calculo + '">' +
 
             '<td>' + productoStock + '</td>' +
             '<input type="hidden" class="form-control stock" data-stock="' + productoStock + '" value="' + productoStock + '">' +
