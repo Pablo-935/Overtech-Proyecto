@@ -9,11 +9,11 @@ class RequerimientoCompra extends Model
 {   
     protected $table = 'requerimiento_compras';
 
-    protected $fillable = ['fecha_requer_comp', 'estado_requer_comp', 'empleado_id'] ;
+    protected $fillable = ['fecha_requer_comp', 'estado_requer_comp', 'user_id'] ;
 
 
-    public function Empleado(){
-        return $this->belongsTo( Empleado::class,'empleado_id');
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
     }
 
 

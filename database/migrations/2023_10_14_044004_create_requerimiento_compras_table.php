@@ -16,10 +16,10 @@ return new class extends Migration
             $table->date('fecha_requer_comp');
             $table->string('estado_requer_comp', 60);
 
-            $table->unsignedBigInteger('empleado_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
 
             // FK de Empleado
-            $table->foreign('empleado_id')->references('id')->on('empleados')
+            $table->foreign('user_id')->references('id')->on('users')
                             ->onDelete('cascade') //Set null
                             ->onUpdate('cascade');
             $table->timestamps();   

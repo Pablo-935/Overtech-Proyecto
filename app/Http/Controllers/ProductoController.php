@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\CategoriaProducto;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 
 class ProductoController extends Controller
 {
@@ -69,12 +70,17 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        $productos = Producto::findOrFail($id);
-        $categoria = CategoriaProducto::find($productos->categoria_id); // Obtener la categoría del producto
-        return view('panel.Producto.lista_productos.show', ['productos' => $productos, 'categoria' => $categoria]);
-    }
+
+     public function show($id)
+     {
+         $producto = Producto::findOrFail($id);
+         $categoria = CategoriaProducto::find($producto->categoria_id);
+     
+         // HtmlString sirve para evitar que se escapen las etiquetas HTML
+         $descripcion = new HtmlString(strip_tags($producto->descripcion_prod));
+     
+         return view('panel.Producto.lista_productos.show', compact('producto', 'categoria', 'descripcion'));
+     }
     
 
     /**
@@ -97,12 +103,16 @@ class ProductoController extends Controller
     
         $producto->codigo_prod = $request->get('codigo_prod');
         $producto->nombre_prod = $request->get('nombre_prod');
-        $producto->descripcion_prod = $request->get('descripcion_prod');
         $producto->precio_uni_prod = $request->get('precio_uni_prod');
         $producto->stock_min_prod = $request->get('stock_min_prod');
         $producto->stock_actual_prod = $request->get('stock_actual_prod');
         $producto->stock_max_prod = $request->get('stock_max_prod');
         $producto->categoria_id = $request->get('categoria_id');
+    
+        // Verificar si la descripción se envió en el formulario 
+        if ($request->has('descripcion_prod') && !empty($request->get('descripcion_prod'))) {
+            $producto->descripcion_prod = $request->get('descripcion_prod');
+        }
     
         if ($request->hasFile('imagen_prod')) {
             $file = $request->file('imagen_prod');
@@ -117,7 +127,6 @@ class ProductoController extends Controller
     
         return redirect()->route("producto.index")->with("status", "Producto actualizado satisfactoriamente");
     }
-    
 
     /**
      * Remove the specified resource from storage.
@@ -126,7 +135,7 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
     
-        // Elimina la imagen si existe
+        // Supuestamente elimina la imagen si existe
         if (Storage::disk('public')->exists($producto->imagen_prod)) {
             Storage::disk('public')->delete($producto->imagen_prod);
         }

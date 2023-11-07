@@ -19,11 +19,11 @@ return new class extends Migration
             $table->decimal('total_venta', 10, 2);
             $table->string('estado_venta', 60);
 
-            $table->unsignedBigInteger('empleado_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('caja_id')->nullable();
             $table->unsignedBigInteger('cliente_id')->nullable();
 
-            $table->foreign('empleado_id')->references('id')->on('empleados')
+            $table->foreign('user_id')->references('id')->on('users')
                             ->onDelete('cascade') // set null
                             ->onUpdate('cascade');
             $table->foreign('caja_id')->references('id')->on('cajas')

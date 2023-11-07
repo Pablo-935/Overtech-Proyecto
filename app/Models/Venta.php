@@ -10,10 +10,10 @@ class Venta extends Model
     protected $table = 'ventas';
 
     protected $fillable = ['dni_venta', 'fecha_venta', 'hora_venta', 'total_venta', 'estado_venta',
-                            'empleado_id', 'caja_id', 'cliente_id'];
+                            'user_id', 'caja_id', 'cliente_id'];
 
-    public function empleado() {
-        return $this->belongsTo(Empleado::class, 'empleado_id');
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function cliente(){
