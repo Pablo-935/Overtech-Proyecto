@@ -5,9 +5,9 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 @section('content')
-<div class="container">
-    <div class="row min-vh-100 justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-8">
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center p-2">
+        <div class="col-12 col-md-10 col-lg-10">
             <h3 class="text-center bg-primary text-dark">Editar Producto: {{ $productos->nombre_prod }}</h3>
             <form action="{{ route('producto.update', $productos->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -43,8 +43,10 @@
                         <label for="imagen_prod" class="form-label">Imagen:</label>
                         <input type="file" class="form-control" name="imagen_prod">
                         @if ($productos->imagen_prod)
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                         <img src="{{ asset($productos->imagen_prod) }}" class="border border-secondary"
                                 alt="Imagen del producto" style="max-width: 100%; max-height: 150px;">
                         @endif
@@ -65,9 +67,7 @@
                 <div class="row mb-3">
                 <div class="col-md-12">
                 <label for="descripcion_prod" class="form-label">Descripción:</label>
-                    <!-- Agrega un div con un ID para inicializar Quill -->
                     <div id="editor" value="{{!! old('descripcion_prod', $productos->descripcion_prod) !!}}"></div>
-                    <!-- Agrega un campo oculto para almacenar la descripción en formato HTML -->
                     <textarea name="descripcion_prod" id="descripcion_prod" style="display: none;"></textarea>
                 </div>
                 </div>

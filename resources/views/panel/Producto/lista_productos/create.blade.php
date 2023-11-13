@@ -5,9 +5,9 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row min-vh-100 justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6">
+        <div class="col-12 col-md-10 col-lg-8">
             <div class="card">
                 <div class="card-body">
                     <h3 class="text-center mb-4">Crear Producto</h3>
@@ -31,10 +31,10 @@
                             <div id="editor"></div>
                         </div>
 
-                            <div class="mb-3">
-                                <label for="precio_uni_prod" class="form-label">Precio Costo:</label>
-                                <input type="text" class="form-control" name="precio_uni_prod" value="{{ old('precio_uni_prod') }}">
-                            </div>
+                        <div class="mb-3">
+                            <label for="precio_uni_prod" class="form-label">Precio Costo:</label>
+                            <input type="text" class="form-control" name="precio_uni_prod" value="{{ old('precio_uni_prod') }}">
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
