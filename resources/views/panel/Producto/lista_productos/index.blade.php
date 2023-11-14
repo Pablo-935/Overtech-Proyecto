@@ -19,6 +19,10 @@
             <a href="{{ route('producto.create') }}" class="btn btn-success text-uppercase">
                 Nuevo Producto
             </a>
+            <a href="{{ route('exportar-productos-excel') }}" class="btn btn-info" title="Excel"
+            target="_blank">
+                <i class="fas fa-file-excel"></i> Excel
+            </a>
         </div>
         
         @if (session('status'))

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\CategoriaProducto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
+use App\Exports\ProductoExportExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductoController extends Controller
 {
@@ -144,4 +146,9 @@ class ProductoController extends Controller
     
         return redirect()->route('producto.index')->with('status3', 'Producto eliminado satisfactoriamente!');
     }
+         // EXCEL
+         public function exportarProductosExcel() {
+
+            return Excel::download(new ProductoExportExcel, 'productos.xlsx');
+        }
 }
