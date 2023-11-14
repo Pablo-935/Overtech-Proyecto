@@ -7,7 +7,7 @@
 
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Ventas')
+@section('title', 'Historial de Caja')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')
@@ -72,7 +72,7 @@
                             <td>{{ $cajas->total_egresos_caja }}</td>
                             <td>{{ $cajas->total_saldo_caja}}</td>
                             <td>{{ $cajas->abierta_caja }}</td>
-                            <td>{{ $cajas->empleado->nombre_empl }}</td>
+                            <td>{{ $cajas->user->name}}</td>
                             <td>
                                 @if ($cajas->abierta_caja == "Si")
                                     <a href="{{ route('caja.edit', $cajas->id) }}" class="btn btn-sm btn-danger text-white text-uppercase me-1">

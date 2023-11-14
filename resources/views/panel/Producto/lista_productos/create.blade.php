@@ -46,7 +46,6 @@
                                 <input type="text" class="form-control" name="stock_actual_prod" value="{{ old('stock_actual_prod') }}">
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="stock_max_prod" class="form-label">Stock máximo:</label>
@@ -75,8 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>    
     <script>
     var quill = new Quill('#editor', {
         theme: 'snow'

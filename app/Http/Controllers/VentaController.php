@@ -6,9 +6,11 @@ use App\Models\Venta;
 use Illuminate\Http\Request;
 use App\Models\DetalleVenta;
 use App\Models\Producto;
-use App\Models\Empleado;
 use App\Models\Caja;
 use App\Models\Cliente;
+use App\Models\Cotizacion;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class VentaController extends Controller
 {
@@ -27,11 +29,13 @@ class VentaController extends Controller
     public function create()
     {
         $productos = Producto::all();
-        $empleados = Empleado::all();
+        $user = User::all();
+        $user = Auth::user();
         $cajas = Caja::all();
         $clientes = Cliente::all();
+        $cotizacion = Cotizacion::all();
 
-        return view('panel.venta.lista_venta.create', compact('productos', 'empleados', 'cajas', 'clientes'));
+        return view('panel.venta.lista_venta.create', compact('productos', 'user', 'cajas', 'clientes', 'cotizacion'));
     }
 
     /**
@@ -47,7 +51,7 @@ class VentaController extends Controller
         $ventas->hora_venta = $request->get('hora_venta');
         $ventas->total_venta = $request->get('total_venta');
         $ventas->estado_venta = $request->input('estado_venta', 'Pendiente');
-        $ventas->empleado_id = $request->get('empleado_id');
+        $ventas->user_id = $request->get('empleado_id');
         $ventas->caja_id = $request->get('caja_id');
         $ventas->cliente_id = $request->get('cliente_id');
         $ventas->save();
@@ -76,6 +80,7 @@ class VentaController extends Controller
     {
         $venta = Venta::findOrFail($id);
         
+        
         $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         
 
@@ -91,10 +96,10 @@ class VentaController extends Controller
         $venta = Venta::findOrFail($id);
         $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         $productos = Producto::all();
-        $empleados = Empleado::all();
+        $user = Auth::user();
         $cajas = Caja::all();
         $clientes = Cliente::all();
-        return view('panel.venta.lista_venta.edit', compact('venta', 'detalleVenta', 'productos', 'empleados', 'cajas', 'clientes'));
+        return view('panel.venta.lista_venta.edit', compact('venta', 'detalleVenta', 'productos', 'user', 'cajas', 'clientes'));
 
     }
 

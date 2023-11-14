@@ -43,18 +43,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
+                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100 text-center">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-uppercase">id</th>
-                            <th scope="col" class="text-uppercase">dni_venta</th>
-                            <th scope="col" class="text-uppercase">fecha_venta</th>
-                            <th scope="col" class="text-uppercase">hora_venta</th>
-                            <th scope="col" class="text-uppercase">total_venta</th>
-                            <th scope="col" class="text-uppercase">estado_venta</th>
-                            <th scope="col" class="text-uppercase">empleado_id</th>
-                            <th scope="col" class="text-uppercase">caja_id</th>
-                            <th scope="col" class="text-uppercase">cliente_id</th>
+                            <th scope="col" class="text-uppercase">Numero</th>
+                            <th scope="col" class="text-uppercase">Dni Venta</th>
+                            <th scope="col" class="text-uppercase">Fecha</th>
+                            <th scope="col" class="text-uppercase">Hora</th>
+                            <th scope="col" class="text-uppercase">Total</th>
+                            <th scope="col" class="text-uppercase">Estado</th>
+                            <th scope="col" class="text-uppercase">Operador</th>
+                            <th scope="col" class="text-uppercase">Numero Caja</th>
+                            <th scope="col" class="text-uppercase">Cliente</th>
                             <th scope="col" class="text-uppercase">opciones</th>
                         </tr>
                     </thead>
@@ -66,17 +66,29 @@
                             <td>{{ $venta->fecha_venta }}</td>
                             <td>{{ $venta->hora_venta }}</td>
                             <td>{{ $venta->total_venta }}</td>
-                            <td>{{ $venta->estado_venta }}</td>
-                            <td>{{ $venta->empleado->nombre_empl }}</td>
+                            <td>
+                                @if ($venta->estado_venta === "Pendiente")
+                                <a class="btn btn-warning"  role="button">{{$venta->estado_venta}}</a>
+
+                                @endif
+                                @if ($venta->estado_venta === "Facturado")
+                                <a class="btn btn-success"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                                @if ($venta->estado_venta === "Anulado")
+                                <a class="btn btn-danger"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                            </td>
+                            
+                            <td>{{ $venta->user->name }}</td>
                             <td>{{ $venta->caja->id}}</td>
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
+                                    {{-- <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
                                         Ver
-                                    </a>
-                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-warning text-white text-uppercase m-1">
-                                        Editar
+                                    </a> --}}
+                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-primary text-white text-uppercase m-1">
+                                        Facturar
                                     </a>
                                     {{-- <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="form_delete">
                                         @csrf 
