@@ -66,17 +66,29 @@
                             <td>{{ $venta->fecha_venta }}</td>
                             <td>{{ $venta->hora_venta }}</td>
                             <td>{{ $venta->total_venta }}</td>
-                            <td>{{ $venta->estado_venta }}</td>
+                            <td>
+                                @if ($venta->estado_venta === "Pendiente")
+                                <a class="btn btn-warning"  role="button">{{$venta->estado_venta}}</a>
+
+                                @endif
+                                @if ($venta->estado_venta === "Facturado")
+                                <a class="btn btn-success"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                                @if ($venta->estado_venta === "Anulado")
+                                <a class="btn btn-danger"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                            </td>
+                            
                             <td>{{ $venta->user->name }}</td>
                             <td>{{ $venta->caja->id}}</td>
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
+                                    {{-- <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
                                         Ver
-                                    </a>
-                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-warning text-white text-uppercase m-1">
-                                        Editar
+                                    </a> --}}
+                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-primary text-white text-uppercase m-1">
+                                        Facturar
                                     </a>
                                     {{-- <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="form_delete">
                                         @csrf 

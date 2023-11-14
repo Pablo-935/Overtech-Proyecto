@@ -3,6 +3,9 @@
 @section('title', 'Crear Nuevo Producto')
 
 @section('content')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
             <div class="col-12 col-md-8 col-lg-6">
@@ -26,7 +29,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="descripcion_prod" class="form-label">Descripción:</label>
-                                    <input type="text" class="form-control" name="descripcion_prod" value="{{ old('descripcion_prod') }}">
+                                    <input type="text" class="form-control" id="" name="descripcion_prod" value="{{ old('descripcion_prod') }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="precio_uni_prod" class="form-label">Precio por unidad:</label>
@@ -65,6 +68,9 @@
                                 </select>
                             </div>
 
+                            <div id="editor"></div>
+
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success btn-sm">Guardar Producto</button>
                                 <a class="btn btn-warning btn-sm" href="{{ route('producto.index') }}" role="button">Volver</a>
@@ -75,4 +81,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var quill = new Quill('#editor', {
+          theme: 'snow' // Puedes elegir otros temas según tus preferencias
+        });
+      </script>
+      
 @endsection
