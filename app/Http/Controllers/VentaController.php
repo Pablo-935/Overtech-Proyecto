@@ -11,6 +11,7 @@ use App\Models\Cliente;
 use App\Models\Cotizacion;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
@@ -141,5 +142,46 @@ class VentaController extends Controller
         $venta->delete();
         return redirect()->route("venta.index")->with('alert3', 'Venta Eliminada');
 
+    }
+
+    public function graficoVentas()
+    {
+        // Si es una petición AJAX
+        if(request()->ajax()) {
+            $labels = [];
+            $counts = [];
+            
+            // Aquí puedes ajustar la lógica para obtener los datos de ventas por el criterio que necesites
+            $ventasPorDia = DB::table('ventas')
+                ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
+                ->groupBy(DB::raw('DATE(fecha_venta)'))
+                ->get();
+    
+            foreach($ventasPorDia as $venta) {
+                $labels[] = $venta->fecha;
+                $counts[] = $venta->total_ventas;
+            }
+    
+            $response = [
+                'success' => true,
+                'data' => [$labels, $counts]
+            ];
+    
+            return json_encode($response);
+        }
+    
+        return view('panel.venta.lista_venta.grafico_ventas');
+    }
+    
+    public function obtenerVentasTotales()
+    {
+        // Obtener la suma total de las ventas
+        $ventasTotales = Venta::sum('total_venta');
+
+        // Retornar los datos en un formato JSON
+        return response()->json([
+            'success' => true,
+            'total_ventas' => $ventasTotales
+        ]);
     }
 }

@@ -23,11 +23,15 @@ Route::get('/vista', function(){
     return view('prueba.vista2');
 });
 
-Route::resource('/categorias', CategoriaProductoController::class)->names('categoria');
 Route::resource('/empleados', EmpleadoController::class)->names('empleado');
 Route::resource('/ventas', VentaController::class)->names('venta');
 Route::resource('/caja', CajaController::class)->names('caja');
 
 Route::get('/exportar-productos-excel', [ProductoController::class, 'exportarProductosExcel'])->name
 ('exportar-productos-excel');
+Route::get('/graficos-ventas', [VentaController::class, 'graficoVentas'])->name
+('graficos-ventas');
+Route::get('/ventas-totales', [VentaController::class, 'obtenerVentasTotales'])->name
+('ventas-totales');
+
 ?>

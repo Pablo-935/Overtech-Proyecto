@@ -40,6 +40,10 @@
             </div>
         @endif
 
+        <a href="{{ route('graficos-ventas')}}" class="btn btn-primary ajax-request" title="ChartJs">
+            <i class="fas fa-chart-pie"></i> Grafico
+        </a>
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -184,5 +188,6 @@
             
         </script>
 
-@stop
+    
 
+@stop
