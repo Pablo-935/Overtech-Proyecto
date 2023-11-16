@@ -144,19 +144,23 @@ class VentaController extends Controller
 
     }
 
-    public function graficoVentas()
+    public function graficoVentas(Request $request)
     {
         // Si es una petición AJAX
-        if(request()->ajax()) {
+        if($request->ajax()) {
             $labels = [];
             $counts = [];
             
-            // Aquí puedes ajustar la lógica para obtener los datos de ventas por el criterio que necesites
+            // Obtener las fechas de inicio y fin desde la solicitud
+            $fechaInicio = $request->input('fecha_inicio');
+            $fechaFin = $request->input('fecha_fin');
+    
+            // Ajustar la lógica para obtener los datos de ventas por el rango de fechas
             $ventasPorDia = DB::table('ventas')
                 ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
+                ->whereBetween('fecha_venta', [$fechaInicio, $fechaFin])
                 ->groupBy(DB::raw('DATE(fecha_venta)'))
                 ->orderBy(DB::raw('DATE(fecha_venta)'))
-                ->where('id', '>', 15) 
                 ->get();
     
             foreach($ventasPorDia as $venta) {
@@ -174,6 +178,7 @@ class VentaController extends Controller
     
         return view('panel.venta.lista_venta.grafico_ventas');
     }
+    
     
     public function obtenerVentasTotales()
     {

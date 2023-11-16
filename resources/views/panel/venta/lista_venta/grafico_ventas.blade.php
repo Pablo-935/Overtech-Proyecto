@@ -12,14 +12,27 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <!-- BAR CHART -->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <strong>Gráfico de Ventas por Día</strong>
-                        </div>
+                    <div class="card-body">
+                        <form id="dateForm">
+                            <div class="form-group">
+                                <label for="startDate">Fecha de inicio:</label>
+                                <input type="date" class="form-control" id="startDate" name="fecha_inicio">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">Fecha de fin:</label>
+                                <input type="date" class="form-control" id="endDate" name="fecha_fin">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generar Gráfico</button>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
                     <div class="card-body">
                         <canvas id="barChart"></canvas>
                     </div>
@@ -38,57 +51,60 @@
 $(function() {
     const barChart = document.getElementById('barChart').getContext('2d');
 
-    // Petición AJAX para extraer datos de la BD y graficar
-    $.get("{{ route('graficos-ventas') }}", function(response) {
-        response = JSON.parse(response);
+    // Capturar el envío del formulario
+    $('#dateForm').submit(function(event) {
+        event.preventDefault(); // Prevenir el envío del formulario por defecto
 
-        // Si hay éxito en la petición
-        if(response.success) {
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
 
-            let labels = response.data[0];
-            let counts = response.data[1];
+        // Petición AJAX con las fechas seleccionadas
+        $.get("{{ route('graficos-ventas') }}", { fecha_inicio: startDate, fecha_fin: endDate }, function(response) {
+            response = JSON.parse(response);
 
-            // Convertir los valores a enteros
-            counts = counts.map(num => parseInt(num));
+            if(response.success) {
+                let labels = response.data[0];
+                let counts = response.data[1];
 
-            // Agregar un valor falso con 0 al principio de los datos
-            labels.unshift('');
-            counts.unshift(0);
+                // Agregar un valor falso con 0 al principio de los datos
+                labels.unshift('');
+                counts.unshift(0);
 
-            // Configuración del gráfico de ventas por día (BarChart)
-            const configChart = {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Ventas por Día',
-                        data: counts,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            suggestedMin: 0,
-                            precision: 0
+                // Configuración del gráfico de ventas por día (BarChart)
+                const configChart = {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Ventas por Día',
+                            data: counts,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                suggestedMin: 0,
+                                precision: 0
+                            }
                         }
                     }
-                }
-            };
+                };
 
-            // Crear el gráfico utilizando Chart.js
-            new Chart(barChart, configChart);
-        } else {
-            console.log(response.message);
-        }
-    })
-    .fail(function(error) {
-        console.log(error.statusText, error.status);
+                // Crear el gráfico utilizando Chart.js
+                new Chart(barChart, configChart);
+
+            } else {
+                console.log(response.message);
+            }
+        })
+        .fail(function(error) {
+            console.log(error.statusText, error.status);
+        });
     });
 });
-
 </script>
 @stop
