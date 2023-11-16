@@ -155,6 +155,8 @@ class VentaController extends Controller
             $ventasPorDia = DB::table('ventas')
                 ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
                 ->groupBy(DB::raw('DATE(fecha_venta)'))
+                ->orderBy(DB::raw('DATE(fecha_venta)'))
+                ->where('id', '>', 15) 
                 ->get();
     
             foreach($ventasPorDia as $venta) {

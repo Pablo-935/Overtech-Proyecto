@@ -34,57 +34,61 @@
 @stop
 
 @section('js')
-    <script>
-        $(function() {
-            const barChart = document.getElementById('barChart').getContext('2d');
+<script>
+$(function() {
+    const barChart = document.getElementById('barChart').getContext('2d');
 
-            // Peticion AJAX para extraer datos de la BD y graficar
-            $.get("{{ route('graficos-ventas') }}", function(response) {
-                response = JSON.parse(response);
+    // Petición AJAX para extraer datos de la BD y graficar
+    $.get("{{ route('graficos-ventas') }}", function(response) {
+        response = JSON.parse(response);
 
-                // Si hay éxito en la petición
-                if(response.success) {
+        // Si hay éxito en la petición
+        if(response.success) {
 
-                    let labels = response.data[0];
-                    let counts = response.data[1];
+            let labels = response.data[0];
+            let counts = response.data[1];
 
-                    // Convertir los valores a enteros
-                    counts = counts.map(num => parseInt(num));
+            // Convertir los valores a enteros
+            counts = counts.map(num => parseInt(num));
 
-                    // Configuración del gráfico de ventas por día (BarChart)
-                    const configChart = {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Ventas por Día',
-                            data: counts,
-                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true, // Asegurar que el eje Y comience en cero
-                                suggestedMin: 0, // Establecer el mínimo en cero
-                                suggestedMax: Math.max(...counts) + 5, // Ajustar el máximo según el valor máximo de ventas + 5
-                                precision: 0 // Eliminar decimales
-                            }
+            // Agregar un valor falso con 0 al principio de los datos
+            labels.unshift('');
+            counts.unshift(0);
+
+            // Configuración del gráfico de ventas por día (BarChart)
+            const configChart = {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Ventas por Día',
+                        data: counts,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            suggestedMin: 0,
+                            precision: 0
                         }
                     }
-                };
-
-                    // Crear el gráfico utilizando Chart.js
-                    new Chart(barChart, configChart);
-                } else {
-                    console.log(response.message);
                 }
-            })
-            .fail(function(error) {
-                console.log(error.statusText, error.status);
-            });
-        });
-    </script>
+            };
+
+            // Crear el gráfico utilizando Chart.js
+            new Chart(barChart, configChart);
+        } else {
+            console.log(response.message);
+        }
+    })
+    .fail(function(error) {
+        console.log(error.statusText, error.status);
+    });
+});
+
+</script>
 @stop
