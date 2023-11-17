@@ -6,7 +6,7 @@
 @section('plugins.Chartjs', true)
 
 @section('content_header')
-    <h1>Datos Estadísticos de Ventas</h1>
+    <h1>Grafico de cantidad de Ventas totales por dia</h1>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
                         <form id="dateForm">
                             <div class="form-group">
                                 <label for="startDate">Fecha de inicio:</label>
-                                <input type="date" class="form-control" id="startDate" name="fecha_inicio">
+                                <input type="date" class="form-control" id="startDate" name="fecha_inicio" value="2023-11-01">
                             </div>
                             <div class="form-group">
                                 <label for="endDate">Fecha de fin:</label>
@@ -78,7 +78,7 @@ $(function() {
                         datasets: [{
                             label: 'Ventas por Día',
                             data: counts,
-                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            backgroundColor: 'rgb(46, 64, 83)',
                             borderColor: 'rgba(54, 162, 235, 1)',
                             borderWidth: 1
                         }]
@@ -106,5 +106,12 @@ $(function() {
         });
     });
 });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+          var fechaActual = new Date().toISOString().split('T')[0];
+
+      document.getElementById('endDate').value = fechaActual;
+    });
 </script>
 @stop
