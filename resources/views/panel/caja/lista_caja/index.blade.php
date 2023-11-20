@@ -43,6 +43,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+
+            <a href="{{ route('grafico-ingegre') }}" class="btn btn-primary mb-3">
+                Ver Gráfico de Ingresos y Egresos
+            </a>
+
+
+
                 <table id="tabla-productos" class="table table-sm table-striped table-hover w-100">
                     <thead>
                         <tr>

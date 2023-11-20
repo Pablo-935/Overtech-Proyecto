@@ -12,6 +12,7 @@ use App\Models\Cliente;
 use App\Models\Cotizacion;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class VentaController extends Controller
@@ -239,4 +240,41 @@ if ($cajaAbierta) {
         return redirect()->route("venta.index")->with('alert3', 'Venta Eliminada');
 
     }
+
+    public function graficoVentas(Request $request)
+    {
+        // Si es una petición AJAX
+        if($request->ajax()) {
+            $labels = [];
+            $counts = [];
+            
+            // Obtener las fechas de inicio y fin desde la solicitud
+            $fechaInicio = $request->input('fecha_inicio');
+            $fechaFin = $request->input('fecha_fin');
+    
+            // Ajustar la lógica para obtener los datos de ventas por el rango de fechas
+            $ventasPorDia = DB::table('ventas')
+                ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
+                ->whereBetween('fecha_venta', [$fechaInicio, $fechaFin])
+                ->groupBy(DB::raw('DATE(fecha_venta)'))
+                ->orderBy(DB::raw('DATE(fecha_venta)'))
+                ->get();
+    
+            foreach($ventasPorDia as $venta) {
+                $labels[] = $venta->fecha;
+                $counts[] = $venta->total_ventas;
+            }
+    
+            $response = [
+                'success' => true,
+                'data' => [$labels, $counts]
+            ];
+    
+            return json_encode($response);
+        }
+    
+        return view('panel.venta.lista_venta.grafico_ventas');
+    }
+    
+
 }

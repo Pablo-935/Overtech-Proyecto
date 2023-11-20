@@ -8,6 +8,7 @@ use App\Models\Empleado;
 use Illuminate\Validation\Rules\Can;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class CajaController extends Controller
@@ -102,4 +103,45 @@ class CajaController extends Controller
     {
         //
     }
+    public function graficoIngresosEgresos(Request $request)
+    {
+        // Si es una petición AJAX
+        if($request->ajax()) {
+            $labels = [];
+            $ingresos = [];
+            $egresos = [];
+            
+            // Obtener las fechas de inicio y fin desde la solicitud
+            $fechaInicio = $request->input('fecha_inicio');
+            $fechaFin = $request->input('fecha_fin');
+    
+            // Obtener los ingresos y egresos por día en el rango de fechas
+            $movimientos = DB::table('cajas')
+                ->select(
+                    DB::raw('DATE(fecha_hs_aper_caja) as fecha'),
+                    DB::raw('SUM(total_ingresos_caja) as total_ingresos'),
+                    DB::raw('SUM(total_egresos_caja) as total_egresos')
+                )
+                ->whereBetween('fecha_hs_aper_caja', [$fechaInicio, $fechaFin])
+                ->groupBy(DB::raw('DATE(fecha_hs_aper_caja)'))
+                ->orderBy(DB::raw('DATE(fecha_hs_aper_caja)'))
+                ->get();
+    
+            foreach($movimientos as $movimiento) {
+                $labels[] = $movimiento->fecha;
+                $ingresos[] = $movimiento->total_ingresos;
+                $egresos[] = $movimiento->total_egresos;
+            }
+    
+            $response = [
+                'success' => true,
+                'data' => [$labels, $ingresos, $egresos]
+            ];
+    
+            return json_encode($response);
+        }
+    
+        return view('panel.caja.lista_caja.grafico_ingegre');
+    }
+    
 }
