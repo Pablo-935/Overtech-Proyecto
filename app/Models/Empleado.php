@@ -17,16 +17,5 @@ class Empleado extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function caja() {
-        return $this->hasMany(Caja::class,'empleado_id');
-    }
-
-    public function venta(){
-        return $this->hasMany(Venta::class, 'empleado_id');
-    }
-
-    public function RequerimientoCompra(){
-        return $this->hasMany(RequerimientoCompra::class,'empleado_id');
-    }
     use HasFactory;
 }

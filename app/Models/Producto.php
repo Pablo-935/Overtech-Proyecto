@@ -23,6 +23,6 @@ class Producto extends Model
     }
 
     public function DetalleRequerCompra(){
-        return $this->hasMany(DetalleCompra::class,'producto_id');
+        return $this->hasMany(DetalleRequerComp::class,'producto_id');
     }
 }

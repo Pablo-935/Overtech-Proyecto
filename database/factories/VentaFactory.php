@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Empleado;
+use App\Models\User;
 use App\Models\Caja;
 use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,7 +19,7 @@ class VentaFactory extends Factory
      */
     public function definition(): array
     {
-        $empleado = Empleado::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
         $caja = Caja::inRandomOrder()->first();
         $cliente = Cliente::inRandomOrder()->first();
 
@@ -30,7 +30,7 @@ class VentaFactory extends Factory
             'total_venta' => $this->faker->randomFloat(2, 10, 1000),
             'estado_venta' => $this->faker->randomElement(['Pendiente', 'Completada', 'Cancelada']), // Estado aleatorio
 
-            'empleado_id' => $empleado->id,
+            'user_id' => $user->id,
             'caja_id' => $caja->id,
             'cliente_id' => $cliente->id,
         ];

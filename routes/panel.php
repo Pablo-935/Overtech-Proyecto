@@ -22,16 +22,24 @@ Route::resource('/productos', ProductoController::class)->names('producto');
 Route::resource('/cotizacion', CotizacionController::class)->names('cotizacion');
 Route::resource('/proveedor', ProveedorController::class)->names('proveedor');
 
-Route::get('/vista', function(){
-    return view('prueba.vista2');
-});
-
 Route::resource('/categorias', CategoriaProductoController::class)->names('categoria');
 Route::resource('/empleados', EmpleadoController::class)->names('empleado');
-Route::resource('/ventas', VentaController::class)->names('venta');
-Route::resource('/requerimientos', RequerimientoCompraController::class)->names('requerimiento');
 
-Route::resource('/detalleRequerimientos', DetalleRequerCompController::class)->names('detalleRequerimiento');
+
+Route::get('/empleados/all', [EmpleadoController::class, 'all'])->name('empleados.all');
+
+
+Route::resource('/ventas', VentaController::class)->names('venta');
+
+Route::resource('/requerimientos', RequerimientoCompraController::class)->names('requerimiento');
+Route::get('/exportar-requerimientos-pdf/{id}', [RequerimientoCompraController::class, 'exportarRequerimientoPDF'])->name('exportar-requerimientos-pdf');
+Route::get('/productos-bajos-stock', [RequerimientoCompraController::class, 'cargarProductosBajoStock'])->name('productos-bajos-stock');
+
+
+Route::delete('/detalleRequerimientos/{id}', [DetalleRequerCompController::class, 'destroy'])->name('detalleRequerimiento.destroy');
+// Route::resource('/detalleRequerimientos', DetalleRequerCompController::class)->names('detalleRequerimiento');
+
+
 Route::resource('/compras', CompraController::class)->names('compra');
 
 ?>

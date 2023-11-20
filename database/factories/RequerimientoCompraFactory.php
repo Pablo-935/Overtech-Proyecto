@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Empleado;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,13 +17,13 @@ class RequerimientoCompraFactory extends Factory
      */
     public function definition(): array
     {   
-        $empleado = Empleado::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
 
         return [
             'fecha_requer_comp' => $this->faker->date(),
             'estado_requer_comp' => $this->faker->randomElement(['Pendiente', 'Aprobado', 'Rechazado']), // Estado aleatorio
     
-            'empleado_id' => $empleado->id,
+            'user_id' => $user->id,
         ];
     }
 }

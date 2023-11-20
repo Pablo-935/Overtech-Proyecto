@@ -3,20 +3,51 @@
 @section('title', 'Ver Compra')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif --}}
-    <div class="container">
+    <div class="container-fluid">
+        <div class="card mt-3">
+            <div class="card-header bg-primary text">Compra Nº: {{$compra->num_comp}}</div>
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-4">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Proveedor</span>
+                            <input type="text" class="form-control" name="proveedor_id" value="{{old('proveedor_id', $compra->proveedor->nombre_prov)}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  disabled>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row align-items-end justify-content-end">
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Fecha:</span>
+                                    <input type="text" class="form-control" name="fecha_comp" value="{{old('fecha_comp', $compra->fecha_comp)}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                                </div>
+                            </div>
+                            
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Hora Compra:</span>
+                                    <input type="text" class="form-control" name="hora_comp" value="{{old('hora_comp', $compra->hora_comp)}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
         <div class="row min-vh-100 justify-content-center align-items-center">
             <div class="col-10 col-md-6 col-lg-6">
                 <h3 class="text-center">Compra Nº: {{$compra->num_comp}}</h3>
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" novalidate>
+                        <form novalidate>
                             @csrf 
 
                             <label for="num_comp" class="form-label mb-1">Nº Compra: </label>
@@ -42,7 +73,7 @@
                             <input type="text" class="form-control mb-1" name="requerimiento_compra_id" value="{{old('requerimiento_compra_id', $compra->RequerimientoCompra->id)}}">
 
                             <label for="requerimiento_compra_id" class="form-label mb-1">Empleado Requerimiento Compra: </label>
-                            <input type="text" class="form-control mb-1" name="requerimiento_compra_id" value="{{old('requerimiento_compra_id', $compra->RequerimientoCompra->empleado->nombre_empl)}}">
+                            <input type="text" class="form-control mb-1" name="requerimiento_compra_id" value="{{old('requerimiento_compra_id', $compra->RequerimientoCompra->user->name)}}">
 
 
                             

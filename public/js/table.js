@@ -35,7 +35,9 @@ let configurationDataTable = {
 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 		}
 	},
+	
 }
+
 
 $(function() {
     table = $('#tabla-productos').DataTable(configurationDataTable);

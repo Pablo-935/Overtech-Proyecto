@@ -49,6 +49,17 @@ class User extends Authenticatable
         return $this->hasMany(Empleado::class, 'user_id');
     }
 
+    public function caja() {
+        return $this->hasMany(Caja::class,'user_id');
+    }
+
+    public function venta(){
+        return $this->hasMany(Venta::class, 'user_id');
+    }
+
+    public function RequerimientoCompra(){
+        return $this->hasMany(RequerimientoCompra::class,'user_id');
+    }
     // use HasRoles;
     
 }

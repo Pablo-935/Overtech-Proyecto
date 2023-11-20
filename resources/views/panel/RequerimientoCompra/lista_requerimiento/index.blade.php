@@ -59,7 +59,7 @@
                             <td>{{ $requerimiento->id }}</td>
                             <td>{{ $requerimiento->fecha_requer_comp}}</td>
                             <td>{{ $requerimiento->estado_requer_comp }}</td>
-                            <td>{{ $requerimiento->empleado->nombre_empl }}</td>
+                            <td>{{ $requerimiento->user->name }}</td>
                             <td style="width: 0%">
                                 <div class="d-flex">
                                     <a href="{{ route('requerimiento.show', $requerimiento->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">

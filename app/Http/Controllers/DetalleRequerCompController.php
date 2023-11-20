@@ -60,8 +60,28 @@ class DetalleRequerCompController extends Controller
      */
     public function destroy($id)
     {   
-        // dd('hola');
+        logger('hola');
         $detalleRequerimiento = DetalleRequerComp::findOrFail($id);
         $detalleRequerimiento->delete();
+        
     }
+
+    // public function destroyDetalle($id)
+    // {   
+    //     $detalleRequerimiento = DetalleRequerComp::find($id);
+
+    //     if ($detalleRequerimiento) {
+    //         $detalleRequerimiento->delete();
+    //         $response = array(
+    //             'status' => true,
+    //             'code' => 200, //204 "Resource updated successfully"- La solicitud se cumplió y el servidor actualizo el recurso.
+    //             'message' => '',
+    //             'data' => null
+    //         );
+    //         // return response()->json($response)->redirect()->route("requerimiento{$id}/edit");
+    //         return response()->json($response);
+    //     }
+
+    //     return response()->json(['success' => false], 404);
+    // }
 }
