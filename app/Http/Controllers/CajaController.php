@@ -103,61 +103,45 @@ class CajaController extends Controller
     {
         //
     }
-    private function obtenerIngresosPorFecha()
+    public function graficoIngresosEgresos(Request $request)
     {
-        return Caja::select(DB::raw('DATE(created_at) as fecha'), DB::raw('SUM(total_ingresos_caja) as total'))
-            ->whereBetween('created_at', ['2023-01-01', '2023-12-31'])
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->pluck('total', 'fecha')
-            ->toArray();
-    }
-
-    private function obtenerEgresosPorFecha()
-    {
-        return Caja::select(DB::raw('DATE(created_at) as fecha'), DB::raw('SUM(total_egresos_caja) as total'))
-            ->whereBetween('created_at', ['1971-01-14', '2023-12-31'])
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->pluck('total', 'fecha')
-            ->toArray();
-    }
-
-    public function obtenerTotalesIngresosEgresos()
-    {
-        $totales = Caja::select(
-            DB::raw('SUM(total_ingresos_caja) as total_ingresos'),
-            DB::raw('SUM(total_egresos_caja) as total_egresos')
-        )
-        ->first();
+        // Si es una petición AJAX
+        if($request->ajax()) {
+            $labels = [];
+            $ingresos = [];
+            $egresos = [];
+            
+            // Obtener las fechas de inicio y fin desde la solicitud
+            $fechaInicio = $request->input('fecha_inicio');
+            $fechaFin = $request->input('fecha_fin');
     
-        return $totales;
+            // Obtener los ingresos y egresos por día en el rango de fechas
+            $movimientos = DB::table('cajas')
+                ->select(
+                    DB::raw('DATE(fecha_hs_aper_caja) as fecha'),
+                    DB::raw('SUM(total_ingresos_caja) as total_ingresos'),
+                    DB::raw('SUM(total_egresos_caja) as total_egresos')
+                )
+                ->whereBetween('fecha_hs_aper_caja', [$fechaInicio, $fechaFin])
+                ->groupBy(DB::raw('DATE(fecha_hs_aper_caja)'))
+                ->orderBy(DB::raw('DATE(fecha_hs_aper_caja)'))
+                ->get();
+    
+            foreach($movimientos as $movimiento) {
+                $labels[] = $movimiento->fecha;
+                $ingresos[] = $movimiento->total_ingresos;
+                $egresos[] = $movimiento->total_egresos;
+            }
+    
+            $response = [
+                'success' => true,
+                'data' => [$labels, $ingresos, $egresos]
+            ];
+    
+            return json_encode($response);
+        }
+    
+        return view('panel.caja.lista_caja.grafico_ingegre');
     }
     
-    public function graficoIngresosEgresos()
-    {
-        $totales = $this->obtenerTotalesIngresosEgresos();
-    
-        // Preparar los datos para la vista
-        $data = [
-            'labels' => ['Ingresos', 'Egresos'], // Etiquetas para el gráfico
-            'datasets' => [
-                [
-                    'label' => 'Ingresos',
-                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
-                    'borderColor' => 'rgba(75, 192, 192, 1)',
-                    'borderWidth' => 1,
-                    'data' => [$totales->total_ingresos ?? 0],
-                ],
-                [
-                    'label' => 'Egresos',
-                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-                    'borderColor' => 'rgba(255, 99, 132, 1)',
-                    'borderWidth' => 1,
-                    'data' => [$totales->total_egresos ?? 0],
-                ],
-            ], // Valores correspondientes a las etiquetas
-        ];
-        
-        return view('panel.caja.lista_caja.grafico_ingegre', compact('data'));
-        
-}
 }
