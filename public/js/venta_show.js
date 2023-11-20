@@ -1,7 +1,7 @@
     window.addEventListener("DOMContentLoaded", function() {
 
         let estado = document.getElementById("estado");
-        if (estado.innerText  == "Cancelado") {
+        if (estado.innerText  == "Anulado") {
             estado.classList.add("badge", "bg-danger");
         }
         if (estado.innerText  == "Pendiente") {

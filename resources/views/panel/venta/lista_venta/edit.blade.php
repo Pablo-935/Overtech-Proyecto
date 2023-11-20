@@ -1,60 +1,51 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Venta')
+@section('title', 'Ver Venta')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif --}}
 
-    <div class="container">
-        <div class="row min-vh-100 justify-content-center align-items-center">
+    <div class="container-fluid">
+    
+        <form id="form" action="{{route('venta.update', $venta->id)}}" method="POST" novalidate>
+   @csrf @method('PUT')
+
+
+
+
+        <div class="row mt-2">
+            <div class="col-6">
+                <h1>Estado: <p id="estado" class="">{{old('correo_empl', $venta->estado_venta)}}</p></h1>
+
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <h1 class="text-end">Venta Numero: <span class="badge bg-secondary">{{old('correo_empl', $venta->id)}}</span></h1>
+
+            </div>
+        </div>
+
+
+
+        <div class="row justify-content-center align-items-center my-5">
             <div class="col-10 col-md-6 col-lg-6">
-                <h3 class="text-center">Editar Venta</h3>
-                <div class="card">
-                    <div class="card-body">
-                        <form action="{{route('venta.update', $venta->id)}}" method="POST" novalidate>
-                            @csrf @method('PUT')
-
-                            <label for="dni_venta" class="form-label mb-1">DNI ventas: </label>
-                            <input type="number" class="form-control mb-1" name="dni_venta" value="{{old('dni_venta', $venta->dni_venta)}}">
-
-                            <label for="fecha_venta" class="form-label mb-1">Fecha: </label>
-                            <input type="date" class="form-control mb-1" name="fecha_venta" value="{{old('fecha_venta', $venta->fecha_venta)}}">
-
-                            <label for="hora_venta" class="form-label mb-1">Hora Venta: </label>
-                            <input type="time" class="form-control mb-1" name="hora_venta" value="{{old('hora_venta', $venta->hora_venta)}}">
-
-                            <label for="estado_venta" class="form-label mb-1">Estado Venta: </label>
-                            <input type="text" class="form-control mb-1" name="estado_venta" value="{{old('estado_venta', $venta->estado_venta)}}">
-
-                            <label for="Empleados" class="col-sm-4 col-form-label">Empleados:</label>
-                            <input type="text" class="form-control mb-1" name="empleado_id" value="{{old('Operador', $user->name)}}">
-
-                            {{-- <select id="empleado_id" name="empleado_id" class="form-control">
-                                @foreach ($empleados as $empleado)
-                                    <option {{ $venta->empleado_id && $venta->empleado_id == $empleado->id ? 'selected': ''}} value="{{ $empleado->id }}"> 
-                                        {{ $empleado->nombre_empl }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
 
 
 
-                            <label for="caja" class="col-sm-4 col-form-label">Cajas:</label>
-                            <select id="caja_id" name="caja_id" class="form-control">
-                                @foreach ($cajas as $caja)
-                                    <option {{ $venta->caja_id && $venta->caja_id == $caja->id ? 'selected': ''}} value="{{ $caja->id }}"> 
-                                        {{ $caja->id }}
-                                    </option>
-                                @endforeach
-                            </select>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Venta DNI:</div>
+                            <div class="col-3">{{old('dni_venta', $venta->dni_venta)}}</div>
+                            <input type="hidden" class="form-control mb-1" name="dni_venta" value="{{old('dni_venta', $venta->dni_venta)}}">
 
-                            <label for="clientes" class="col-sm-4 col-form-label">Clientes:</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Cliente:</div>
+
+                            
+                            <div class="col-3">
+                            
                             <select id="clientes" name="cliente_id" class="form-control">
                                 @foreach ($clientes as $cliente)
                                     <option {{ $venta->cliente_id && $venta->cliente_id == $cliente->id ? 'selected': ''}} value="{{ $cliente->id }}"> 
@@ -62,64 +53,125 @@
                                     </option>
                                 @endforeach
                             </select>
-
-                            <h2 class="mt-4">Detalle Venta: </h2>
-
-                            <table class="table table-sm table-striped table-hover w-100">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Cantidad</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-
-                                         @foreach($detalleVenta as $detalle)
-                                    <tr>
-                                        <td>
-                                            <select id="producto_id" name="producto_id" class="form-control">
-                                                @foreach ($productos as $producto)
-                                                    <option {{ $detalle->producto->id && $detalle->producto->id == $producto->id ? 'selected': ''}} value="{{ $producto->id }}"> 
-                                                        {{ $producto->nombre_prod }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td>{{$detalle->producto->precio_uni_prod }}</td>
-                                        <td>
-                                            <input type="text" class="form-control mb-1" name="cantidad_prod_venta" value="{{old('cantidad_prod_venta', $detalle->cantidad_prod_venta)}}">
-
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control mb-1" name="sub_total_det_venta" value="{{old('sub_total_det_venta', $detalle->sub_total_det_venta)}}">
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
-                                
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            
-                            <label for="total_venta" class="form-label mb-1">Total Venta: </label>
-                            <input type="number" class="form-control mb-1" name="total_venta" value="{{old('total_venta', $venta->total_venta)}}">
-
-                                 <!-- Suponiendo que $detalleVenta es una colección de detalles de venta -->
-                           
-                            <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
-                            <a class="btn btn-warning btn-sm mt-3" href="{{route('venta.index')}}" role="button">Volver</a>      
-                        </form>
+                        </div>
                     </div>
-                </div>
+
+                        <li class="list-group-item">
+
+                        <div class="row">
+                            <div class="col-9">Vendedor:</div>
+                            <div class="col-3">{{old('dni_venta', $user->name)}}</div>
+                            <input type="hidden" class="form-control mb-1" name="empleado_id" value="{{old('Operador', $user->id)}}">
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Fecha:</div>
+                            <div class="col-3">{{old('fecha_venta', $venta->fecha_venta)}}</div>
+                            <input type="hidden" class="form-control mb-1" name="fecha_venta" value="{{old('fecha_venta', $venta->fecha_venta)}}">
+
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Hora:</div>
+                            <div class="col-3">{{old('hora_venta', $venta->hora_venta)}}</div>
+                            <input type="hidden" class="form-control mb-1" name="hora_venta" value="{{old('hora_venta', $venta->hora_venta)}}">
+
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Numero de Caja:</div>
+                            <div class="col-3">{{old('caja', $venta->caja->numero_caja)}}</div>
+                            <input type="hidden" class="form-control mb-1" name="caja_id" value="{{old('caja_id', $venta->caja_id)}}">
+
+                        </div>
+                    </li>
+
+                  </ul>
+
+
+
+
+
+
+      
+
             </div>
         </div>
+
+        <table id="mitabla" class="table table-sm table-striped table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Stock</th>
+                    <th>Subtotal</th>
+                    <th>Opciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <input type="hidden" name="contador" id="contador">
+
+                @foreach($detalleVenta as $index => $detalle)
+                @if($detalle->cantidad_prod_venta != 0)
+                    <tr data-index="{{ $index }}">
+                        <input type="hidden" name="detalle_venta_id[]" value="{{ $detalle->id }}">
+                        <td>{{$detalle->producto->codigo_prod }}</td>
+                        <td>{{$detalle->producto->nombre_prod }}</td>
+                        <td><input type="text" class="form-control mb-1 cantidad" name="cantidad_prod_venta[]" value="{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}">
+                        <p class="cantidad2">{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}</p>
+                        </td>
+                        <td class="precio-unitario" id="precio-unitario-{{ $index }}">precio unitario aqui</td>
+                        <td>{{$detalle->producto->stock_actual_prod }}</td>
+                        <select id="producto_id_{{ $index }}" name="producto_id[]" class="form-control d-none">
+                            @foreach ($productos as $producto)
+                                <option {{ $detalle->producto->id && $detalle->producto->id == $producto->id ? 'selected': ''}} value="{{ $producto->id }}"> 
+                                    {{ $producto->nombre_prod }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <td name="sub_total">{{$detalle->sub_total_det_venta}}</td>
+                        <input type="hidden" class="form-control mb-1" name="sub_total_det_venta[]" value="{{ old('sub_total_det_venta', $detalle->sub_total_det_venta) }}">
+                        <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">Eliminar</button></td>
+                    </tr>
+                @endif
+            @endforeach
+            
+
+
+            </tbody>
+        </table>
+        
+        
+        <div class="row my-5">
+            <div class="col-9"></div>
+            <div class="col-3 justify-content-end" ><h1 class="" name="total">Total: &nbsp; <b>{{old('correo_empl', $venta->total_venta)}}</b></h1></div>
+            <input type="hidden" class="form-control mb-1" id="total_venta" name="total_venta" value="{{old('total_venta', $venta->total_venta)}}">
+
+        </div>
+
+        <div class="row my-2">
+            <div class="col-1"><a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a></div>
+            <div class="col-1"><button type="submit" id="facturar" class="btn btn-success btn-sm ">Facturar</button></div>
+            <div class="col-1"><button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger btn-sm">Anular</button></div>
+            
+
+        </form>
+
+        </div>
+
     </div>
+
+
+    <script src="{{ asset('js/venta_edit.js') }}"></script>
+
 @endsection

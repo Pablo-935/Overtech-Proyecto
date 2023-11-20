@@ -55,8 +55,10 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-default">DNI Pedido</span>
-                                    <input type="number" class="form-control mb-1" id="dni_venta" name="dni_venta" value="{{old('dni_venta')}}">
-                                    <div class="alert_dni"></div>
+                                    <input type="number" class="form-control mb-1 @error('dni_venta') is-invalid @enderror" id="dni_venta" name="dni_venta" value="{{old('dni_venta')}}">
+                                    @error('dni_venta')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
     

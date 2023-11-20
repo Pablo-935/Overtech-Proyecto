@@ -25,6 +25,7 @@ Route::get('/vista', function(){
 
 Route::resource('/empleados', EmpleadoController::class)->names('empleado');
 Route::resource('/ventas', VentaController::class)->names('venta');
+Route::put('/anular/{id}', [VentaController::class, 'anular'])->name('anular');
 Route::resource('/caja', CajaController::class)->names('caja');
 
 Route::get('/exportar-productos-excel', [ProductoController::class, 'exportarProductosExcel'])->name
