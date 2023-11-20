@@ -17,6 +17,16 @@ class EmpleadoController extends Controller
         return view('panel.Empleado.lista_empleado.index', compact('empleados'));
     }
 
+    public function all(Request $request)
+    {
+        if( $request->ajax() ) {
+            $empleados = Empleado::all();
+            return response()->json($empleados);
+        }
+
+        return view('panel.Empleado.lista_empleado.all');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -25,6 +35,7 @@ class EmpleadoController extends Controller
         $usuarios = User::all();
         return view('panel.Empleado.lista_empleado.create', compact('usuarios'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -43,8 +54,6 @@ class EmpleadoController extends Controller
         $empleado->tipo_empl = $request->get('tipo_empl');
         $empleado->user_id = $request->get('usuario_empl');
         $empleado->fecha_alta_empl = $request->get('fecha_alta_empl');
-
-    
         $empleado->save();
         
         return redirect()->route("empleado.index")->with("status","Categoria creada satisfactoriamente");
