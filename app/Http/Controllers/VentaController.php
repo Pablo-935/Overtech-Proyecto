@@ -179,16 +179,5 @@ class VentaController extends Controller
         return view('panel.venta.lista_venta.grafico_ventas');
     }
     
-    
-    public function obtenerVentasTotales()
-    {
-        // Obtener la suma total de las ventas
-        $ventasTotales = Venta::sum('total_venta');
 
-        // Retornar los datos en un formato JSON
-        return response()->json([
-            'success' => true,
-            'total_ventas' => $ventasTotales
-        ]);
-    }
 }
