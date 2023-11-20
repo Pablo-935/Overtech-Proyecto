@@ -133,9 +133,8 @@ $('#seleccionar').click(function() {
 
             ' <td> <input type="number" class="form-control cantidad" id="cantidad_prod_venta" name="cantidad_prod_venta[]" value="1"></td>' +
 
-
             '<td>' + productoPrecioFormatted + '</td>' +
-            '<input type="hidden" name="sub_total_det_venta" class="form-control precio" data-precio="' + producto_calculo + '" value="' + producto_calculo + '">' +
+            ' <input type="hidden" name="sub_total_det_venta" class="form-control precio" data-precio="' + producto_calculo + '" value="' + producto_calculo + '">' +
 
             '<td>' + productoStock + '</td>' +
             '<input type="hidden" class="form-control stock" data-stock="' + productoStock + '" value="' + productoStock + '">' +
@@ -200,35 +199,6 @@ if (estadoCaja === 'Si') {
     $('#mensaje2').text('La caja está Cerrada');
     $('#mensaje2').removeClass('d-none');
 }
-
-
-
-
-
-
-// // Validar DNI
-// let form = document.getElementById("form");
-// let dni_venta = document.getElementById("dni_venta");
-
-// console.log("Script cargado");
-
-// form.addEventListener("submit", e => {
-//     e.preventDefault();
-
-//     console.log("Formulario enviado");
-
-//     if (dni_venta.value.trim() === "") {
-//         console.log("DNI vacío. Mostrar alerta.");
-//         alert("Por favor ingrese un DNI válido");
-//     } else {
-//         console.log("DNI válido. Enviar formulario.");
-//         // Deshabilitar el botón de envío para evitar el envío múltiple
-//         document.getElementById("venta_guardar").disabled = true;
-//         // Aquí puedes realizar otras acciones si el DNI no está vacío
-//         console.log("Acciones adicionales después de la validación");
-//         form.submit();
-//     }
-// });
 
 
 

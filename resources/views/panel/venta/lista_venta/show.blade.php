@@ -3,13 +3,7 @@
 @section('title', 'Ver Detalle Venta')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-    @endif --}}
+
 
 
     <div class="container-fluid">
