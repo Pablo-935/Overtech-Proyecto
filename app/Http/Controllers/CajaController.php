@@ -8,6 +8,7 @@ use App\Models\Empleado;
 use Illuminate\Validation\Rules\Can;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class CajaController extends Controller
@@ -102,4 +103,61 @@ class CajaController extends Controller
     {
         //
     }
+    private function obtenerIngresosPorFecha()
+    {
+        return Caja::select(DB::raw('DATE(created_at) as fecha'), DB::raw('SUM(total_ingresos_caja) as total'))
+            ->whereBetween('created_at', ['2023-01-01', '2023-12-31'])
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->pluck('total', 'fecha')
+            ->toArray();
+    }
+
+    private function obtenerEgresosPorFecha()
+    {
+        return Caja::select(DB::raw('DATE(created_at) as fecha'), DB::raw('SUM(total_egresos_caja) as total'))
+            ->whereBetween('created_at', ['1971-01-14', '2023-12-31'])
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->pluck('total', 'fecha')
+            ->toArray();
+    }
+
+    public function obtenerTotalesIngresosEgresos()
+    {
+        $totales = Caja::select(
+            DB::raw('SUM(total_ingresos_caja) as total_ingresos'),
+            DB::raw('SUM(total_egresos_caja) as total_egresos')
+        )
+        ->first();
+    
+        return $totales;
+    }
+    
+    public function graficoIngresosEgresos()
+    {
+        $totales = $this->obtenerTotalesIngresosEgresos();
+    
+        // Preparar los datos para la vista
+        $data = [
+            'labels' => ['Ingresos', 'Egresos'], // Etiquetas para el gráfico
+            'datasets' => [
+                [
+                    'label' => 'Ingresos',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'borderColor' => 'rgba(75, 192, 192, 1)',
+                    'borderWidth' => 1,
+                    'data' => [$totales->total_ingresos ?? 0],
+                ],
+                [
+                    'label' => 'Egresos',
+                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
+                    'borderColor' => 'rgba(255, 99, 132, 1)',
+                    'borderWidth' => 1,
+                    'data' => [$totales->total_egresos ?? 0],
+                ],
+            ], // Valores correspondientes a las etiquetas
+        ];
+        
+        return view('panel.caja.lista_caja.grafico_ingegre', compact('data'));
+        
+}
 }

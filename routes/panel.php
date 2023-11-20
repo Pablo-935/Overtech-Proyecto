@@ -33,5 +33,10 @@ Route::get('/graficos-ventas', [VentaController::class, 'graficoVentas'])->name
 ('graficos-ventas');
 Route::get('/ventas-totales', [VentaController::class, 'obtenerVentasTotales'])->name
 ('ventas-totales');
+Route::get('/grafico-ingegre', [CajaController::class, 'graficoIngresosegresos'])->name
+('grafico-ingegre');
+
+
+
 
 ?>
