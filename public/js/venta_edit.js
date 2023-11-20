@@ -154,5 +154,6 @@ $('.eliminar-fila').click(function () {
   // Oculta la fila después de realizar las operaciones
   fila.hide();
 });
+//
 
 });
