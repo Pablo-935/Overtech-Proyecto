@@ -136,8 +136,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <input id="filas" class="filas d-none" type="number" name="filas" value="">
-                        
+                        <input id="filas" class="filas d-none @error('filas') is-invalid @enderror" type="number" name="filas" value="">
+                        @error('filas')
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                        @enderror
                     </tbody>
                     
                 </table> 
