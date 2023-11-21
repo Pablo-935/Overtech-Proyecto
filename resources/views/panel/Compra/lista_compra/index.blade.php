@@ -47,13 +47,15 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-uppercase">Nº Compra</th>
-                            <th scope="col" class="text-uppercase">fecha</th>
-                            <th scope="col" class="text-uppercase">hora</th>
-                            <th scope="col" class="text-uppercase">monto</th>
-                            <th scope="col" class="text-uppercase">caja</th>
+                            <th scope="col" class="text-uppercase">Fecha</th>
+                            <th scope="col" class="text-uppercase">Hora</th>
+                            <th scope="col" class="text-uppercase">Operador</th>
+                            <th scope="col" class="text-uppercase">Detalle</th>
+                            <th scope="col" class="text-uppercase">Monto</th>
+                            <th scope="col" class="text-uppercase">Numero de Caja</th>
                             <th scope="col" class="text-uppercase">proveedor</th>
-                            <th scope="col" class="text-uppercase">requerimiento</th>
-                            <th scope="col" class="text-uppercase">opciones</th>
+                            <th scope="col" class="text-uppercase">Nº Requerimiento</th>
+                            {{-- <th scope="col" class="text-uppercase">Opciones</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -62,11 +64,13 @@
                             <td>{{ $compra->num_comp }}</td>
                             <td>{{ $compra->fecha_comp}}</td>
                             <td>{{ $compra->hora_comp }}</td>
+                            <td>{{ $compra->operador }}</td>
+                            <td>{{ $compra->detalle }}</td>
                             <td>{{ $compra->monto_comp }}</td>
                             <td>{{ $compra->caja->id }}</td>
                             <td>{{ $compra->proveedor->nombre_prov }}</td>
                             <td>{{ $compra->RequerimientoCompra->id }}</td>
-                            <td>
+                            {{-- <td>
                                 <div class="d-flex">
                                     <a href="{{ route('compra.show', $compra->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
@@ -82,7 +86,7 @@
                                         </button>
                                     </form>
                                 </div>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

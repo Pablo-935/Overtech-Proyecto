@@ -18,9 +18,9 @@
     <div class="row">
         <div class="col-12 mb-3">
             
-            <a href="{{ route('cotizacion.create') }}"  class="btn btn-success text-uppercase">
+            {{-- <a href="{{ route('cotizacion.create') }}"  class="btn btn-success text-uppercase">
                 Nueva Cotizacion
-            </a>
+            </a> --}}
         </div>
         
         @if (session('alert'))
@@ -74,13 +74,13 @@
                                         Editar
                                     </a>
 
-                                    <form action="{{ route('cotizacion.destroy', $cotizaciones->id) }}" method="POST" class="form_delete">
+                                    {{-- <form action="{{ route('cotizacion.destroy', $cotizaciones->id) }}" method="POST" class="form_delete">
                                         @csrf @method('DELETE')
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase ">
                                             Eliminar
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
                         </tr>

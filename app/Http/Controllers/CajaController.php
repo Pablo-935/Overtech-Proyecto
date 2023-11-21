@@ -41,12 +41,15 @@ class CajaController extends Controller
     {
         $ultimoRegistro = Caja::latest()->first();
 
+        $nuevoNumeroCaja = $ultimoRegistro ? $ultimoRegistro->numero_caja + 1 : 1;
+
+
         if ($ultimoRegistro && $ultimoRegistro->abierta_caja == 'Si') {
             return redirect()->route('caja.create')->with('alert3', 'No puede Abrir 2 veces caja, cierre la caja actual para abrir una nueva');
         }
     
         $caja = new Caja();
-        $caja->numero_caja = $request->get('numero_caja');
+        $caja->numero_caja = $nuevoNumeroCaja;
         $caja->saldo_inicial_caja = $request->get('saldo_inicial_caja');
         $caja->fecha_hs_aper_caja = $request->get('fecha_hs_aper_caja');
         $caja->total_ingresos_caja = $request->get('total_ingresos_caja');

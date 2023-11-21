@@ -58,8 +58,8 @@
                             <th scope="col" class="text-uppercase">Saldo Inicial</th>
                             <th scope="col" class="text-uppercase">Fecha Apertura</th>
                             <th scope="col" class="text-uppercase">Fecha Cierre</th>
-                            <th scope="col" class="text-uppercase">Total Ingresos</th>
-                            <th scope="col" class="text-uppercase">Total Egresos</th>
+                            {{-- <th scope="col" class="text-uppercase">Total Ingresos</th> --}}
+                            {{-- <th scope="col" class="text-uppercase">Total Egresos</th> --}}
                             <th scope="col" class="text-uppercase">Total Saldo</th>
                             <th scope="col" class="text-uppercase">Abierto</th>
                             <th scope="col" class="text-uppercase">Operador</th>
@@ -75,15 +75,15 @@
                             <td>{{ $cajas->saldo_inicial_caja }}</td>
                             <td>{{ $cajas->fecha_hs_aper_caja }}</td>
                             <td>{{ $cajas->fecha_hs_cier_caja }}</td>
-                            <td>{{ $cajas->total_ingresos_caja }}</td>
-                            <td>{{ $cajas->total_egresos_caja }}</td>
+                            {{-- <td>{{ $cajas->total_ingresos_caja }}</td> --}}
+                            {{-- <td>{{ $cajas->total_egresos_caja }}</td> --}}
                             <td>{{ $cajas->total_saldo_caja}}</td>
                             <td>{{ $cajas->abierta_caja }}</td>
                             <td>{{ $cajas->user->name}}</td>
                             <td>
                                 @if ($cajas->abierta_caja == "Si")
-                                    <a href="{{ route('caja.edit', $cajas->id) }}" class="btn btn-sm btn-danger text-white text-uppercase me-1">
-                                        Cerrar
+                                    <a href="{{ route('caja.edit', $cajas->id) }}" class="btn btn-sm btn-primary text-white text-uppercase me-1">
+                                        Detalles
                                     </a>
                                 @endif
                             </td>

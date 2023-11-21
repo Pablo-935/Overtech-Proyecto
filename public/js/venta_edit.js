@@ -1,4 +1,14 @@
+// $('#clientes').select2(
+//   {  
+//       language: 'es',
+//       theme: "classic",
+//       placeholder: "Clientes"
+// }
+// );
+
 window.addEventListener("DOMContentLoaded", function() {
+
+
   let estado = document.getElementById("estado");
   let facturar = document.getElementById("facturar");
   let anular_boton = document.getElementById("anular_boton");
@@ -35,37 +45,29 @@ window.addEventListener("DOMContentLoaded", function() {
         botonEliminar.classList.add("d-none");
     });
   }
-    // Función para actualizar los cálculos cuando cambia la cantidad
+    // actualizar los cálculos cuando cambia la cantidad
     function actualizarCalculos(fila) {
-        // Obtener elementos relevantes dentro de la fila
         let cantidadInput = fila.querySelector('input[name="cantidad_prod_venta[]"]');
         let subTotalCelda = fila.querySelector('td[name="sub_total"]');
         let subTotalInput = fila.querySelector('input[name="sub_total_det_venta[]"]');
         let precioUnitarioCelda = fila.querySelector('.precio-unitario');
     
-        // Obtener valores de cantidad y precio unitario
         let cantidad = parseFloat(cantidadInput.value.replace(/,/g, ''));
         let precioUnitarioInicial = parseFloat(precioUnitarioCelda.textContent.replace(/,/g, ''));
     
-        // Calcular el subtotal
         let subTotal = cantidad * precioUnitarioInicial;
     
-        // Mostrar el subtotal con formato visual
         subTotalCelda.textContent = subTotal.toLocaleString('es-US', { minimumFractionDigits: 2 });
     
-        // Actualizar el valor del input oculto para sub_total_det_venta con formato
         subTotalInput.value = subTotal.toLocaleString('en-US', { minimumFractionDigits: 2 }).replace(/,/g, '');
     
-        // Llamar a la función para actualizar el total
         actualizarTotal();
       }
     
-      // Función para actualizar el total
+      // actualizar el total
       function actualizarTotal() {
-        // Obtener todas las filas de la tabla
         let filas = document.querySelectorAll("table tbody tr");
     
-        // Inicializar total
         let total = 0;
     
         // Iterar sobre cada fila y sumar los subtotales
@@ -74,13 +76,11 @@ window.addEventListener("DOMContentLoaded", function() {
           total += parseFloat(subTotalInput.value.replace(/,/g, '')) || 0;
         });
     
-        // Mostrar el total con formato visual
         let totalElement = document.querySelector("h1[name='total'] b");
         totalElement.textContent = total.toLocaleString('es-US', { minimumFractionDigits: 2 });
         document.getElementById("total_venta").value = total;
       }
     
-      // Obtener todas las filas de la tabla
       let filas = document.querySelectorAll("table tbody tr");
     
       // Iterar sobre cada fila
@@ -89,24 +89,18 @@ window.addEventListener("DOMContentLoaded", function() {
         let cantidadInput = fila.querySelector('input[name="cantidad_prod_venta[]"]');
         let precioUnitarioCelda = fila.querySelector('.precio-unitario');
     
-        // Agregar un evento de cambio a cada campo de cantidad
         cantidadInput.addEventListener("keyup", function () {
-          // Llamar a la función para actualizar los cálculos cuando cambia la cantidad
           actualizarCalculos(fila);
         });
 
-        // Calcular y mostrar el precio unitario inicial al cargar la página
         let cantidadInicial = parseFloat(cantidadInput.value.replace(/,/g, ''));
         let subTotalInicial = parseFloat(fila.querySelector('input[name="sub_total_det_venta[]"]').value.replace(/,/g, ''));
     
-        // Calcular el precio unitario (evitar la división por cero)
         let precioUnitarioInicial = cantidadInicial !== 0 ? subTotalInicial / cantidadInicial : 0;
     
-        // Mostrar el precio unitario con formato visual en la celda correspondiente
         precioUnitarioCelda.textContent = precioUnitarioInicial.toLocaleString('es-US', { minimumFractionDigits: 2 });
       });
     
-      // Llamar a la función para calcular el total inicial
       actualizarTotal();
 
 
@@ -136,23 +130,20 @@ document.getElementById("anular_boton").addEventListener("click", function () {
 // ======ELIMINAR FILA Y SETEAR VALOR EN 0 =================
 
 
-// Agrega un controlador de clic para los botones Eliminar
 $('.eliminar-fila').click(function () {
-  // Encuentra la fila padre utilizando jQuery
   var fila = $(this).closest('tr');
 
-  // Encuentra el campo de cantidad dentro de la fila y establece su valor en 0
   let cantidadInput = fila.find('input[name^="cantidad_prod_venta"]');
   cantidadInput.val(0);
 
-  // Llama a la función para actualizar los cálculos cuando cambia la cantidad
-  actualizarCalculos(fila[0]);  // Pasa el objeto DOM puro en lugar de la versión jQuery
+  actualizarCalculos(fila[0]); 
 
-  // Llama a la función para actualizar el total
   actualizarTotal();
 
-  // Oculta la fila después de realizar las operaciones
   fila.hide();
 });
+
+
+
 
 });

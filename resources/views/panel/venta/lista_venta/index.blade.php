@@ -88,9 +88,9 @@
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
+                                    {{-- <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
                                         Ver
-                                    </a>
+                                    </a> --}}
                                     <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-primary text-white text-uppercase m-1">
                                         Facturar
                                     </a>

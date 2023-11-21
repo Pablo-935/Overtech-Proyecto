@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cotizacion;
 use Illuminate\Http\Request;
+use App\Http\Requests\CotizacionesValidacion;
 
 class CotizacionController extends Controller
 {
@@ -66,7 +67,7 @@ class CotizacionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(CotizacionesValidacion $request,  $id)
     {
         $validar = $request->validate([
             'nombre_cotizacion' => 'required|string|max:20',

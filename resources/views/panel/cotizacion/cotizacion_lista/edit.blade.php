@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Producto')
+@section('title', 'Ver Cotizacion')
 
 @section('content_header')
     
@@ -25,7 +25,8 @@
             
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nombre_cotizacion" aria-describedby="emailHelp" value="{{ old('nombre_cotizacion', $cotizacion->nombre_cotizacion) }}">
+                        <input type="hidden" class="form-control" name="nombre_cotizacion" aria-describedby="emailHelp" value="{{ old('nombre_cotizacion', $cotizacion->nombre_cotizacion) }}">
+                        <p>{{ old('nombre_cotizacion', $cotizacion->nombre_cotizacion) }}</p>
                       @error('nombre_cotizacion')
                       <p class="text-danger"> {{ $message }} </p>
                       @enderror
@@ -35,10 +36,11 @@
               
                       <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Valor</label>
-                        <input type="text" class="form-control" name="valor_cotizacion" aria-describedby="emailHelp" value="{{ old('valor_cotizacion', $cotizacion->valor_cotizacion) }}">
+                        <input type="text" class="form-control @error('valor_cotizacion') is-invalid @enderror" name="valor_cotizacion" aria-describedby="emailHelp" value="{{ old('valor_cotizacion', $cotizacion->valor_cotizacion) }}">
                         @error('valor_cotizacion')
-                        <p class="text-danger"> {{ $message }} </p>
+                        <div class="invalid-feedback"> {{ $message }} </div>
                       @enderror
+
                       </div>
               
             

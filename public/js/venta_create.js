@@ -165,7 +165,6 @@ $('#seleccionar').click(function() {
         boostat: 5,
         maxboostedstep: 10,
     }).on('change', function() {
-        // Llama a la función para actualizar el total cuando cambia la cantidad
         actualizarTotal();
     });
 });
@@ -177,11 +176,9 @@ $('#tablaProductos').on('click', '.eliminar-fila', function() {
     contar = contar - 1;
     console.log(contar);
     document.getElementById("contador").value = contar
-    // Actualizar el total al eliminar una fila
     actualizarTotal();
 });
 
-// Actualizar el total al cambiar la cantidad en cualquier fila
 $('#tablaProductos').on('input', '.cantidad', function() {
     actualizarTotal();
 });
