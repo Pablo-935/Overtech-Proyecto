@@ -1,6 +1,6 @@
 // $('#clientes').select2(
 //   {  
-//       language: 'es',
+//      language: 'es',
 //       theme: "classic",
 //       placeholder: "Clientes"
 // }
