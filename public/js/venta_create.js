@@ -23,6 +23,7 @@ window.addEventListener("DOMContentLoaded", function() {
 $('#producto_id').val(null).trigger('change');
 
 
+//Definir fecha
 let fechaActual = new Date();
 
 let anio = fechaActual.getFullYear();
@@ -31,7 +32,7 @@ let dia = fechaActual.getDate().toString().padStart(2, '0');
 
 let fechaFormateada = anio + '-' + mes + '-' + dia;
 
-
+// Definir hora
 let hora = fechaActual.getHours().toString().padStart(2, '0'); 
 let minuto = fechaActual.getMinutes().toString().padStart(2, '0'); 
 
@@ -41,15 +42,14 @@ console.log(fechaFormateada);
 
 console.log(horaFormateada);
 
+// carga de ambos en los inputs
 let hora_venta = document.getElementById("hora_venta").value = horaFormateada;
 let fecha_venta = document.getElementById("fecha_venta").value = fechaFormateada;
 
 
-//carga dinamica
 let contar = 0;
 
 // Función para calcular y actualizar el total
-
 function actualizarTotal() {
     let total = 0;
     let stockSuperado = false;
@@ -151,9 +151,9 @@ $('#seleccionar').click(function() {
         console.log(contar);
 
         document.getElementById("contador").value = contar
-
-        // Actualizar el total al agregar una fila
         actualizarTotal();
+        VerFilas()
+
     });
 
     $(".cantidad").last().TouchSpin({
@@ -177,6 +177,7 @@ $('#tablaProductos').on('click', '.eliminar-fila', function() {
     console.log(contar);
     document.getElementById("contador").value = contar
     actualizarTotal();
+    VerFilas();
 });
 
 $('#tablaProductos').on('input', '.cantidad', function() {
@@ -198,6 +199,22 @@ if (estadoCaja === 'Si') {
 }
 
 
+
+// comprobar filas
+let VerFilas = function () {
+    if (contar == 0) {
+        $('#venta_guardar').prop('disabled', true);
+        $('#mensaje2').text('Debe registrar almenos 1 compra');
+        $('#mensaje2').removeClass('d-none');
+    }
+    else{
+        $('#venta_guardar').prop('disabled', false);
+        $('#mensaje2').text('Debe registrar almenos 1 Venta');
+        $('#mensaje2').addClass('d-none');
+    }
+    
+}
+VerFilas()
 
 
 });

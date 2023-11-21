@@ -69,7 +69,7 @@
                             <td>{{ $venta->dni_venta}}</td>
                             <td>{{ $venta->fecha_venta }}</td>
                             <td>{{ $venta->hora_venta }}</td>
-                            <td>{{ $venta->total_venta }}</td>
+                            <td>{{number_format($venta->total_venta)  }}</td>
                             <td>
                                 @if ($venta->estado_venta === "Pendiente")
                                 <a class="btn btn-warning"  role="button">{{$venta->estado_venta}}</a>

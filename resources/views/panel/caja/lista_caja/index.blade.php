@@ -72,7 +72,7 @@
                         <tr>
                             <td>{{ $cajas->id }}</td>
                             <td>{{ $cajas->numero_caja}}</td>
-                            <td>{{ $cajas->saldo_inicial_caja }}</td>
+                            <td>{{number_format( $cajas->saldo_inicial_caja) }}</td>
                             <td>{{ $cajas->fecha_hs_aper_caja }}</td>
                             <td>{{ $cajas->fecha_hs_cier_caja }}</td>
                             {{-- <td>{{ $cajas->total_ingresos_caja }}</td> --}}

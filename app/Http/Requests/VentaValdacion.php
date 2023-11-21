@@ -23,6 +23,9 @@ class VentaValdacion extends FormRequest
     {
         return [
             'dni_venta' => ['required', 'numeric', 'min:100', 'max:999'],
+            'contador' => ['min:1'],
+
+            
         ];
     }
     
@@ -33,6 +36,8 @@ class VentaValdacion extends FormRequest
             'dni_venta.numeric' => 'El DNI debe ser un número',
             'dni_venta.min' => 'El DNI debe tener al menos 3 números',
             'dni_venta.max' => 'El DNI no puede tener más de 3 números',
+            'contador.min' => 'Debe registrar almenos 1 venta',
+
         ];
     }
     

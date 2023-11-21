@@ -4,6 +4,9 @@
 
 @section('content_header')
     
+@section('js')
+<script src="{{ asset('js/caja_edit.js') }}"></script>
+@endsection
 @stop
 
 @section('content')
@@ -40,7 +43,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-9">Saldo Inicial:</div>
-                                    <div class="col-3">$ {{ old('saldo_inicial_caja', $caja->saldo_inicial_caja) }}</div>
+                                    <div id="saldo_inicial_caja" class="col-3">${{ number_format(old('saldo_inicial_caja', $caja->saldo_inicial_caja), 2) }}</div>
                                 </div>
                             </li>
 
@@ -54,21 +57,21 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-9">Total de Ingresos:</div>
-                                    <div class="col-3">$ {{ old('total_ingresos_caja', $caja->total_ingresos_caja) }}</div>
+                                    <div id="total_ingresos_caja" class="col-3">$ {{ number_format(old('total_ingresos_caja', $caja->total_ingresos_caja) )}}</div>
                                 </div>
                             </li>
 
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-9">Total de Egresos:</div>
-                                    <div class="col-3">$ {{ old('total_ingresos_caja', $caja->total_egresos_caja) }}</div>
+                                    <div id="total_egresos_caja" class="col-3">$ {{ number_format(old('total_ingresos_caja', $caja->total_egresos_caja)) }}</div>
                                 </div>
                             </li>
 
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-9">Total Saldo Caja:</div>
-                                    <div class="col-3">$ {{ old('total_saldo_caja', $caja->total_saldo_caja) }}</div>
+                                    <div id="total_saldo_caja" class="col-3">$ {{ number_format(old('total_saldo_caja', $caja->total_saldo_caja)) }}</div>
                                 </div>
                             </li>
         
