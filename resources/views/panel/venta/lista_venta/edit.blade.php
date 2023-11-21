@@ -172,8 +172,8 @@
 
         <div class="row my-2">
             <div class="col-1"><a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a></div>
-            <div class="col-1"><button type="submit" id="facturar" class="btn btn-success btn-sm ">Facturar</button></div>
-            <div class="col-1"><button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger btn-sm">Anular</button></div>
+            <button type="submit" id="facturar" class="btn btn-success btn-sm ">Facturar</button>
+            <button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger btn-sm">Anular</button>
             
 
         </form>

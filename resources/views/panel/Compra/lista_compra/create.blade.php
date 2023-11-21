@@ -136,7 +136,6 @@
     <div class="tabla-container">
 
     </div>
-
     
                     <div class="row mt-4">
                         <div class="col-9"></div>
@@ -152,7 +151,7 @@
                     </div>
 
 
-                    <button type="submit" id="venta_guardar" class="btn btn-success btn-sm mt-3">Guardar Compras</button>
+                    <button type="submit" id="compra_guardar" class="btn btn-success btn-sm mt-3">Guardar Compras</button>
                     <div class="d-none text-danger" id="mensaje"></div>
                     <div class="d-none text-danger" id="mensaje2"></div>
 

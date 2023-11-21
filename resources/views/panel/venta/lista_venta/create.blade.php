@@ -183,7 +183,7 @@
                                 <input type="hidden" class="form-control mb-1" name="total_venta" id="total_venta" value="{{ old('total_venta', 0) }}">
                             </div>
 
-                            <input type="hidden" id="contador" name="contador">
+                            <input type="hidden" @error('contador') is-invalid @enderror id="contador" name="contador">
                         </div>
                     </div>
 
@@ -191,6 +191,9 @@
                     <button type="submit" id="venta_guardar" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
                     <div class="d-none text-danger" id="mensaje"></div>
                     <div class="d-none text-danger" id="mensaje2"></div>
+                    @error('contador')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
 
                 </form>
                 
