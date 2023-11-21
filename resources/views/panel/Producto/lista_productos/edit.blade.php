@@ -67,7 +67,7 @@
                 <div class="row mb-3">
                 <div class="col-md-12">
                 <label for="descripcion_prod" class="form-label">Descripción:</label>
-                    <div id="editor" value="{{!! old('descripcion_prod', $productos->descripcion_prod) !!}}"></div>
+                    <div id="editor" value="{{old('descripcion_prod', $productos->descripcion_prod)}}"></div>
                     <textarea name="descripcion_prod" id="descripcion_prod" style="display: none;"></textarea>
                 </div>
                 </div>

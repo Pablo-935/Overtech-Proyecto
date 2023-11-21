@@ -369,10 +369,17 @@ return [
         ],
 
         [
-            'text' => 'Lista de Requerimientos de Compras',
+            'text' => 'Requerimientos de Compras',
             'route' => 'requerimiento.index',
             'icon' => 'fa fa-clipboard',
         ],
+
+        [
+            'text' => 'Mails',
+            'route' => 'mails.form',
+            'icon' => 'fas fa-envelope',
+        ],
+
 
         [
             'text' => 'Lista de Compras',

@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\DetalleRequerCompController;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CajaController;
@@ -43,7 +44,10 @@ Route::get('/graficos-ventas', [VentaController::class, 'graficoVentas'])->name(
 Route::delete('/detalleRequerimientos/{id}', [DetalleRequerCompController::class, 'destroy'])->name('detalleRequerimiento.destroy');
 // Route::resource('/detalleRequerimientos', DetalleRequerCompController::class)->names('detalleRequerimiento');
 
-
 Route::resource('/compras', CompraController::class)->names('compra');
+
+// Email
+Route::get('/mails/form', [MailController::class, 'index'])->name('mails.form');
+Route::post('/mails/send-mail', [MailController::class, 'sendMail'])->name('mails.send-mail');
 
 ?>
