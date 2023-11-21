@@ -51,14 +51,12 @@
 $(function() {
     const barChart = document.getElementById('barChart').getContext('2d');
 
-    // Capturar el envío del formulario
     $('#dateForm').submit(function(event) {
-        event.preventDefault(); // Prevenir el envío del formulario por defecto
+        event.preventDefault();
 
         const startDate = $('#startDate').val();
         const endDate = $('#endDate').val();
 
-        // Petición AJAX con las fechas seleccionadas
         $.get("{{ route('graficos-ventas') }}", { fecha_inicio: startDate, fecha_fin: endDate }, function(response) {
             response = JSON.parse(response);
 
@@ -66,11 +64,10 @@ $(function() {
                 let labels = response.data[0];
                 let counts = response.data[1];
 
-                // Agregar un valor falso con 0 al principio de los datos
+                // valor falso 0 al inicio
                 labels.unshift('');
                 counts.unshift(0);
 
-                // Configuración del gráfico de ventas por día (BarChart)
                 const configChart = {
                     type: 'bar',
                     data: {
@@ -94,7 +91,6 @@ $(function() {
                     }
                 };
 
-                // Crear el gráfico utilizando Chart.js
                 new Chart(barChart, configChart);
 
             } else {

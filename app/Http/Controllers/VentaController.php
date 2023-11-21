@@ -87,7 +87,6 @@ class VentaController extends Controller
         $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         
 
-        // $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
         return view('panel.venta.lista_venta.show', compact('venta', 'detalleVenta'));
     }
 
@@ -129,12 +128,9 @@ public function update(Request $request, $id)
 
 
     $totalVenta = $venta->total_venta;
-    // Obtener la caja abierta
     $cajaAbierta = Caja::where('abierta_caja', 'Si')->first();
 
-    // Verificar si se encontró una caja abierta
     if ($cajaAbierta) {
-        // Actualizar el total de ingresos en la caja
         $cajaAbierta->total_ingresos_caja += $totalVenta;
         $cajaAbierta->total_saldo_caja = $cajaAbierta->saldo_inicial_caja + $cajaAbierta->total_ingresos_caja - $cajaAbierta->total_egresos_caja;
         $cajaAbierta->save();
@@ -150,10 +146,8 @@ public function update(Request $request, $id)
                 'sub_total_det_venta' => $request->input('sub_total_det_venta')[$i]
             ]);
     
-        // Obtener el producto asociado al detalle de venta
         $producto = Producto::findOrFail($request->input('producto_id')[$i]);
     
-        // Actualizar el stock del producto
         $nuevoStock = $producto->stock_actual_prod - $request->input('cantidad_prod_venta')[$i];
         $producto->stock_actual_prod = max(0, $nuevoStock);
         $producto->save();
@@ -183,18 +177,13 @@ public function anular(Request $request, $id)
 
     $totalVenta = $venta->total_venta;
 
-// Obtener la caja abierta
 $cajaAbierta = Caja::where('abierta_caja', 'Si')->first();
 
-// Verificar si se encontró una caja abierta
 if ($cajaAbierta) {
-    // Sumar el total de la venta a los egresos en la caja
     $cajaAbierta->total_egresos_caja += $totalVenta;
 
-    // Actualizar el total del saldo en la caja
     $cajaAbierta->total_saldo_caja = $cajaAbierta->saldo_inicial_caja + $cajaAbierta->total_ingresos_caja - $cajaAbierta->total_egresos_caja;
     
-    // Guardar los cambios
     $cajaAbierta->save();
 }
 
@@ -211,14 +200,11 @@ if ($cajaAbierta) {
                 'sub_total_det_venta' => $request->input('sub_total_det_venta')[$i]
             ]);
     
-        // Obtener el producto asociado al detalle de venta
         $producto = Producto::findOrFail($request->input('producto_id')[$i]);
     
         if ($cantidad == 0) {
-            // Eliminar el producto del detalle de venta si la cantidad es 0
             $detalleVenta->delete();
         } else {
-            // Incrementar o decrementar el stock del producto según la cantidad
             $nuevoStock = $producto->stock_actual_prod + $cantidad;
             $producto->stock_actual_prod = $nuevoStock;
             $producto->save();
@@ -243,16 +229,13 @@ if ($cajaAbierta) {
 
     public function graficoVentas(Request $request)
     {
-        // Si es una petición AJAX
         if($request->ajax()) {
             $labels = [];
             $counts = [];
             
-            // Obtener las fechas de inicio y fin desde la solicitud
             $fechaInicio = $request->input('fecha_inicio');
             $fechaFin = $request->input('fecha_fin');
     
-            // Ajustar la lógica para obtener los datos de ventas por el rango de fechas
             $ventasPorDia = DB::table('ventas')
                 ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
                 ->whereBetween('fecha_venta', [$fechaInicio, $fechaFin])

@@ -49,7 +49,6 @@ class ProductoController extends Controller
         $producto->imagen_prod = '';
 
     
-        // Resto de tus atributos
     
         if ($request->hasFile('imagen_prod')) {
             $file = $request->file('imagen_prod');
@@ -57,7 +56,6 @@ class ProductoController extends Controller
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSuccess = $request->file('imagen_prod')->move($destinationPath, $filename);
     
-            // Guarda la ruta relativa en la base de datos (sin la carpeta public)
             $producto->imagen_prod = $destinationPath . $filename;
         }
     
@@ -80,7 +78,6 @@ class ProductoController extends Controller
          $producto = Producto::findOrFail($id);
          $categoria = CategoriaProducto::find($producto->categoria_id);
      
-         // HtmlString sirve para evitar que se escapen las etiquetas HTML
          $descripcion = new HtmlString(strip_tags($producto->descripcion_prod));
      
          return view('panel.Producto.lista_productos.show', compact('producto', 'categoria', 'descripcion'));
@@ -93,7 +90,7 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $productos = Producto::findOrFail($id);
-        $categorias = CategoriaProducto::all(); // Obtén las categorías aquí
+        $categorias = CategoriaProducto::all();
         return view('panel.Producto.lista_productos.edit', compact('productos', 'categorias'));
     }
     
