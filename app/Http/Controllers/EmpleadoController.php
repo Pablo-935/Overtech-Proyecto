@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmpleadoValidacion;
 use App\Models\Empleado;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class EmpleadoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmpleadoValidacion $request)
     {
     
         $empleado = new Empleado();

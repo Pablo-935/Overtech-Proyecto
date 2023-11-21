@@ -46,14 +46,12 @@
 $(function() {
     const lineChart = document.getElementById('lineChart').getContext('2d');
 
-    // Capturar el envío del formulario y realizar petición AJAX similar al gráfico de ventas
     $('#dateForm').submit(function(event) {
-        event.preventDefault(); // Prevenir el envío del formulario por defecto
+        event.preventDefault(); 
 
         const startDate = $('#startDate').val();
         const endDate = $('#endDate').val();
 
-        // Petición AJAX para obtener los datos de ingresos y egresos
         $.get("{{ route('grafico-ingegre') }}", { fecha_inicio: startDate, fecha_fin: endDate }, function(response) {
             response = JSON.parse(response);
 
@@ -62,7 +60,6 @@ $(function() {
                 let ingresos = response.data[1];
                 let egresos = response.data[2];
 
-                // Configuración del gráfico de ingresos y egresos (LineChart)
                 const configChart = {
                     type: 'line',
                     data: {

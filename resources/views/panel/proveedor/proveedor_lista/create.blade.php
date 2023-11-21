@@ -25,45 +25,43 @@
             
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" name="nombre_prov" aria-describedby="emailHelp" value="{{ old('nombre_prov') }}">
-                    @error('nombre_prov')
-                    <p class="text-danger"> {{ $message }} </p>
-                    @enderror
+                      <input type="text" class="form-control @error('nombre_prov') is-invalid @enderror" name="nombre_prov" aria-describedby="emailHelp" value="{{ old('nombre_prov') }}">
+                        @error('nombre_prov')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
             
             
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                      <input type="text" class="form-control" name="telefono_prov" aria-describedby="emailHelp" value="{{ old('telefono_prov') }}">
-                      @error('telefono_prov')
-                      <p class="text-danger"> {{ $message }} </p>
-                    @enderror
+                      <input type="text" class="form-control @error('telefono_prov') is-invalid @enderror" name="telefono_prov" aria-describedby="emailHelp" value="{{ old('telefono_prov') }}">
+                        @error('telefono_prov')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
             
             
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Direccion</label>
-                        <input type="text" class="form-control" name="direccion_prov" aria-describedby="emailHelp" value="{{ old('direccion_prov') }}">
+                        <input type="text" class="form-control @error('direccion_prov') is-invalid @enderror" name="direccion_prov" aria-describedby="emailHelp" value="{{ old('direccion_prov') }}">
                         @error('direccion_prov')
-                        <p class="text-danger"> {{ $message }} </p>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
             
-            
-            
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Ubicacion</label>
-                        <input type="text" class="form-control" name="ubicacion_prov" aria-describedby="emailHelp" value="{{ old('ubicacion_prov') }}">
+                        <input type="text" class="form-control @error('ubicacion_prov') is-invalid @enderror" name="ubicacion_prov" aria-describedby="emailHelp" value="{{ old('ubicacion_prov') }}">
                         @error('ubicacion_prov')
-                        <p class="text-danger"> {{ $message }} </p>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
             
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Correo</label>
-                        <input type="text" class="form-control" name="correo_prov" aria-describedby="emailHelp" value="{{ old('correo_prov') }}">
+                        <input type="text" class="form-control @error('correo_prov') is-invalid @enderror" name="correo_prov" aria-describedby="emailHelp" value="{{ old('correo_prov') }}">
                         @error('correo_prov')
-                        <p class="text-danger"> {{ $message }} </p>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
             

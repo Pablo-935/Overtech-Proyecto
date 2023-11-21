@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaValidacion;
 use App\Models\CategoriaProducto;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class CategoriaProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoriaValidacion $request)
     {   
         $categoria = new CategoriaProducto;
 

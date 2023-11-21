@@ -21,10 +21,16 @@
                             @csrf 
 
                             <label for="nombre_cat" class="form-label mb-1">Nombre: </label>
-                            <input type="text" class="form-control mb-1" name="nombre_cat" value="{{old('nombre_cat')}}">
+                            <input type="text" class="form-control mb-1 @error('nombre_cat') is-invalid @enderror" name="nombre_cat" value="{{old('nombre_cat')}}">
+                                    @error('nombre_cat')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
 
                             <label for="descripcion_cat" class="form-label mb-1">Descripción: </label> <br>
-                            <textarea name="descripcion_cat" class="form-control mb-1" cols="30" rows="10">{{old('descripcion_cat')}} </textarea>
+                            <textarea name="descripcion_cat" class="form-control mb-1 @error('descripcion_cat') is-invalid @enderror" cols="30" rows="10">{{old('descripcion_cat')}} </textarea>
+                                    @error('descripcion_cat')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
 
                             <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Categoría</button>
                             <a class="btn btn-warning btn-sm mt-3" href="{{route('categoria.index')}}" role="button">Volver</a>      
