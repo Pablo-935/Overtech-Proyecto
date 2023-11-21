@@ -12,8 +12,16 @@ window.addEventListener("DOMContentLoaded", function() {
         
     let fecha_caja = document.getElementById("fecha_hs_aper_caja").value = fechaFormateada;
     
-    
-    
+    let saldo_inicial = document.getElementById("saldo_inicial");
+    let saldo_total = document.getElementById("saldo_total");
+
+
+    let calcular = function () {
+        saldo_total.value = saldo_inicial.value;
+    }
+
+    saldo_inicial.addEventListener("keyup", calcular )
+
     
     });
     

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VentaValdacion extends FormRequest
+class CotizacionesValidacion extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,15 @@ class VentaValdacion extends FormRequest
     public function rules(): array
     {
         return [
-            'dni_venta' => ['required', 'numeric', 'min:100', 'max:999'],
+            'valor_cotizacion' => 'required',
         ];
     }
     
     public function messages()
     {
         return [
-            'dni_venta.required' => 'El DNI es obligatorio y debe tener solo 3 numeros',
-            'dni_venta.numeric' => 'El DNI debe ser un número',
-            'dni_venta.min' => 'El DNI debe tener al menos 3 números',
-            'dni_venta.max' => 'El DNI no puede tener más de 3 números',
+            'valor_cotizacion.required' => 'El campo no puede quedar Vacio',
+            
         ];
     }
-    
 }

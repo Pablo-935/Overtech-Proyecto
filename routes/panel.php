@@ -40,6 +40,8 @@ Route::get('/productos-bajos-stock', [RequerimientoCompraController::class, 'car
 Route::get('/grafico-ingegre', [CajaController::class, 'GraficoIngresosegresos'])->name('grafico-ingegre');
 Route::get('/graficos-ventas', [VentaController::class, 'graficoVentas'])->name('graficos-ventas');
 
+Route::get('/anular', [VentaController::class, 'anular'])->name('anular');
+
 
 Route::delete('/detalleRequerimientos/{id}', [DetalleRequerCompController::class, 'destroy'])->name('detalleRequerimiento.destroy');
 // Route::resource('/detalleRequerimientos', DetalleRequerCompController::class)->names('detalleRequerimiento');
