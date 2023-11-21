@@ -25,14 +25,16 @@ class RequerimientoCompraValidacion extends FormRequest
             'fecha_requer_comp' => 'required',
             'estado_requer_comp' => 'required',
             'usuario_id' => 'required',
+            'filas' => 'required'
         ];
     }
 
     public function messages():array{
         return [
             'fecha_requer_comp.required' => 'La Fecha es Requerida',
-            'estado_requer_comp' => 'El Estado es Requerido',
-            'usuario_id' => 'El Usuario es Requerido',
+            'estado_requer_comp.required' => 'El Estado es Requerido',
+            'usuario_id.required' => 'El Usuario es Requerido',
+            'filas.required' => 'Debe haber al menos una fila'
         ];
     }
 }

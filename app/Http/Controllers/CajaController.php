@@ -108,17 +108,14 @@ class CajaController extends Controller
     }
     public function graficoIngresosEgresos(Request $request)
     {
-        // Si es una petición AJAX
         if($request->ajax()) {
             $labels = [];
             $ingresos = [];
             $egresos = [];
             
-            // Obtener las fechas de inicio y fin desde la solicitud
             $fechaInicio = $request->input('fecha_inicio');
             $fechaFin = $request->input('fecha_fin');
     
-            // Obtener los ingresos y egresos por día en el rango de fechas
             $movimientos = DB::table('cajas')
                 ->select(
                     DB::raw('DATE(fecha_hs_aper_caja) as fecha'),

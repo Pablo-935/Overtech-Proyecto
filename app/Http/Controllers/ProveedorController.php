@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProveedorValidacion;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class ProveedorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProveedorValidacion $request)
     {
         $validar = $request->validate([
             'nombre_prov' => 'required|string|max:20',

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('ubicacion_prov', 100)->nullable();
             $table->string('correo_prov', 100);
             $table->timestamps();
+            // Añadiendo Soft Deletes
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +28,13 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+    {   
+         // Quitar Soft Deletes
+         Schema::table('proveedores', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Esto elimina la columna "deleted_at" de la tabla
+        });
         Schema::dropIfExists('proveedores');
+
+        
     }
 };

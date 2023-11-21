@@ -291,20 +291,23 @@ return [
 
     'menu' => [
         [
-            'text'       => 'Lista de Cotizaciones',
-            'route'        => 'cotizacion.index',
-            'icon'        => 'fas fa-money-bill-wave',
+            'text' => 'Lista de Cotizaciones',
+            'route' => 'cotizacion.index',
+            'icon' => 'fas fa-money-bill-wave',
+            'can' => 'lista_cotizaciones'
         ],
         [
             'text'       => 'Lista de Proveedores',
             'route'        => 'proveedor.index',
             'icon'        => 'fas fa-ship',
+            'can' => 'lista_proveedores'
         ],
 
         [
             'text' => 'Lista de Clientes',
             'route' => 'cliente.index',
             'icon' => 'fas fa-user-tie', 
+            'can' => 'lista_clientes'
 
         ],
 
@@ -314,6 +317,7 @@ return [
             'text' => 'Lista de Categorias',
             'route' => 'categoria.index',
             'icon' => 'fas fa-folder', 
+            'can' => 'lista_categorias'
 
         ],
 
@@ -321,6 +325,7 @@ return [
             'text' => 'Lista de Productos',
             'route' => 'producto.index',
             'icon' => 'fas fa-cube', 
+            'can' => 'lista_productos'
 
         ],
 
@@ -328,6 +333,7 @@ return [
             'text' => 'Lista de Empleados',
             'route' => 'empleado.index',
             'icon' => 'fas fa-briefcase',
+            'can' => 'lista_empleados'
         ],
 
 
@@ -335,6 +341,7 @@ return [
         [
             'text' => 'Ventas',
             'icon' => 'fas fa-shopping-cart',
+            'can' => 'lista_ventas',
             'submenu' => [
                 [
                     'text' => 'Nueva Venta',
@@ -354,6 +361,7 @@ return [
         [
             'text' => 'Caja',
             'icon' => 'fas fa-cash-register',
+            'can' => 'lista_cajas',
             'submenu' => [
                 [
                     'text' => 'Abrir Caja',
@@ -369,15 +377,25 @@ return [
         ],
 
         [
-            'text' => 'Lista de Requerimientos de Compras',
+            'text' => 'Requerimientos de Compras',
             'route' => 'requerimiento.index',
             'icon' => 'fa fa-clipboard',
+            'can' => 'lista_requerimientos'
         ],
+
+        [
+            'text' => 'Mails',
+            'route' => 'mails.form',
+            'icon' => 'fas fa-envelope',
+            'can' => 'lista_mails'
+        ],
+
 
         [
             'text' => 'Lista de Compras',
             'route' => 'compra.index',
             'icon' => 'fa fa-store',
+            'can' => 'lista_compras'
         ],
 
     ],

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nombre_cat', 60);
             $table->text('descripcion_cat'); 
             $table->timestamps();
+            // Añadiendo Soft Deletes
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +26,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('categoria_productos', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Esto elimina la columna "deleted_at" de la tabla
+        });
+        
         Schema::dropIfExists('categoria_productos');
+          // Quitar Soft Deletes
+         
     }
 };

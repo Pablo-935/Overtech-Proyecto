@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {   
@@ -16,4 +17,5 @@ class Cliente extends Model
         return $this->hasMany(Venta::class, 'cliente_id');
     }
     use HasFactory;
+    use SoftDeletes;
 }

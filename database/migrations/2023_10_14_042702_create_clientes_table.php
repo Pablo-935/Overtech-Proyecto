@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('nombre_cli', 60);
             $table->string('celular_cli')->nullable();
             $table->timestamps();
+
+            // Añadiendo Soft Deletes
+            $table->softDeletes();
         });
     }
 
@@ -25,6 +28,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+         // Quitar Soft Deletes
+         Schema::table('clientes', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // Esto elimina la columna "deleted_at" de la tabla
+        });
+        
         Schema::dropIfExists('clientes');
+
+        
     }
 };
