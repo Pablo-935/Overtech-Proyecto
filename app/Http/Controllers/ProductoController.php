@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\ProductoValidacion;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\CategoriaProducto;
@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use App\Exports\ProductoExportExcel;
 use Maatwebsite\Excel\Facades\Excel;
+
+
 
 class ProductoController extends Controller
 {
@@ -33,7 +35,7 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductoValidacion $request)
     {
         $producto = new Producto;
     
