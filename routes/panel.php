@@ -31,7 +31,7 @@ Route::resource('/empleados', EmpleadoController::class)->names('empleado')->mid
 Route::resource('/caja', CajaController::class)->names('caja')->middleware('can:lista_cajas');
 
 Route::resource('/ventas', VentaController::class)->names('venta')->middleware('can:lista_ventas');
-Route::get('/anular', [VentaController::class, 'anular'])->name('anular');
+Route::put('/anular/{id}', [VentaController::class, 'anular'])->name('anular');
 
 
 Route::resource('/requerimientos', RequerimientoCompraController::class)->names('requerimiento')->middleware('can:lista_requerimientos');
