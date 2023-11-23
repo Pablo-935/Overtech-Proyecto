@@ -70,9 +70,6 @@ $(function() {
                 let labels = response.data[0];
                 let counts = response.data[1];
 
-                labels.unshift('');
-                counts.unshift(0);
-
                 const configChart = {
                     type: 'bar',
                     data: {
