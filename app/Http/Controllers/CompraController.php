@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\Producto;
 use App\Models\RequerimientoCompra;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Caja;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Proveedor;
+
+
 
 class CompraController extends Controller
 {
@@ -30,8 +33,9 @@ class CompraController extends Controller
         $user = Auth::user();
         $cajas = Caja::all();
         $proveedores = Proveedor::all();
+        $requerimientos = RequerimientoCompra::all();
 
-        return view('panel.compra.lista_compra.create', compact('user', 'cajas', 'proveedores'));
+        return view('panel.compra.lista_compra.create', compact('user', 'cajas', 'proveedores', 'requerimientos'));
 
     }
 
@@ -39,46 +43,42 @@ class CompraController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $fila = $request->get('contador');
-    
+    {   
+        
+        
         // Obtener el num_comp de la última compra
         $ultimaCompra = Compra::latest('num_comp')->first();
         $ultimoNumComp = $ultimaCompra ? $ultimaCompra->num_comp : 0;
     
-        // Inicializa el total de monto_comp en 0
-        $totalMontoComp = 0;
+
     
-        for ($i = 0; $i < $fila; $i++) {
-            $compra = new Compra();
-            $compra->num_comp = $ultimoNumComp + 1; // Sumar 1 al último num_comp
-            $compra->monto_comp = $request->get('monto_comp')[$i];
-            $compra->detalle = $request->get('detalle')[$i];
-            $compra->requerimiento_compra_id = $request->get('requerimiento_compra_id')[$i];
-            $compra->fecha_comp = $request->get('fecha_comp')[$i];
-            $compra->hora_comp = $request->get('hora_comp')[$i];
-            $compra->caja_id = $request->get('caja_id')[$i];
-            $compra->proveedor_id = $request->get('proveedor_id')[$i];
-            $compra->operador = $request->get('operador')[$i];
-    
-            $compra->save();
-    
-            // Suma el monto_comp al total
-            $totalMontoComp += $compra->monto_comp;
+        $compra = new Compra();
+        $compra->num_comp = $ultimoNumComp + 1;
+        $compra->fecha_comp = $request->get('fecha_comp');
+        $compra->hora_comp = $request->get('hora_comp');
+        $compra->proveedor_id = $request->get('proveedor_id');
+        $compra->operador = $request->get('operador');
+        $compra->caja_id = $request->get('caja');
+        $compra->monto_comp = $request->get('monto_comp');
+        $compra->detalle = $request->get('detalle');
+        $compra->requerimiento_compra_id = $request->input('requerimiento_compra_id');
+        
+        $compra->save();
+
+        $filas = $request->get('filas');
+        $producto_id = $request->input('producto_id');
+        $cantidad_requer_prod = $request->input('cantidad_requer_prod');
+        
+        for ($i = 0; $i < $filas; $i++) {
+            $productoId = $producto_id[$i];
+            $cantidad = $cantidad_requer_prod[$i];
+
+            $producto = Producto::find($productoId);
+            $producto->stock_actual_prod += $cantidad;
+            $producto->update();
         }
-    
-        // Actualiza la caja solo si hay una caja abierta
-        $cajaAbierta = Caja::where('abierta_caja', 'Si')->first();
-        if ($cajaAbierta) {
-            // Suma el total de monto_comp a los egresos en la caja
-            $cajaAbierta->total_egresos_caja += $totalMontoComp;
-    
-            // Actualiza el total del saldo en la caja
-            $cajaAbierta->total_saldo_caja = $cajaAbierta->saldo_inicial_caja + $cajaAbierta->total_ingresos_caja - $cajaAbierta->total_egresos_caja;
-            
-            // Guarda los cambios
-            $cajaAbierta->save();
-        }
+
+        return redirect()->route("compra.index");
     }
     
     

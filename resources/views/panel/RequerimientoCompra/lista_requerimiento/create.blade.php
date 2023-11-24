@@ -249,6 +249,11 @@
                 const stock = $(this).data('stock');
                 
 
+                if (filaYaAgregada(id)) {
+                    alert('Este producto ya ha sido agregado');
+                    return;
+                }
+
                 let tabla = document.getElementById("miTabla");
                 let row = tabla.insertRow(tabla.rows.length);
 
@@ -290,6 +295,18 @@
 
                 
             });
+
+            function filaYaAgregada(id) {
+                let tabla = document.getElementById("miTabla");
+                for (let i = 1; i < tabla.rows.length; i++) { 
+                    let fila = tabla.rows[i];
+                    let idFila = fila.querySelector('[name="producto_id[]"]').value;
+                    if (idFila == id) {
+                        return true; 
+                    }
+                }
+                return false; 
+            }
         
         
             $(document).on('click', '.eliminarFila', function() {
@@ -413,5 +430,5 @@
         //     document.getElementById(uniqueStockId).value = stock;
         //     }
     </script>
-@endsection
+@endsection 
 

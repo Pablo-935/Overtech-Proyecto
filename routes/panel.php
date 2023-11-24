@@ -21,7 +21,10 @@ Route::get('/', function () {
 });
 Route::resource('/clientes', ClienteController::class)->names('cliente')->middleware('can:lista_clientes');
 Route::resource('/categorias', CategoriaProductoController::class)->names('categoria')->middleware('can:lista_categorias');
+
 Route::resource('/productos', ProductoController::class)->names('producto')->middleware('can:lista_productos');
+Route::get('/exportar-productos-excel', [ProductoController::class, 'exportarProductosExcel'])->name('exportar-productos-excel');
+
 Route::resource('/cotizacion', CotizacionController::class)->names('cotizacion')->middleware('can:lista_cotizaciones');
 Route::resource('/proveedor', ProveedorController::class)->names('proveedor')->middleware('can:lista_proveedores');
 
@@ -36,15 +39,20 @@ Route::get('/anular', [VentaController::class, 'anular'])->name('anular');
 
 Route::resource('/requerimientos', RequerimientoCompraController::class)->names('requerimiento')->middleware('can:lista_requerimientos');
 Route::get('/exportar-requerimientos-pdf/{id}', [RequerimientoCompraController::class, 'exportarRequerimientoPDF'])->name('exportar-requerimientos-pdf');
-Route::get('/exportar-productos-excel', [ProductoController::class, 'exportarProductosExcel'])->name('exportar-productos-excel');
 Route::get('/productos-bajos-stock', [RequerimientoCompraController::class, 'cargarProductosBajoStock'])->name('productos-bajos-stock');
 Route::delete('/detalleRequerimientos/{id}', [DetalleRequerCompController::class, 'destroy'])->name('detalleRequerimiento.destroy');
+
+Route::resource('/compras', CompraController::class)->names('compra')->middleware('can:lista_compras');
+Route::get('/compra-requerimiento/{id}', [RequerimientoCompraController::class, 'cargarRequerimientoCompra'])->name('compra-requerimiento');
+
+
+
 
 Route::get('/grafico-ingegre', [CajaController::class, 'GraficoIngresosegresos'])->name('grafico-ingegre');
 Route::get('/graficos-ventas', [VentaController::class, 'graficoVentas'])->name('graficos-ventas');
 
 
-Route::resource('/compras', CompraController::class)->names('compra')->middleware('can:lista_compras');;
+
 
 // Email
 Route::get('/mails/form', [MailController::class, 'index'])->name('mails.form')->middleware('can:lista_mails');

@@ -147,7 +147,6 @@ class RequerimientoCompraController extends Controller
         $requerimiento->load(['DetalleRequerCompra']); 
 
         // $detalleRequerimiento = DetalleRequerComp::where('requerimiento_compra_id', $id)->get();
-
         // $pdf = PDF::loadView('panel.RequerimientoCompra.lista_requerimiento.pdf', compact('requerimiento', 'detalleRequerimiento'));
         $pdf = PDF::loadView('panel.RequerimientoCompra.lista_requerimiento.pdf', compact('requerimiento'));
         $pdf->render();
@@ -171,7 +170,24 @@ class RequerimientoCompraController extends Controller
 
             // $productosBajos->load(['categoria']);
             return response()->json($productos_bajo_stock);
-        }
-        
+        }     
+    }
+
+    public function cargarRequerimientoCompra($id){
+        // if($request->ajax()){
+            
+        //     // $requerimientoCompra = RequerimientoCompra::findOrFail($id);
+        //     // $requerimientoCompra->load(['DetalleRequerCompra']); 
+
+        //     $requerimientoCompra = RequerimientoCompra::findOrFail($id);
+        //     $detalleRequerimiento = DetalleRequerComp::where('requerimiento_compra_id', $id)->get();
+           
+        //     return response()->json($requerimientoCompra, $detalleRequerimiento);
+        // }
+        $requerimientoCompra = RequerimientoCompra::with('DetalleRequerCompra.producto')->findOrFail($id);
+        $detalles = $requerimientoCompra->DetalleRequerCompra;
+
+        return response()->json(['requerimiento' => $requerimientoCompra, 'detalles' => $detalles]);
+
     }
 }
