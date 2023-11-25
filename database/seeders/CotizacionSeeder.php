@@ -12,6 +12,14 @@ class CotizacionSeeder extends Seeder
      */
     public function run(): void
     {
-        Cotizacion::factory()->count(5)->create();
-    }
+        Cotizacion::create([
+            'nombre_cotizacion' => 'DOLAR',
+            'valor_cotizacion' => '370',
+        ]);
+        
+        Cotizacion::create([
+            'nombre_cotizacion' => 'VENTA',
+            'valor_cotizacion' => '30',
+        ]);
+}
 }

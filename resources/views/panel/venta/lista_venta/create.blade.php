@@ -27,8 +27,10 @@
 <div class="col-12">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('alert1') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
 </div>
 @endif
 
@@ -78,13 +80,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Operador</span>
-                                    <select id="empleado_id" name="empleado_id" class="form-control mb-1">
+                                    <select id="empleado_id" name="empleado_id" class="form-control mb-1 d-none">
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     </select>     
-                                </div>
                             </div>
     
                             <div class="col-4">
@@ -114,7 +113,7 @@
     
                             <div class="col-4 mb-5">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">CLiente</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Cliente</span>
                                     <select style="width: 350px; height: 500px;" id="clientes" name="cliente_id" class="form-control mb-1">
                                         @foreach ($clientes as $cliente)
                                             <option value="{{ $cliente->id }}"> 
@@ -191,6 +190,7 @@
                     <button type="submit" id="venta_guardar" class="btn btn-success btn-sm mt-3">Guardar Venta</button>
                     <div class="d-none text-danger" id="mensaje"></div>
                     <div class="d-none text-danger" id="mensaje2"></div>
+                    <div class="d-none text-danger" id="mensaje3"></div>
                     @error('contador')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

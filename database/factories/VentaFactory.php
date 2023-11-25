@@ -28,7 +28,7 @@ class VentaFactory extends Factory
             'fecha_venta' => $this->faker->date(),
             'hora_venta' => $this->faker->time(),
             'total_venta' => $this->faker->randomFloat(2, 10, 1000),
-            'estado_venta' => $this->faker->randomElement(['Pendiente', 'Completada', 'Cancelada']), // Estado aleatorio
+            'estado_venta' => $this->faker->randomElement(['Pendiente', 'Facturado', 'Anulado',"Cancelado"]), // Estado aleatorio
 
             'user_id' => $user->id,
             'caja_id' => $caja->id,

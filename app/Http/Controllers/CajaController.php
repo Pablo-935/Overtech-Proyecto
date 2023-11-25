@@ -52,11 +52,14 @@ class CajaController extends Controller
         $caja->numero_caja = $nuevoNumeroCaja;
         $caja->saldo_inicial_caja = $request->get('saldo_inicial_caja');
         $caja->fecha_hs_aper_caja = $request->get('fecha_hs_aper_caja');
+        $caja->hs_aper_caja = $request->get('hs_aper_caja');
         $caja->total_ingresos_caja = $request->get('total_ingresos_caja');
         $caja->abierta_caja = "Si";
         $caja->total_egresos_caja = $request->input('total_egresos_caja');
         $caja->total_saldo_caja = $request->get('total_saldo_caja');
         $caja->user_id = $request->get('usuario_id');
+        // $caja->user_cier_id = null ;
+
 
         $caja->save();
     
@@ -67,9 +70,13 @@ class CajaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Caja $caja)
+    public function show($id)
     {
-        //
+        $caja = Caja::findOrFail($id);
+        $usuarios = User::all();
+        $user = Auth::user();
+        return view('panel.caja.lista_caja.show', compact('caja', 'user'));
+
     }
 
     /**
@@ -92,6 +99,7 @@ class CajaController extends Controller
         $caja = Caja::findOrFail($id);
         $caja->abierta_caja = 'No';
         $caja->fecha_hs_cier_caja = now()->toDateString();
+        $caja->hs_cier_caja = $request-> input('hs_cier_caja');
         $caja ->save();
         return redirect()->route('caja.index')->with('alert3', 'Caja cerrada exitosamente');
 

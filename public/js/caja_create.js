@@ -4,8 +4,8 @@ window.addEventListener("DOMContentLoaded", function() {
     let fechaActual = new Date();
     
     let anio = fechaActual.getFullYear();
-    let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Agregamos 1 y formateamos el mes con dos dígitos
-    let dia = fechaActual.getDate().toString().padStart(2, '0'); // Formateamos el día con dos dígitos
+    let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
+    let dia = fechaActual.getDate().toString().padStart(2, '0'); 
     
     let fechaFormateada = anio + '-' + mes + '-' + dia;
     
@@ -15,6 +15,15 @@ window.addEventListener("DOMContentLoaded", function() {
     let saldo_inicial = document.getElementById("saldo_inicial");
     let saldo_total = document.getElementById("saldo_total");
 
+      // Hora apertura
+  var campoHora = document.getElementById('hs_aper_caja');
+  var horaActual = new Date();
+  var horas = horaActual.getHours().toString().padStart(2, '0');
+  var minutos = horaActual.getMinutes().toString().padStart(2, '0');
+  var horaFormateada = horas + ':' + minutos;
+  campoHora.value = horaFormateada;
+
+  
 
     let calcular = function () {
         saldo_total.value = saldo_inicial.value;

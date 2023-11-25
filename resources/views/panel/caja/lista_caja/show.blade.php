@@ -14,9 +14,7 @@
     <div class="row">
         <div class="col-12 my-1">
             <h1>Detalle de Caja</h1>
-            {{-- <a href="{{ route('cotizacion.index') }}" class="btn btn-sm btn-secondary text-uppercase">
-                Volver al Listado
-            </a> --}}
+
         </div>
 
             
@@ -61,6 +59,20 @@
                                 </div>
                             </li>
 
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-9">Fecha Cierre de Caja:</div>
+                                    <div class="col-3">{{ old('fecha_hs_aper_caja', $caja->fecha_hs_cier_caja) }}</div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-9">Hora Cierre de Caja:</div>
+                                    <div class="col-3">{{ old('fecha_hs_aper_caja', $caja->hs_cier_caja) }}</div>
+                                </div>
+                            </li>
+
 
                             <li class="list-group-item">
                                 <div class="row">
@@ -94,7 +106,6 @@
                     @csrf @method('PUT')
                     <input type="hidden" class="form-control" id="hs_cier_caja" name="hs_cier_caja" aria-describedby="emailHelp" value="{{ old('hs_cier_caja') }}">
 
-                    <button type="submit" class="btn btn-success mt-1 mb-1">Cerrar Caja</button>
                     <a class="btn btn-warning" href="{{ route('caja.index') }}" role="button">Volver</a>
             
                   </form>

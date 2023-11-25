@@ -1,113 +1,193 @@
 @extends('adminlte::page')
 
-@section('title', 'Ver Detalle Venta')
+{{-- Activamos el Plugin de Datatables instalado en AdminLTE --}}
+@section('plugins.Datatables', true)
 
+@section('plugins.SweetAlert2', true)
+
+
+{{-- Titulo en las tabulaciones del Navegador --}}
+@section('title', 'Ventas')
+
+{{-- Titulo en el contenido de la Pagina --}}
+@section('content_header')
+    <h1>Hitorial de Ventas</h1>
+@stop
+
+{{-- Contenido de la Pagina --}}
 @section('content')
-
-
-
-    <div class="container-fluid">
-
-        <div class="row mt-2">
-            <div class="col-6">
-                <h1>Estado: <p id="estado" class="">{{old('correo_empl', $venta->estado_venta)}}</p></h1>
-
-            </div>
-            <div class="col-6 d-flex justify-content-end">
-                <h1 class="text-end">Venta Numero: <span class="badge bg-secondary">{{old('correo_empl', $venta->id)}}</span></h1>
-
-            </div>
-        </div>
-
-
-
-        <div class="row justify-content-center align-items-center my-5">
-            <div class="col-10 col-md-6 col-lg-6">
-
-
-
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-9">Venta DNI:</div>
-                            <div class="col-3">{{old('dni_venta', $venta->dni_venta)}}</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-9">Cliente:</div>
-                            <div class="col-3">{{old('dni_venta', $venta->dni_venta)}}</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-9">Fecha:</div>
-                            <div class="col-3">{{old('fecha_venta', $venta->fecha_venta)}}</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-9">Hora:</div>
-                            <div class="col-3">{{old('hora_venta', $venta->hora_venta)}}</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-9">Numero de Caja:</div>
-                            <div class="col-3">{{old('caja', $venta->caja->numero_caja)}}</div>
-                        </div>
-                    </li>
-
-                  </ul>
-
-
-
-
-
-
-      
-
-            </div>
-        </div>
-
-        <table class="table table-sm table-striped table-hover w-100">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio Unitario</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($detalleVenta as $detalle)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mb-3">
             
-                <tr>
-                    <td>{{$detalle->producto->nombre_prod }}</td>
-                    <td>{{$detalle->producto->precio_uni_prod }}</td>
-                    <td>{{$detalle->cantidad_prod_venta}}</td>
-                    <td>{{$detalle->sub_total_det_venta}}</td>
-                </tr>
-                <!-- Aquí puedes acceder a las propiedades de cada detalle de venta -->
-                <!-- Añade más propiedades según tus necesidades -->
-                @endforeach
-            </tbody>
-        </table>
-        
-        
-        <div class="row my-3">
-            <div class="col-8"></div>
-            <div class="col-4 justify-content-end"><h1 class="">Total: &nbsp; <b>{{old('correo_empl', $venta->total_venta)}}</b></h1></div>
         </div>
+        
+        @if (session('status'))
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
 
-        <div class="row my-2">
-            <div class="col-1"><a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a></div>
-            <div class="col-1"><a class="btn btn-success" href="#" role="button">Facturar</a></div>
-            <div class="col-1"><a class="btn btn-danger" href="#" role="button">Anular</a></div>
+        @if (session('alert3'))
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('alert3') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
 
+        <a href="{{ route('graficos-ventas')}}" class="btn btn-primary ajax-request mb-4" title="ChartJs">
+            <i class="fas fa-chart-pie"></i> Estadisticas
+        </a>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="tabla-productos" class="table table-sm table-striped table-hover w-100 text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-uppercase">Numero</th>
+                            <th scope="col" class="text-uppercase">Dni Venta</th>
+                            <th scope="col" class="text-uppercase">Fecha</th>
+                            <th scope="col" class="text-uppercase">Hora</th>
+                            <th scope="col" class="text-uppercase">Total</th>
+                            <th scope="col" class="text-uppercase">Estado</th>
+                            <th scope="col" class="text-uppercase">Operador</th>
+                            <th scope="col" class="text-uppercase">Numero Caja</th>
+                            <th scope="col" class="text-uppercase">Cliente</th>
+                            <th scope="col" class="text-uppercase">opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($ventas as $venta)
+                        <tr>
+                            <td>{{ $venta->id }}</td>
+                            <td>{{ $venta->dni_venta}}</td>
+                            <td>{{ $venta->fecha_venta }}</td>
+                            <td>{{ $venta->hora_venta }}</td>
+                            <td>{{number_format($venta->total_venta)  }}</td>
+                            <td>
+                                @if ($venta->estado_venta === "Pendiente")
+                                <a class="btn btn-warning"  role="button">{{$venta->estado_venta}}</a>
+
+                                @endif
+                                @if ($venta->estado_venta === "Facturado")
+                                <a class="btn btn-success"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                                @if ($venta->estado_venta === "Anulado")
+                                <a class="btn btn-danger"  role="button">{{$venta->estado_venta}}</a>
+                                @endif
+                            </td>
+                            
+                            <td>{{ $venta->user->name }}</td>
+                            <td>{{ $venta->caja->numero_caja}}</td>
+                            <td>{{ $venta->cliente->nombre_cli }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    {{-- <a href="{{ route('venta.show', $venta->id) }}" class="btn btn-sm btn-info text-white text-uppercase m-1">
+                                        Ver
+                                    </a> --}}
+                                    <a href="{{ route('venta.edit', $venta->id) }}" class="btn btn-sm btn-primary text-white text-uppercase m-1">
+                                        Facturar
+                                    </a>
+                                    {{-- <form action="{{ route('venta.destroy', $venta->id) }}" method="POST" class="form_delete">
+                                        @csrf 
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger text-uppercase">
+                                            Eliminar
+                                        </button>
+                                    </form> --}}
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
-    <script src="{{ asset('js/venta_show.js') }}"></script>
+</div>
+@stop
 
-@endsection
+{{-- Importacion de Archivos CSS --}}
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
+@stop
+
+
+{{-- Importacion de Archivos JS --}}
+@section('js')
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- La funcion asset() es una funcion de Laravel PHP que nos dirige a la carpeta "public" --}}
+    <script src="{{asset('js/table.js')}}"></script>
+
+    {{-- <script>
+
+        $('.form_delete').submit(function (e) {
+            e.preventDefault();
+    
+    
+        Swal.fire({
+      title: 'Estas seguro de eliminar esta Venta ?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado !',
+          '',
+          'success'
+        )
+    
+        this.submit()
+      }
+    })
+    
+        });
+    
+    
+        </script> --}}
+
+        <script>
+            $('.form_delete').submit(function (e) {
+                e.preventDefault();
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+                })
+            });
+
+            
+        </script>
+
+    
+
+@stop

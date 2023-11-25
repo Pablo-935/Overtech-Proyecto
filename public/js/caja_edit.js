@@ -18,4 +18,14 @@ window.addEventListener("DOMContentLoaded", function() {
 
 
 
+      // Hora cierre
+      var campoHoraCierre = document.getElementById('hs_cier_caja');
+      var horaActualCierre = new Date();
+      var horasCierre = horaActualCierre.getHours().toString().padStart(2, '0');
+      var minutosCierre = horaActualCierre.getMinutes().toString().padStart(2, '0');
+      var horaFormateadaCierre = horasCierre + ':' + minutosCierre;
+      campoHoraCierre.value = horaFormateadaCierre;
+
+
+
 });

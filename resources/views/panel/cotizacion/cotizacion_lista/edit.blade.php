@@ -10,10 +10,8 @@
 <div class="container">
     <div class="row">
         <div class="col-12 mb-3">
-            <h1>Editar una nueva Cotizacion</h1>
-            <a href="{{ route('cotizacion.index') }}" class="btn btn-sm btn-secondary text-uppercase">
-                Volver al Listado
-            </a>
+            <h1 class="mt-5">Editar Cotizacion</h1>
+
         </div>
 
         <div class="col-12">

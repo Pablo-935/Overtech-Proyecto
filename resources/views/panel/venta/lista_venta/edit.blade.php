@@ -13,6 +13,12 @@
 
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.3.0/jquery.bootstrap-touchspin.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+@endsection
+
 @section('content')
 
     <div class="container-fluid">
@@ -42,6 +48,7 @@
 
 
                 <ul class="list-group list-group-flush">
+
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-9">Venta DNI:</div>
@@ -50,10 +57,24 @@
 
                         </div>
                     </li>
-                    <li class="list-group-item">
+
+                    <li  id="tipofac" class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">Tipo de Factura:</div>
+                            <div class="col-3">
+                                <select id="seleccionfac" class="form-select" aria-label="Default select example">
+                                    <option value="B">B</option>
+                                    <option value="A">A</option>
+                                  </select>
+                            </div>
+
+                        </div>
+                    </li> 
+
+
+                    <li id="clientelis" class="list-group-item">
                         <div class="row">
                             <div class="col-9">Cliente:</div>
-
                             
                             <div class="col-3">
                             
@@ -66,6 +87,8 @@
                             </select>
                         </div>
                     </div>
+
+
 
                         <li class="list-group-item">
 
@@ -138,11 +161,15 @@
                         <input type="hidden" name="detalle_venta_id[]" value="{{ $detalle->id }}">
                         <td>{{$detalle->producto->codigo_prod }}</td>
                         <td>{{$detalle->producto->nombre_prod }}</td>
+
                         <td><input type="text" class="form-control mb-1 cantidad" name="cantidad_prod_venta[]" value="{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}">
                         <p class="cantidad2">{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}</p>
                         </td>
+
                         <td class="precio-unitario" id="precio-unitario-{{ $index }}">precio unitario aqui</td>
+
                         <td>{{$detalle->producto->stock_actual_prod }}</td>
+
                         <select id="producto_id_{{ $index }}" name="producto_id[]" class="form-control d-none">
                             @foreach ($productos as $producto)
                                 <option {{ $detalle->producto->id && $detalle->producto->id == $producto->id ? 'selected': ''}} value="{{ $producto->id }}"> 
@@ -150,7 +177,9 @@
                                 </option>
                             @endforeach
                         </select>
+
                         <td name="sub_total">{{$detalle->sub_total_det_venta}}</td>
+                        
                         <input type="hidden" class="form-control mb-1" name="sub_total_det_venta[]" value="{{ old('sub_total_det_venta', $detalle->sub_total_det_venta) }}">
                         <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">Eliminar</button></td>
                     </tr>
@@ -171,13 +200,18 @@
         </div>
 
         <div class="row my-2">
-            <div class="col-1"><a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a></div>
+            <a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a> &nbsp;&nbsp;
             <button type="submit" id="facturar" class="btn btn-success btn-sm ">Facturar</button>
-            <button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger btn-sm">Anular</button>
-            
-
+            <button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger ">Anular</button>
+            &nbsp;&nbsp;
         </form>
+        <a id="facb" href="{{ route('pdfb', $venta->id)}}" class="btn btn-danger ms-5" title="PDF" target="_blank">
+            <i class="fas fa-file-pdf">PDF</i>
+            </a>
 
+            <a id="faca" href="{{ route('pdfa', $venta->id)}}" class="btn btn-danger ms-5 d-none" title="PDF" target="_blank">
+                <i class="fas fa-file-pdf">PDF</i>
+                </a>
         </div>
 
     </div>

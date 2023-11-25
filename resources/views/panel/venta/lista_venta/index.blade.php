@@ -11,7 +11,7 @@
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')
-    <h1>Lista de Ventas</h1>
+    <h1>Ventas pendientes</h1>
 @stop
 
 {{-- Contenido de la Pagina --}}
@@ -40,8 +40,8 @@
             </div>
         @endif
 
-        <a href="{{ route('graficos-ventas')}}" class="btn btn-primary ajax-request" title="ChartJs">
-            <i class="fas fa-chart-pie"></i> Grafico
+        <a href="{{ route('graficos-ventas')}}" class="btn btn-primary ajax-request mb-4" title="ChartJs">
+            <i class="fas fa-chart-pie"></i> Estadisticas
         </a>
 
     <div class="col-12">
@@ -84,7 +84,7 @@
                             </td>
                             
                             <td>{{ $venta->user->name }}</td>
-                            <td>{{ $venta->caja->id}}</td>
+                            <td>{{ $venta->caja->numero_caja}}</td>
                             <td>{{ $venta->cliente->nombre_cli }}</td>
                             <td>
                                 <div class="d-flex">

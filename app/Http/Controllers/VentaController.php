@@ -13,6 +13,7 @@ use App\Models\Cotizacion;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class VentaController extends Controller
@@ -23,6 +24,8 @@ class VentaController extends Controller
     public function index()
     {
         $ventas = Venta::orderBy('id', 'desc')->get();
+
+        // $ventas = Venta::where('estado_venta', 'Pendiente')->orderBy('id', 'desc')->get();
         return view('panel.venta.lista_venta.index', compact('ventas'));
     }
 
@@ -79,15 +82,11 @@ class VentaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
-        $venta = Venta::findOrFail($id);
-        
-        
-        $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
-        
+        $ventas = Venta::where('estado_venta', 'Pendiente')->orderBy('id', 'desc')->get();
+        return view('panel.venta.lista_venta.show', compact('ventas'));
 
-        return view('panel.venta.lista_venta.show', compact('venta', 'detalleVenta'));
     }
 
     /**
@@ -187,8 +186,6 @@ if ($cajaAbierta) {
     $cajaAbierta->save();
 }
 
-
-
     for ($i = 0; $i < $fila; $i++) {
         $cantidad = $request->input('cantidad_prod_venta')[$i];
     
@@ -259,5 +256,29 @@ if ($cajaAbierta) {
         return view('panel.venta.lista_venta.grafico_ventas');
     }
     
+
+    
+    public function pdfb ($id){
+        set_time_limit(300);
+        $ventaB = Venta::findOrFail($id);
+        $ventaB->load(['DetalleVenta']); 
+
+        $pdf = PDF::loadView('panel.venta.lista_venta.pdfb', compact('ventaB'));
+        $pdf->render();
+        return $pdf->stream('Factura_B.pdf');
+    }
+
+
+    public function pdfa ($id){
+        set_time_limit(300);
+        $ventaA = Venta::findOrFail($id);
+        $ventaA->load(['DetalleVenta']); 
+
+        $pdf = PDF::loadView('panel.venta.lista_venta.pdfa', compact('ventaA'));
+        $pdf->render();
+        return $pdf->stream('Factura_A.pdf');
+    }
+
+
 
 }

@@ -17,8 +17,8 @@ class CotizacionFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre_cotizacion' => $this->faker->sentence(6), // Genera una frase aleatoria de 6 palabras
-            'valor_cotizacion' => $this->faker->randomFloat(2, 1000, 10000), // Número flotante aleatorio con 2 decimales en el rango [1000, 10000]
+            // 'nombre_cotizacion' => $this->faker->sentence(6), // Genera una frase aleatoria de 6 palabras
+            // 'valor_cotizacion' => $this->faker->randomFloat(2, 1000, 10000), // Número flotante aleatorio con 2 decimales en el rango [1000, 10000]
         ];
     }
 }

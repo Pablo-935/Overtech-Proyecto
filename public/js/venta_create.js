@@ -194,8 +194,8 @@ if (estadoCaja === 'Si') {
 } else {
     $('#venta_guardar').prop('disabled', true);
     $('#venta_guardar').addClass('d-none');
-    $('#mensaje2').text('La caja está Cerrada');
-    $('#mensaje2').removeClass('d-none');
+    $('#mensaje3').text('La caja está Cerrada');
+    $('#mensaje3').removeClass('d-none');
 }
 
 
@@ -204,12 +204,11 @@ if (estadoCaja === 'Si') {
 let VerFilas = function () {
     if (contar == 0) {
         $('#venta_guardar').prop('disabled', true);
-        $('#mensaje2').text('Debe registrar almenos 1 compra');
+        $('#mensaje2').text('Debe registrar almenos 1 Venta');
         $('#mensaje2').removeClass('d-none');
     }
     else{
         $('#venta_guardar').prop('disabled', false);
-        $('#mensaje2').text('Debe registrar almenos 1 Venta');
         $('#mensaje2').addClass('d-none');
     }
     

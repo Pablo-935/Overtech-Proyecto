@@ -1,10 +1,10 @@
-// $('#clientes').select2(
-//   {  
-//      language: 'es',
-//       theme: "classic",
-//       placeholder: "Clientes"
-// }
-// );
+$('#clientes').select2(
+  {  
+     language: 'es',
+      theme: "classic",
+      placeholder: "Clientes"
+}
+);
 
 window.addEventListener("DOMContentLoaded", function() {
 
@@ -15,11 +15,21 @@ window.addEventListener("DOMContentLoaded", function() {
   let cantidades2 = document.querySelectorAll('.cantidad2');
   let cantidades = document.querySelectorAll('.cantidad');
   let botonesEliminar = document.querySelectorAll('.eliminar-fila');
+  let tipofac = this.document.getElementById("tipofac");
+  let clientelis = this.document.getElementById("clientelis");
+  let facb = this.document.getElementById("facb");
+  let faca = this.document.getElementById("faca");
+  let seleccionfac = this.document.getElementById("seleccionfac");
 
+  
+  clientelis
+  facb
   if (estado.innerText == "Anulado") {
       estado.classList.add("badge", "bg-danger");
       anular_boton.classList.add("d-none");
       facturar.classList.add("d-none");
+      facb.classList.add("d-none");
+      faca.classList.add("d-none");
 
       cantidades.forEach(function(cantidad) {
           cantidad.classList.add("d-none");
@@ -33,6 +43,10 @@ window.addEventListener("DOMContentLoaded", function() {
       anular_boton.classList.add("d-none");
       cantidades2.forEach(function(cantidad2) {
           cantidad2.classList.add("d-none");
+          facb.classList.add("d-none");
+          faca.classList.add("d-none");
+          tipofac.classList.add("d-none");
+          
       });
   }
   if (estado.innerText == "Facturado") {
@@ -127,22 +141,77 @@ document.getElementById("anular_boton").addEventListener("click", function () {
 
 
 
-// ======ELIMINAR FILA Y SETEAR VALOR EN 0 =================
+function limitarRango(input) {
+  var valor = parseInt(input.value, 10);
+
+  // Si el valor no es un número o es menor que 1, establecer en 1
+  if (isNaN(valor) || valor < 1) {
+      input.value = 1;
+  }
+
+  // Si el valor es mayor que 100, establecer en 100
+  if (valor > 100) {
+      input.value = 100;
+  }
+}
 
 
-$('.eliminar-fila').click(function () {
-  var fila = $(this).closest('tr');
+let cambiar_factura = function () {
+  if (seleccionfac.value == "B") {
+    faca.classList.add("d-none")
+    facb.classList.remove("d-none")
 
-  let cantidadInput = fila.find('input[name^="cantidad_prod_venta"]');
-  cantidadInput.val(0);
+  }
 
-  actualizarCalculos(fila[0]); 
+  if (seleccionfac.value == "A") {
+    faca.classList.remove("d-none")
+    facb.classList.add("d-none")
 
-  actualizarTotal();
+  }
+}
 
-  fila.hide();
-});
-//
+seleccionfac.addEventListener("click", cambiar_factura)
+
+
+
+
+    // Función para limitar la entrada a un rango entre 0 y 100
+    function limitarRango(input) {
+        var valor = parseInt(input.value, 10);
+
+        // Si el valor es menor que 0, establecer en 0
+        if (valor < 0 || isNaN(valor)) {
+            input.value = 0;
+        }
+
+        // Si el valor es mayor que 100, establecer en 100
+        if (valor > 100) {
+            input.value = 100;
+        }
+    }
+
+    // Función para verificar el stock y mostrar alerta si la cantidad es mayor que el stock
+    function verificarStock(input) {
+        var cantidad = parseInt(input.value, 10);
+        var stock = parseInt($(input).closest('tr').find('td:eq(4)').text(), 10); // Obtener el valor del stock desde la columna correspondiente
+
+        if (cantidad > stock) {
+            // Marcamos la fila como roja
+            $(input).closest('tr').css('background-color', 'red');
+            facturar.classList.add("d-none")
+        } else {
+            // Restauramos el color de fondo original
+            $(input).closest('tr').css('background-color', '');
+            facturar.classList.remove("d-none")
+
+        }
+    }
+
+    // Escuchar el evento keyup en los campos de cantidad
+    $(document).on('keyup', '.cantidad', function() {
+        limitarRango(this);
+        verificarStock(this);
+    });
 
 
 

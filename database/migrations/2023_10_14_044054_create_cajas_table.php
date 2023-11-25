@@ -16,7 +16,9 @@ return new class extends Migration
             $table->integer('numero_caja');
             $table->decimal('saldo_inicial_caja', 10, 2);
             $table->date('fecha_hs_aper_caja');
+            $table->time('hs_aper_caja');
             $table->date('fecha_hs_cier_caja')->nullable();
+            $table->time('hs_cier_caja')->nullable();
             $table->decimal('total_ingresos_caja', 10, 2);
             $table->decimal('total_egresos_caja', 10, 2);
             $table->decimal('total_saldo_caja', 10, 2);
@@ -24,10 +26,17 @@ return new class extends Migration
             // $table->tinyInteger('abierta_caja');
 
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_cier_id')->nullable();
+
             // FK de tabla Empleados
             $table->foreign('user_id')->references('id')->on('users')
                             ->onDelete('cascade') //set null
                             ->onUpdate('cascade');
+
+            $table->foreign('user_cier_id')->references('id')->on('users')
+                    ->onDelete('cascade') //set null
+                    ->onUpdate('cascade')
+                    ->nullable();
             $table->timestamps();
         });
     }

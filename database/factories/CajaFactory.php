@@ -23,12 +23,16 @@ class CajaFactory extends Factory
             'numero_caja' => $this->faker->randomNumber(4),
             'saldo_inicial_caja' => $this->faker->randomFloat(2, 100, 10000),
             'fecha_hs_aper_caja' => $this->faker->date(),
+            'hs_aper_caja' => $this->faker->time(),
             'fecha_hs_cier_caja' => $this->faker->optional()->date(),
+            'hs_cier_caja' => $this->faker->time(),
             'total_ingresos_caja' => $this->faker->randomFloat(2, 0, 5000),
             'total_egresos_caja' => $this->faker->randomFloat(2, 0, 5000),
             'total_saldo_caja' => $this->faker->randomFloat(2, 0, 5000),
             'abierta_caja' => $this->faker->randomElement(['Si', 'No']), // Opción aleatoria entre "Si" y "No"
             'user_id' => $user->id,
+            'user_cier_id' => $user->id,
+
         ];
     }
 }

@@ -26,7 +26,9 @@
             <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -35,7 +37,9 @@
             <div class="col-12">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('alert3') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -56,13 +60,17 @@
                             <th scope="col" class="text-uppercase">id</th>
                             <th scope="col" class="text-uppercase">Numero de Caja</th>
                             <th scope="col" class="text-uppercase">Saldo Inicial</th>
+                            <th scope="col" class="text-uppercase">Operador</th>
                             <th scope="col" class="text-uppercase">Fecha Apertura</th>
+                            <th scope="col" class="text-uppercase">Hora Apertura</th>
+                            {{-- <th scope="col" class="text-uppercase">Operador Cierre</th> --}}
                             <th scope="col" class="text-uppercase">Fecha Cierre</th>
+                            <th scope="col" class="text-uppercase">Hora Cierre</th>
+
                             {{-- <th scope="col" class="text-uppercase">Total Ingresos</th> --}}
                             {{-- <th scope="col" class="text-uppercase">Total Egresos</th> --}}
                             <th scope="col" class="text-uppercase">Total Saldo</th>
                             <th scope="col" class="text-uppercase">Abierto</th>
-                            <th scope="col" class="text-uppercase">Operador</th>
                             <th scope="col" class="text-uppercase">Opciones</th>
 
                         </tr>
@@ -73,19 +81,28 @@
                             <td>{{ $cajas->id }}</td>
                             <td>{{ $cajas->numero_caja}}</td>
                             <td>{{number_format( $cajas->saldo_inicial_caja) }}</td>
+                            <td>{{ $cajas->user->name}}</td>
                             <td>{{ $cajas->fecha_hs_aper_caja }}</td>
+                            <td>{{ $cajas->hs_aper_caja }}</td>
+                            {{-- <td>{{ $cajas->user_cier_id}}</td> --}}
                             <td>{{ $cajas->fecha_hs_cier_caja }}</td>
+                            <td>{{ $cajas->hs_cier_caja }}</td>
+
                             {{-- <td>{{ $cajas->total_ingresos_caja }}</td> --}}
                             {{-- <td>{{ $cajas->total_egresos_caja }}</td> --}}
                             <td>{{ $cajas->total_saldo_caja}}</td>
                             <td>{{ $cajas->abierta_caja }}</td>
-                            <td>{{ $cajas->user->name}}</td>
                             <td>
                                 @if ($cajas->abierta_caja == "Si")
-                                    <a href="{{ route('caja.edit', $cajas->id) }}" class="btn btn-sm btn-primary text-white text-uppercase me-1">
+                                    <a href="{{ route('caja.edit', $cajas->id) }}" class="btn btn-sm btn-success text-white text-uppercase me-1">
                                         Detalles
                                     </a>
                                 @endif
+                                @if ($cajas->abierta_caja == "No")
+                                <a href="{{ route('caja.show', $cajas->id) }}" class="btn btn-sm btn-primary text-white text-uppercase me-1">
+                                    Detalles
+                                </a>
+                            @endif
                             </td>
                             
 

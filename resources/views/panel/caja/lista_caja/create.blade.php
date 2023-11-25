@@ -8,8 +8,10 @@
 <div class="col-12">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('alert3') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
 </div>
 @endif
 
@@ -17,8 +19,10 @@
 <div class="col-12">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('alert1') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
 </div>
 @endif
 
@@ -38,17 +42,18 @@
                               @enderror
                               </div> --}}
         
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Operador</label>
-                                <select id="usuario_id" name="usuario_id" class="form-control mb-1">
+                                <select id="usuario_id" name="usuario_id" class="form-control mb-1 d-none">
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 </select>
+
+                                <select id="usuario_cier_id" name="usuario_cier_id" class="form-control mb-1 d-none">
+                                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                              </select>
                                 
                                 
                               @error('Operador')
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
-                              </div>
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Saldo Inicial</label>
@@ -65,7 +70,10 @@
                               <p class="text-danger"> {{ $message }} </p>
                               @enderror
                               </div>
-        
+
+                              <input type="hidden" class="form-control" id="hs_aper_caja" name="hs_aper_caja" aria-describedby="emailHelp" value="{{ old('hs_aper_caja') }}">
+
+
                               <div class="mb-3">
                                 {{-- <label for="exampleInputEmail1" class="form-label">Total de Ingresos</label> --}}
                                 <input type="hidden" class="form-control" name="total_ingresos_caja" aria-describedby="emailHelp" value="0">

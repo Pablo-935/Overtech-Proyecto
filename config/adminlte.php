@@ -349,11 +349,17 @@ return [
                     'icon' => 'fas fa-shopping-bag',
                 ],
                 [
-                    'text' => 'Listado de Ventas',
+                    'text' => 'Ventas Pendientes',
                     'route' => 'venta.index',
                     'icon' => 'fas fa-clock',
 
                 ],
+                // [
+                //     'text' => 'Historial de Ventas',
+                //     'route' => 'venta.show',
+                //     'icon' => 'fas fa-list-ul',
+
+                // ],
 
             ]
         ],
