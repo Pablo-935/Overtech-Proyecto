@@ -156,6 +156,7 @@ $('#seleccionar').click(function() {
 
     });
 
+    // implementacion de touchspin
     $(".cantidad").last().TouchSpin({
         verticalbuttons: true,
         min: 1,

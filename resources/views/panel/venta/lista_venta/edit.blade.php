@@ -162,7 +162,7 @@
                         <td>{{$detalle->producto->codigo_prod }}</td>
                         <td>{{$detalle->producto->nombre_prod }}</td>
 
-                        <td><input type="text" class="form-control mb-1 cantidad" name="cantidad_prod_venta[]" value="{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}">
+                        <td><input type="number" class="form-control mb-1 cantidad" name="cantidad_prod_venta[]" value="{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}">
                         <p class="cantidad2">{{ old('cantidad_prod_venta', $detalle->cantidad_prod_venta) }}</p>
                         </td>
 

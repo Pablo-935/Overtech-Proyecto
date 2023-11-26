@@ -7,7 +7,7 @@
 
 
 {{-- Titulo en las tabulaciones del Navegador --}}
-@section('title', 'Ventas')
+@section('title', 'Ventas Pendientes')
 
 {{-- Titulo en el contenido de la Pagina --}}
 @section('content_header')

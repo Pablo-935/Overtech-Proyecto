@@ -169,19 +169,6 @@ document.getElementById("cancelar_boton").addEventListener("click", function () 
 
 
 
-function limitarRango(input) {
-  var valor = parseInt(input.value, 10);
-
-  // Si el valor no es un número o es menor que 1, establecer en 1
-  if (isNaN(valor) || valor < 1) {
-      input.value = 1;
-  }
-
-  // Si el valor es mayor que 100, establecer en 100
-  if (valor > 100) {
-      input.value = 100;
-  }
-}
 
 
 let cambiar_factura = function () {
@@ -203,20 +190,27 @@ seleccionfac.addEventListener("click", cambiar_factura)
 
 
 
-    // Función para limitar la entrada a un rango entre 0 y 100
-    function limitarRango(input) {
-        var valor = parseInt(input.value, 10);
+    // // Función para limitar la entrada de cantidad
+ 
+    $(document).on('change', '.cantidad', function () {
+      let cantidadInput = $(this);
+      let cantidad = parseInt(cantidadInput.val(), 10);
+  
+      // Verificar si la cantidad es menor que 1 o no es un número
+      if (isNaN(cantidad) || cantidad < 1) {
+          // Establecer la cantidad en 1
+          cantidadInput.val(1);
+          cantidad = 1; // Actualizar la variable cantidad
+      }
+  
+      // Actualizar el total después de modificar la cantidad
+      actualizarCalculos(cantidadInput.closest('tr')[0]);
+  });
+  
 
-        if (valor < 0 || isNaN(valor)) {
-            input.value = 0;
-        }
 
-        if (valor > 100) {
-            input.value = 100;
-        }
-    }
 
-    
+
 // Función para verificar el stock y mostrar alerta si la cantidad es mayor que el stock
 function verificarStock(input) {
   var cantidad = parseInt(input.value, 10);
