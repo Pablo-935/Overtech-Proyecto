@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompraValidacion;
 use App\Models\Compra;
 use App\Models\Producto;
 use App\Models\RequerimientoCompra;
@@ -10,6 +11,7 @@ use App\Models\User;
 use App\Models\Caja;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Proveedor;
+
 
 
 
@@ -42,7 +44,7 @@ class CompraController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CompraValidacion $request)
     {   
         
         
@@ -58,27 +60,47 @@ class CompraController extends Controller
         $compra->hora_comp = $request->get('hora_comp');
         $compra->proveedor_id = $request->get('proveedor_id');
         $compra->operador = $request->get('operador');
-        $compra->caja_id = $request->get('caja');
+        $compra->caja_id = $request->get('caja_id');
         $compra->monto_comp = $request->get('monto_comp');
         $compra->detalle = $request->get('detalle');
         $compra->requerimiento_compra_id = $request->input('requerimiento_compra_id');
         
         $compra->save();
 
+        $requerimiento_id = $request->get('requerimiento_compra_id');
+        $requerimiento = RequerimientoCompra::find($requerimiento_id);
+        $requerimiento->estado_requer_comp = 'Aprobado';
+        $requerimiento->update();
+
         $filas = $request->get('filas');
         $producto_id = $request->input('producto_id');
         $cantidad_requer_prod = $request->input('cantidad_requer_prod');
+        $precio_uni_prod = $request->input('precio_uni_prod');
         
         for ($i = 0; $i < $filas; $i++) {
             $productoId = $producto_id[$i];
             $cantidad = $cantidad_requer_prod[$i];
+            $precio = $precio_uni_prod[$i];
 
             $producto = Producto::find($productoId);
             $producto->stock_actual_prod += $cantidad;
+            $producto->precio_uni_prod = $precio;
             $producto->update();
         }
 
-        return redirect()->route("compra.index");
+        $totalMonto = $compra->monto_comp;
+
+        $cajaAbierta = Caja::where('abierta_caja', 'Si')->first();
+        
+        if ($cajaAbierta) {
+            $cajaAbierta->total_egresos_caja += $totalMonto;
+        
+            $cajaAbierta->total_saldo_caja = $cajaAbierta->saldo_inicial_caja + $cajaAbierta->total_ingresos_caja - $cajaAbierta->total_egresos_caja;
+            
+            $cajaAbierta->save();
+        }
+
+        return redirect()->route("compra.index")->with('alert', 'Compra realizada exitosamente');;
     }
     
     
@@ -89,10 +111,12 @@ class CompraController extends Controller
      */
     public function show($id)
     {
-        $compra = Compra::findOrFail($id);
+    
+        $compra = Compra::with('RequerimientoCompra.DetalleRequerCompra.producto')->findOrFail($id);
+        $requerimiento = $compra->RequerimientoCompra;
 
         // $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
-        return view('panel.Compra.lista_compra.show', compact('compra'));
+        return view('panel.Compra.lista_compra.show', compact('compra', 'requerimiento'));
     }
 
     /**

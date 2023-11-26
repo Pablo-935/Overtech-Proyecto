@@ -10,12 +10,13 @@
             @endforeach
         </ul>
     @endif --}}
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <a href="{{ route('exportar-requerimientos-pdf', $requerimiento->id)}}" class="btn btn-danger" title="PDF" target="_blank">
-        <i class="fas fa-file-pdf">PDF</i>
+            <i class="fas fa-file-pdf m-1"></i>PDF
         </a>
 
         <div class="card mt-3">
+            
             <div class="card-header bg-primary text">Requerimiento Nº: {{$requerimiento->id}}</div>
             <div class="card-body">
                 <form id="requerimiento" method="POST" novalidate>
@@ -39,7 +40,7 @@
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
-                                <input type="text" class="form-control" name="usuario_id" value="{{old('usuario', $requerimiento->user->name)}}">
+                                <input type="text" class="form-control" name="usuario_id" value="{{old('usuario', $requerimiento->user->name)}}" disabled>
                             </div>
                         </div>
                     </div>

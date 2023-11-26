@@ -6,6 +6,8 @@
 @section('content')
 
 <div class="container-fluid">
+    
+    
     <div class="card mt-3">
         <div class="card-header bg-primary text">Nuevo Requerimiento</div>
         <div class="card-body">
@@ -13,21 +15,10 @@
                     @csrf 
 
                     <div class="row">
+                        
                         <div class="col-4">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Fecha Requerimiento</span>
-                                <input type="date" class="form-control @error('fecha_requer_comp') is-invalid @enderror"  name="fecha_requer_comp" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('fecha_requer_comp')}}">
-                                @error('fecha_requer_comp')
-                                    <div class="invalid-feedback"> {{ $message }} </div>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="col-4">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
-                                <input type="text" class="form-control @error('estado_requer_comp') is-invalid @enderror" name="estado_requer_comp" value="{{old('estado_requer_comp')}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="hidden" class="form-control @error('estado_requer_comp') is-invalid @enderror" name="estado_requer_comp" value="Pendiente" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 @error('estado_requer_comp')
                                         <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror
@@ -36,7 +27,7 @@
 
                         <div class="col-4">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
+                                {{-- <span class="input-group-text" id="inputGroup-sizing-default">Usuario</span>
                                 <select id="usuario_id" name="usuario_id" class="form-control @error('usuario_id') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     @foreach ($usuarios as $usuario)
                                         <option value="{{ $usuario->id }}"> 
@@ -46,8 +37,22 @@
                                 </select>   
                                 @error('usuario_id')
                                     <div class="invalid-feedback"> {{ $message }} </div>
-                                @enderror 
+                                @enderror  --}}
+                                <select id="usuario_id" name="usuario_id" class="form-control d-none"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                </select>    
                             </div>
+                        </div>
+
+                        <div class="col-4 ">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Fecha Requerimiento</span>
+                                <input type="date" id="fecha_requer_comp" class="form-control @error('fecha_requer_comp') is-invalid @enderror"  name="fecha_requer_comp" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{old('fecha_requer_comp')}}">
+                                @error('fecha_requer_comp')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                            
                         </div>
                     </div>
                     
@@ -136,7 +141,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <input id="filas" class="filas d-none @error('filas') is-invalid @enderror" type="number" name="filas" value="">
+                        <input id="filas" class="filas d-none  @error('filas') is-invalid @enderror" type="number" name="filas" value="">
                         @error('filas')
                             <div class="invalid-feedback"> {{ $message }} </div>
                         @enderror
@@ -184,8 +189,18 @@
     {{-- <script src="{{asset('js/table.js')}}"></script> --}}
     
     <script>
+
         
     $(document).ready(function(){
+
+        let fechaActual = new Date();
+        let anio = fechaActual.getFullYear();
+        let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
+        let dia = fechaActual.getDate().toString().padStart(2, '0'); 
+        let fechaFormateada = anio + '-' + mes + '-' + dia;
+        let fecha_compra = document.getElementById("fecha_requer_comp").value = fechaFormateada;
+
+
             $('#tabla-productos thead tr').clone(true).addClass('filters').appendTo('#tabla-productos thead');
 
             var table = $('#tabla-productos').DataTable({
@@ -201,7 +216,30 @@
                 // pageLength: 5,
                 // lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
                 language: {
-                    // ... (tus opciones de idioma)
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "search": "_INPUT_",
+                    "searchPlaceholder": "...",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		}
                 },
 
                 
@@ -231,7 +269,7 @@
                             });
                     });
 
-                    // new $.fn.dataTable.FixedHeader(table);
+                    
                     
                 }
                 
@@ -285,7 +323,13 @@
                 cell5.innerHTML = stock_min;
                 // cell6.innerHTML = '<input type="number" class="form-control mb-1" name="stock_prod[]" value="' + stock + '" disabled>';
                 cell6.innerHTML = stock;
-                cell7.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">';
+                cell7.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="cantidad_requer_prod[]" value="1">';
+                cell7.querySelector('input').addEventListener('change', function() {
+                    let valor = parseInt($(this).val());
+                    if (isNaN(valor) || valor < 1) {
+                        $(this).val(1);
+                    }
+                });
                 cell8.innerHTML = '<button type="button" id="eliminarFila" class="btn btn-sm btn-danger text-uppercase eliminarFila">Eliminar</button>';
                 cell9.innerHTML = '<input type="hidden" name="producto_id[]" value="'+id+'">'
                 
@@ -311,6 +355,7 @@
         
             $(document).on('click', '.eliminarFila', function() {
                 var tabla = document.getElementById("miTabla");
+                let inputs = document.querySelector(".filas");
 
                 if (tabla.rows.length > 2) {
                     var row = this.closest("tr"); // "this" hace referencia al botón clickeado
@@ -320,6 +365,7 @@
                     for (var i = 1; i < tabla.rows.length; i++) {
                         var uniqueStockId = 'stock_' + i;
                         tabla.rows[i].cells[6].firstElementChild.id = uniqueStockId;
+                        inputs.value = tabla.rows.length - 1;                        
                     }
                 } else {
                     alert("Debe haber al menos una fila.");
@@ -357,7 +403,7 @@
                                     <td>${producto.stock_min_prod} </td>
                                     <td>${producto.stock_actual_prod} </td>
                                     <td>
-                                        <input type="number" class="form-control mb-1"  id="`+ uniqueStockId +`" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">
+                                        <input type="number" class="form-control mb-1 cantidad"  id="`+ uniqueStockId +`" name="cantidad_requer_prod[]" value="1">
                                     </td>
                                     <td>
                                         <button type="button" id="eliminarFila" class="btn btn-sm btn-danger text-uppercase eliminarFila">Eliminar</button>
@@ -368,6 +414,13 @@
                                 </tr>
                             `;
                             tableBody.append(row);
+
+                            $(document).on('change', '.cantidad', function () {
+                                    let cantidad = parseInt($(this).val());
+                                    if (isNaN(cantidad) || cantidad < 1) {
+                                        $(this).val(1);
+                                    }
+                            });
                             });
 
                         },
@@ -388,47 +441,7 @@
 
 
 
-        // function agregarFila() {
-        //     var table = document.getElementById("miTabla");
-        //     var row = table.insertRow(table.rows.length);
-
-        //     var cell1 = row.insertCell(0);
-        //     var cell2 = row.insertCell(1);
-        //     var cell3 = row.insertCell(2);
-        //     var cell4 = row.insertCell(3);
-
-        //     // Clona el select y sus opciones
-        //     var selectOriginal = document.getElementById("producto_id");
-        //     var nuevoSelect = selectOriginal.cloneNode(true);
-        //     cell1.appendChild(nuevoSelect);
-        //     // Clona el select y sus opciones
-        //     // Crea un ID único para el input de stock
-        //     var uniqueStockId = 'stock_' + (table.rows.length - 1);
-        //     cell2.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="stock" value="{{old('stock')}}" disabled>'; // Añade el input de stock
-
-        //     cell3.innerHTML = '<input type="number" class="form-control mb-1" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">';
-        //     cell4.innerHTML = '<button type="button" class="btn btn-sm btn-danger text-uppercase" onclick="eliminarFila(this)">Eliminar</button>';
-            
-        //     let inputs = document.getElementById("filas");
-        //     inputs.value = table.rows.length-1;
-
-        //     console.log(inputs.value);
-
-        // }
-
-
-    
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     document.getElementById('stock_').value = stock;
-        // }
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     var uniqueStockId = 'stock_' + select.parentNode.parentNode.rowIndex;
-        //     document.getElementById(uniqueStockId).value = stock;
-        //     }
+        
     </script>
 @endsection 
 

@@ -29,7 +29,10 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Fecha</span>
-                                    <input type="date" class="form-control" id="fecha_compra" name="fecha_comp" value="{{old('fecha_compra')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="date" class="form-control @error('fecha_comp') is-invalid @enderror" id="fecha_compra" name="fecha_comp" value="{{old('fecha_compra')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    @error('fecha_comp')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
                                 </div>
                             </div>
     
@@ -41,21 +44,8 @@
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Operador</span>
-                                    <select id="empleado_id" name="operador" class="form-control"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    </select>     
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-    
-                            <div class="col-4">
-                                <div class="input-group mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Estado Caja</span>
-                                    {{-- <select id="caja_id" name="caja_id" class="form-control "  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <select id="caja_id" name="caja_id" class="form-control "  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                         @php
                                             $cajaAbiertaEncontrada = false;
                                         @endphp
@@ -72,12 +62,20 @@
                                         @if (!$cajaAbiertaEncontrada)
                                             <option value="NO">Caja Cerrada</option>
                                         @endif
-                                    </select> --}}
-                                    <input type="number" class="form-control" name="caja" value="1"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    </select> 
                                     
                                 </div>
                             </div>
-    
+                            <div class="col-4">
+                                <div class="input-group mb-3">
+                                    <select id="empleado_id" name="operador" class="form-control d-none"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                        <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                    </select>     
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">    
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Proveedor</span>
@@ -94,18 +92,20 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Monto</span>
-                                <input type="number" class="form-control" name="monto_comp" value="{{old('monto_comp')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                </div>
+                                <input type="number" placeholder="$00,000,000" class="form-control @error('monto_comp') is-invalid @enderror" type="number" name="monto_comp" value="{{old('monto_comp')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                @error('monto_comp')
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            
                             </div>
+                            </div>
+                            
 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Detalle</span>
-                                <input type="text" class="form-control" id="detalle" name="detalle" value="{{old('detalle')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div>
+                            
                         </div>
 
                             {{-- Modal --}}
-                        <button type="button" id="nuevo_empleado" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modal-nuevo-empleado">
+                        <button type="button" id="nuevo_empleado" class="btn btn-sm btn-primary my-2" data-toggle="modal" data-target="#modal-nuevo-empleado">
                         Asignar Requerimiento
                         </button>
 
@@ -157,7 +157,7 @@
 
 
                         <div class="datosRequerimiento">
-
+                            
                         </div>
                         {{-- Agregar Productos --}}
                         <table class="table table table-striped table-hover" id="miTabla">
@@ -166,9 +166,10 @@
                                     <th>Codigo</th>
                                     <th>Producto</th>
                                     <th>Precio Costo</th>
+                                    <th>Precio Actual</th>
                                     <th>Stock actual</th>
                                     <th>Cantidad</th>
-                                    <th>Opciones</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -180,21 +181,24 @@
                             
                         </table> 
                         
+                
+                        <div class="form-group ">
+                            <label for="Mensaje:" >Detalle:</label>
+                            {{-- <div style="height: 100px" name="detalle" id="detalle" class="form-control"></div> --}}
+                            <textarea name="detalle" id="body" cols="30" rows="5" class="form-control @error('detalle') is-invalid @enderror"></textarea>
+                            @error('detalle')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm mt-3">Registrar Compra</button>
+                        <a class="btn btn-warning btn-sm mt-3" href="{{route('compra.index')}}" role="button">Volver</a>      
 
-                        <button type="submit" class="btn btn-success btn-sm mt-3">Guardar Requerimiento</button>
-                        <a class="btn btn-warning btn-sm mt-3" href="{{route('requerimiento.index')}}" role="button">Volver</a>      
+                        
                 </form>
                    
                 </div>
             </div>
         </div>
-
-<style>
-    #producto_id + .select2-container .select2-selection .select2-selection__choice {
-        color: black;
-    }
-
-</style>
 
 @endsection
 
@@ -203,8 +207,7 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>  
-
-
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     {{-- Datatables --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
@@ -220,6 +223,8 @@
 @stop
 
 @section('js')
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
 
@@ -235,16 +240,21 @@
     {{-- La funcion asset() es una funcion de Laravel PHP que nos dirige a la carpeta "public" --}}
     {{-- <script src="{{asset('js/table.js')}}"></script> --}}
 
-
+   
     {{-- Tejada --}}
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2-i18n@latest/dist/js/i18n/es.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.3.0/jquery.bootstrap-touchspin.min.js"></script> --}}
-    {{-- <script src="{{ asset('js/compra_create.js') }}"></script> --}}
+    <script src="{{ asset('js/compra_create.js') }}"></script>
+
     <script>
         
     $(document).ready(function(){
+           
+
+
+
             $('#tabla-productos thead tr').clone(true).addClass('filters').appendTo('#tabla-productos thead');
 
             var table = $('#tabla-productos').DataTable({
@@ -260,7 +270,30 @@
                 // pageLength: 5,
                 // lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
                 language: {
-                    // ... (tus opciones de idioma)
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "search": "_INPUT_",
+                    "searchPlaceholder": "...",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		}
                 },
 
                 
@@ -321,9 +354,9 @@
                         // Agregar información del requerimiento a la div
                         let requerimientoInfo = `
                             <div class="row justify-content-between px-2 py-2">
-                                <p class="h4" >Nº Requerimiento: ${requerimientoCompra.id}</p>
+                                <p class="h4" name="requerimiento_id">Nº Requerimiento: ${requerimientoCompra.id}</p>
                                 <input type="hidden" class="h4 d-none" name="requerimiento_compra_id" value="${requerimientoCompra.id}"></input>
-                                <p class="h4">Estado: ${requerimientoCompra.estado_requer_comp}</p>
+                                <p class="h4" name="estado_requer_comp">Estado: ${requerimientoCompra.estado_requer_comp}</p>
                            </div>
                         `;
                         datosRequerimientoDiv.append(requerimientoInfo);
@@ -331,20 +364,21 @@
                         // Recorrer los detalles y agregar filas a la tabla
                         $.each(detalles, function(index, detalle) {
                             let uniqueStockId = 'stock_' + (tabla.rows.length);
+                            let uniquePrecio = 'precio_' + (tabla.rows.length);
                             inputs.value = tabla.rows.length;
                             let row = `
                                 <tr>
                                     <td>${detalle.producto.codigo_prod}</td>
                                     <td>${detalle.producto.nombre_prod}</td>
                                     <td>${detalle.producto.precio_uni_prod}</td>
-                                    <td>${detalle.producto.stock_actual_prod}</td>
-
                                     <td>
-                                        <input type="number" class="form-control mb-1"  id="`+ uniqueStockId +`" name="cantidad_requer_prod[]" value="${detalle.cantidad_requer_prod}">
+                                        <input type="number" class="form-control mb-1"  id="`+ uniquePrecio +`" name="precio_uni_prod[]" value="${detalle.producto.precio_uni_prod}">
                                     </td>
+                                    <td>${detalle.producto.stock_actual_prod}</td>
                                     <td>
-                                        <button type="button" id="eliminarFila" class="btn btn-sm btn-danger text-uppercase eliminarFila">Eliminar</button>
-                                    </td> 
+                                        <input type="number" class="form-control mb-1 cantidad"  id="`+ uniqueStockId +`" name="cantidad_requer_prod[]" value="${detalle.cantidad_requer_prod}">
+                                    </td>
+                                
                                     <td>   
                                         <input type="hidden" name="producto_id[]" value="${detalle.producto_id}">
                                     </td>
@@ -353,154 +387,24 @@
                                 </tr>
                             `;
                             tableBody.append(row);
+                            $(document).on('change', '.cantidad', function () {
+                                let cantidad = parseInt($(this).val());
+                                if (isNaN(cantidad) || cantidad < 1) {
+                                    $(this).val(1);
+                                }
+                        });
+                           
+            
+                            
                         });
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
+
+                $.validator.unobtrusive.parse('#form');
             });
-
-            // $('.agregarProductos').click(function(){
-            //     const id  = $(this).data('id');
-            //     const codigo = $(this).data('codigo');
-            //     const nombre = $(this).data('nombre');
-            //     const categoria = $(this).data('categoria');
-            //     const precio = $(this).data('precio');
-            //     const stock_min = $(this).data('stock-min')
-            //     const stock = $(this).data('stock');
-                
-
-            //     if (filaYaAgregada(id)) {
-            //         alert('Este producto ya ha sido agregado');
-            //         return;
-            //     }
-
-            //     let tabla = document.getElementById("miTabla");
-            //     let row = tabla.insertRow(tabla.rows.length);
-
-            //     // console.log(tabla.rows.length)
-
-            //     var cell1 = row.insertCell(0);
-            //     var cell2 = row.insertCell(1);
-            //     var cell3 = row.insertCell(2);
-            //     var cell4 = row.insertCell(3);
-            //     var cell5 = row.insertCell(4);
-            //     var cell6 = row.insertCell(5);
-            //     var cell7 = row.insertCell(6)
-            //     var cell8 = row.insertCell(7);
-            //     var cell9 = row.insertCell(8);
-            
-
-            //     let uniqueStockId = 'stock_' + (tabla.rows.length - 1);
-            //     // id="' + uniqueStockId + '"
-            //     console.log(uniqueStockId)
-            //     // cell1.innerHTML = '<input type="number" class="form-control mb-1" name="codigo_prod" value="' + codigo + '" disabled>';
-            //     cell1.innerHTML = codigo;
-            //     // cell2.innerHTML = '<input type="text" class="form-control mb-1" name="nombre_prod" value="' + nombre + '" disabled>';
-            //     cell2.innerHTML = nombre;
-            //     // cell3.innerHTML = '<input type="text" class="form-control mb-1" name="categoria_prod" value="' + categoria + '" disabled>';
-            //     cell3.innerHTML = categoria;
-            //     // cell4.innerHTML = '<input type="number" class="form-control mb-1" name="precio_prod" value="' + precio + '" disabled>';
-            //     cell4.innerHTML = precio;
-            //     // cell5.innerHTML = '<input type="number" class="form-control mb-1" name="stock_min_prod" value="' + stock_min + '" disabled>';
-            //     cell5.innerHTML = stock_min;
-            //     // cell6.innerHTML = '<input type="number" class="form-control mb-1" name="stock_prod[]" value="' + stock + '" disabled>';
-            //     cell6.innerHTML = stock;
-            //     cell7.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">';
-            //     cell8.innerHTML = '<button type="button" id="eliminarFila" class="btn btn-sm btn-danger text-uppercase eliminarFila">Eliminar</button>';
-            //     cell9.innerHTML = '<input type="hidden" name="producto_id[]" value="'+id+'">'
-                
-            //     let inputs = document.querySelector(".filas");
-            //     inputs.value = tabla.rows.length-1;
-            //     console.log( inputs.value)
-
-                
-            // });
-
-            // function filaYaAgregada(id) {
-            //     let tabla = document.getElementById("miTabla");
-            //     for (let i = 1; i < tabla.rows.length; i++) { 
-            //         let fila = tabla.rows[i];
-            //         let idFila = fila.querySelector('[name="producto_id[]"]').value;
-            //         if (idFila == id) {
-            //             return true; 
-            //         }
-            //     }
-            //     return false; 
-            // }
-        
-        
-            // $(document).on('click', '.eliminarFila', function() {
-            //     var tabla = document.getElementById("miTabla");
-
-            //     if (tabla.rows.length > 2) {
-            //         var row = this.closest("tr"); // "this" hace referencia al botón clickeado
-            //         row.parentNode.removeChild(row);
-
-            //         // Actualiza los IDs después de eliminar la fila
-            //         for (var i = 1; i < tabla.rows.length; i++) {
-            //             var uniqueStockId = 'stock_' + i;
-            //             tabla.rows[i].cells[6].firstElementChild.id = uniqueStockId;
-            //         }
-            //     } else {
-            //         alert("Debe haber al menos una fila.");
-            //     }
-            // });
-
-
-            
-
-            // $(document).on('click', '#productosBajos', function(){
-            //     let tabla = document.getElementById("miTabla");
-                
-            //     let inputs = document.querySelector(".filas");
-                
-                
-            //     $.ajax({
-            //             url: `{{env('APP_URL')}}/panel/productos-bajos-stock`,
-            //             type: 'GET',
-            //             dataType: 'json',
-            //             success: function(response) {
-            //                 console.log(response)
-            //                 const productosList = response;
-            //                 const tableBody = $('#miTabla tbody');
-                        
-            //                 $.each(productosList, function(index, producto) {
-            //                     let uniqueStockId = 'stock_' + (tabla.rows.length);
-            //                     inputs.value = tabla.rows.length;
-            //                     console.log( inputs.value)
-            //                 let row = `
-            //                     <tr>
-            //                         <td>${producto.codigo_prod} </td>
-            //                         <td>${producto.nombre_prod} </td>
-            //                         <td>${producto.categoria.nombre_cat}</td>
-            //                         <td>${producto.precio_uni_prod} </td>
-            //                         <td>${producto.stock_min_prod} </td>
-            //                         <td>${producto.stock_actual_prod} </td>
-            //                         <td>
-            //                             <input type="number" class="form-control mb-1"  id="`+ uniqueStockId +`" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">
-            //                         </td>
-            //                         <td>
-            //                             <button type="button" id="eliminarFila" class="btn btn-sm btn-danger text-uppercase eliminarFila">Eliminar</button>
-            //                         </td> 
-            //                         <td>   
-            //                             <input type="hidden" name="producto_id[]" value="${producto.id}">
-            //                         </td>
-            //                     </tr>
-            //                 `;
-            //                 tableBody.append(row);
-            //                 });
-
-            //             },
-            //             error: function (error) { 
-            //                 consola.log(error)
-            //             }
-            //     });
-            // });
-
-   
-
     });
 
 
@@ -510,46 +414,5 @@
 
 
 
-        // function agregarFila() {
-        //     var table = document.getElementById("miTabla");
-        //     var row = table.insertRow(table.rows.length);
-
-        //     var cell1 = row.insertCell(0);
-        //     var cell2 = row.insertCell(1);
-        //     var cell3 = row.insertCell(2);
-        //     var cell4 = row.insertCell(3);
-
-        //     // Clona el select y sus opciones
-        //     var selectOriginal = document.getElementById("producto_id");
-        //     var nuevoSelect = selectOriginal.cloneNode(true);
-        //     cell1.appendChild(nuevoSelect);
-        //     // Clona el select y sus opciones
-        //     // Crea un ID único para el input de stock
-        //     var uniqueStockId = 'stock_' + (table.rows.length - 1);
-        //     cell2.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="stock" value="{{old('stock')}}" disabled>'; // Añade el input de stock
-
-        //     cell3.innerHTML = '<input type="number" class="form-control mb-1" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">';
-        //     cell4.innerHTML = '<button type="button" class="btn btn-sm btn-danger text-uppercase" onclick="eliminarFila(this)">Eliminar</button>';
-            
-        //     let inputs = document.getElementById("filas");
-        //     inputs.value = table.rows.length-1;
-
-        //     console.log(inputs.value);
-
-        // }
-
-
-    
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     document.getElementById('stock_').value = stock;
-        // }
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     var uniqueStockId = 'stock_' + select.parentNode.parentNode.rowIndex;
-        //     document.getElementById(uniqueStockId).value = stock;
-        //     }
     </script>
 @endsection 

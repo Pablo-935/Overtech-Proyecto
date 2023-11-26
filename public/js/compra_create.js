@@ -19,6 +19,7 @@ $('#proveedores').select2(
 
 
 window.addEventListener("DOMContentLoaded", function() {
+    
 
 $('#producto_id').val(null).trigger('change');
 
@@ -61,53 +62,7 @@ if (estadoCaja === 'Si') {
 }
 
 
- 
 
-
-const tablaCompras = document.getElementById("tabla_compras");
-const agregarCompraBtn = document.getElementById("agregarCompraBtn");
-
-agregarCompraBtn.addEventListener("click", agregarFila);
-
-function agregarFila() {
-    contador = contador + 1
-    contadorInp.value = contador;
-    const nuevaFila = tablaCompras.insertRow();
-    nuevaFila.innerHTML = `
-        <td><textarea cols="30" rows="5" name="detalle[]"></textarea></td>
-        <td><input type="number" name="requerimiento_compra_id[]" value="0"></td>
-        <td><input type="number" name="monto_comp[]"></td>
-        <td><a href="#" class="btn btn-danger" onclick="eliminarFila(this)">Eliminar</a></td>`;
-    VerFilas()
-
-}
-
-window.eliminarFila = function (enlaceEliminar) {
-    contador = contador - 1
-    contadorInp.value = contador;
-    const fila = enlaceEliminar.closest("tr");
-    fila.parentNode.removeChild(fila);
-    VerFilas()
-
-};
-
-
-
-// comprobar filas
-let VerFilas = function () {
-    if (contador == 0) {
-        $('#compra_guardar').prop('disabled', true);
-        $('#mensaje2').text('Debe registrar almenos 1 compra');
-        $('#mensaje2').removeClass('d-none');
-    }
-    else{
-        $('#compra_guardar').prop('disabled', false);
-        $('#mensaje2').text('Debe registrar almenos 1 compra');
-        $('#mensaje2').addClass('d-none');
-    }
-    
-}
-VerFilas()
 
 
 });

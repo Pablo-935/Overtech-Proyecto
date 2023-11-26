@@ -14,6 +14,16 @@
 {{-- Contenido de la Pagina --}}
 @section('content')
 <div class="container-fluid">
+    @if (session('alert'))
+        <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{session('alert')}}
+                <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-12 mb-3">
             
@@ -55,7 +65,7 @@
                             <th scope="col" class="text-uppercase">Numero de Caja</th>
                             <th scope="col" class="text-uppercase">proveedor</th>
                             <th scope="col" class="text-uppercase">Nº Requerimiento</th>
-                            {{-- <th scope="col" class="text-uppercase">Opciones</th> --}}
+                            <th scope="col" class="text-uppercase">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,18 +74,18 @@
                             <td>{{ $compra->num_comp }}</td>
                             <td>{{ $compra->fecha_comp}}</td>
                             <td>{{ $compra->hora_comp }}</td>
-                            <td>{{ $compra->operador }}</td>
+                            <td>{{ $compra->operador}}</td>
                             <td>{{ $compra->detalle }}</td>
-                            <td>{{ $compra->monto_comp }}</td>
-                            <td>{{ $compra->caja->id }}</td>
+                            <td>{{number_format( $compra->monto_comp )}}</td>
+                            <td>{{ $compra->caja->numero_caja }}</td>
                             <td>{{ $compra->proveedor->nombre_prov }}</td>
                             <td>{{ $compra->RequerimientoCompra->id }}</td>
-                            {{-- <td>
+                            <td>
                                 <div class="d-flex">
                                     <a href="{{ route('compra.show', $compra->id) }}" class="btn btn-sm btn-info text-white text-uppercase me-1">
                                         Ver
                                     </a>
-                                    <a href="{{ route('compra.edit', $compra->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
+                                    {{-- <a href="{{ route('compra.edit', $compra->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
                                         Editar
                                     </a>
                                     <form action="{{ route('compra.destroy', $compra->id) }}" method="POST" class="formulario-eliminar">
@@ -84,9 +94,9 @@
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">
                                             Eliminar
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
-                            </td> --}}
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

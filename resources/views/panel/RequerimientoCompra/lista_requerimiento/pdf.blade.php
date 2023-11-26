@@ -14,38 +14,30 @@
 
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
-                <p class="card-title"> Requerimiento Nº: {{ $requerimiento->id}}</p>
-            </div>
+            <img src="{{public_path('logo/logo4.png')}}" alt=""  style="height: 90px; width: auto;  margin-right: 10px; text-align:center; float: right;">
+            
+            
             <div class="card-body">
-                <div class="row" style="display: flex;">
+               
+                <div class="row" style="margin-bottom: 20px;">
+                    <p> Solicitud de Requerimiento de Productos</p>
                     <div>
-                        Fecha del Requerimiento: {{ $requerimiento->fecha_requer_comp}}
-                    </div>
-                    <div>
-                        Estado: {{ $requerimiento->estado_requer_comp }}    
-                    </div>
-                    <div style="float: right">
-                        Usuario: {{ $requerimiento->user->name }}  
+                        Fecha de Emisión: {{ $requerimiento->fecha_requer_comp}}
                     </div>
                 </div>
-
-                <p class="text-center">Detalle de Requerimiento</p>
 
                 <table class="table table-sm table-striped table-hover w-100">
                     <thead>
                         <tr>
-                            <th>Nº Detalle</th>
-                            <th>Nº Requerimiento:</th>
-                            <th>Producto</th>
+                            <th>Código de Producto</th>
+                            <th>Nombre</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($requerimiento->DetalleRequerCompra as $detalle)
                         <tr>
-                            <td>{{$detalle->id }}</td>
-                            <td>{{$detalle->RequerimientoCompra->id }}</td>
+                            <td>{{$detalle->producto->codigo_prod }}</td>
                             <td>{{$detalle->producto->nombre_prod }}</td>
                             <td>{{$detalle->cantidad_requer_prod}}</td>
                         </tr>
