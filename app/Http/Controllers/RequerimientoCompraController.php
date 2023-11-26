@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RequerimientoCompraValidacion;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\DetalleRequerComp;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\RequerimientoCompra;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RequerimientoCompraValidacion;
 
 
 class RequerimientoCompraController extends Controller
@@ -29,11 +29,12 @@ class RequerimientoCompraController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         $usuarios = User::all();
         $productos = Producto::all();
         
         
-        return view('panel.RequerimientoCompra.lista_requerimiento.create', compact('usuarios', 'productos'));
+        return view('panel.RequerimientoCompra.lista_requerimiento.create', compact('user', 'productos'));
     }
 
     /**
@@ -45,7 +46,7 @@ class RequerimientoCompraController extends Controller
         $requerimiento = new RequerimientoCompra();
 
         $requerimiento->fecha_requer_comp = $request->get('fecha_requer_comp');
-        $requerimiento->estado_requer_comp = $request->get('estado_requer_comp');
+        $requerimiento->estado_requer_comp = $request->get('estado_requer_comp', 'Pendiente');
         $requerimiento->user_id = $request->get('usuario_id');
         
         $requerimiento->save();
@@ -68,7 +69,7 @@ class RequerimientoCompraController extends Controller
         // $detalleRequerimiento->cantidad_requer_prod = $request->get('cantidad_requer_prod');
         // $requerimiento->DetalleRequerCompra()->save($detalleRequerimiento);
         
-        return redirect()->route("requerimiento.index");
+        return redirect()->route("requerimiento.index")->with('alert', 'Requerimiento creado exitosamente');
     }
 
     /**
@@ -90,17 +91,19 @@ class RequerimientoCompraController extends Controller
     {
         $requerimiento = RequerimientoCompra::findOrFail($id);
         $detalleRequerimiento = DetalleRequerComp::where('requerimiento_compra_id', $id)->get();
+        
+        $estados = ['Aprobado', 'Pendiente', 'Rechazado'];
         $usuarios = User::all();
         $productos = Producto::all();
         
         // $detalleVenta = DetalleVenta::where('venta_id', $id)->get();
-        return view('panel.RequerimientoCompra.lista_requerimiento.edit', compact('requerimiento', 'detalleRequerimiento', 'usuarios', 'productos'));
+        return view('panel.RequerimientoCompra.lista_requerimiento.edit', compact('requerimiento', 'detalleRequerimiento', 'estados', 'usuarios', 'productos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(RequerimientoCompraValidacion $request, $id)
     {
         $requerimiento = RequerimientoCompra::findOrFail($id);
         $requerimiento->fecha_requer_comp = $request->input('fecha_requer_comp');
@@ -108,7 +111,7 @@ class RequerimientoCompraController extends Controller
         $requerimiento->user_id = $request->input('usuario_id');
 
         $requerimiento->update();
-        
+                
         $filas = $request->get('filas');
         // $producto_id = $request->input('producto_id');
         // $cantidad_requer_prod = $request->input('cantidad_requer_prod');
@@ -125,7 +128,7 @@ class RequerimientoCompraController extends Controller
         }
         
         // Actualización de detalle de venta
-        return redirect()->route("requerimiento.index");
+        return redirect()->route("requerimiento.index")->with('alert2', 'Requerimiento editado exitosamente');
     }
 
     /**
@@ -147,7 +150,6 @@ class RequerimientoCompraController extends Controller
         $requerimiento->load(['DetalleRequerCompra']); 
 
         // $detalleRequerimiento = DetalleRequerComp::where('requerimiento_compra_id', $id)->get();
-
         // $pdf = PDF::loadView('panel.RequerimientoCompra.lista_requerimiento.pdf', compact('requerimiento', 'detalleRequerimiento'));
         $pdf = PDF::loadView('panel.RequerimientoCompra.lista_requerimiento.pdf', compact('requerimiento'));
         $pdf->render();
@@ -171,7 +173,24 @@ class RequerimientoCompraController extends Controller
 
             // $productosBajos->load(['categoria']);
             return response()->json($productos_bajo_stock);
-        }
-        
+        }     
+    }
+
+    public function cargarRequerimientoCompra($id){
+        // if($request->ajax()){
+            
+        //     // $requerimientoCompra = RequerimientoCompra::findOrFail($id);
+        //     // $requerimientoCompra->load(['DetalleRequerCompra']); 
+
+        //     $requerimientoCompra = RequerimientoCompra::findOrFail($id);
+        //     $detalleRequerimiento = DetalleRequerComp::where('requerimiento_compra_id', $id)->get();
+           
+        //     return response()->json($requerimientoCompra, $detalleRequerimiento);
+        // }
+        $requerimientoCompra = RequerimientoCompra::with('DetalleRequerCompra.producto')->findOrFail($id);
+        $detalles = $requerimientoCompra->DetalleRequerCompra;
+
+        return response()->json(['requerimiento' => $requerimientoCompra, 'detalles' => $detalles]);
+
     }
 }

@@ -21,14 +21,37 @@
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Fecha Requerimiento</span>
-                                <input type="date" class="form-control" name="fecha_requer_comp" value="{{old('fecha_requer_comp', $requerimiento->fecha_requer_comp)}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" >
+                                <input type="date" class="form-control @error('fecha_requer_comp') is-invalid @enderror" name="fecha_requer_comp" value="{{ old('fecha_requer_comp', $requerimiento->fecha_requer_comp) }}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                @error('fecha_requer_comp')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="input-group mb-3">
+                                {{-- <span class="input-group-text" id="inputGroup-sizing-default">Estado</span> --}}
+                                {{-- <input type="text" class="form-control @error('estado_requer_comp') is-invalid @enderror" name="estado_requer_comp" value="{{old('estado_requer_comp', $requerimiento->estado_requer_comp)}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                @error('estado_requer_comp')
+                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror --}}
                                 <span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
-                                <input type="text" class="form-control" name="estado_requer_comp" value="{{old('estado_requer_comp', $requerimiento->estado_requer_comp)}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                 <select id="usuario_id" name="estado_requer_comp" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    @foreach ($estados as $estado)
+                                        <option {{ $requerimiento->estado_requer_comp && $requerimiento->estado_requer_comp == $estado ? 'selected': ''}} value="{{ $estado}}"> 
+                                            {{ $estado}}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+
+                                {{-- <span class="input-group-text" id="inputGroup-sizing-default">Estado</span>
+                                <select name="estado_requer_comp" class="form-control @error('estado_requer_comp') is-invalid @enderror">
+                                    <option value="{{old('estado_requer_comp', $requerimiento->estado_requer_comp)}}">{{old('estado_requer_comp', $requerimiento->estado_requer_comp)}}</option>
+                                    <option value="Aprobado">Aprobado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Rechazado">Rechazado</option>
+                                </select>                         --}}
                             </div>
                         </div>
 
@@ -74,7 +97,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control mb-1" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod', $detalle->cantidad_requer_prod)}}">
+                                    <input type="text" class="form-control mb-1 cantidad" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod', $detalle->cantidad_requer_prod)}}">
                                 </td>
                                 
                                 <td>
@@ -128,7 +151,17 @@
                     alert("Debe haber al menos una fila.");
                 }
             });
+
+            $(document).on('change', '.cantidad', function () {
+                let cantidad = parseInt($(this).val());
+                if (isNaN(cantidad) || cantidad < 1) {
+                    $(this).val(1);
+                }
+            });
+
         });
+
+    
 
         // Crear formulario
                 // let formulario = document.createElement('form');

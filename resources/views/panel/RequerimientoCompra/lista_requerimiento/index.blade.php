@@ -14,6 +14,40 @@
 {{-- Contenido de la Pagina --}}
 @section('content')
 <div class="container-fluid">
+
+    @if (session('alert'))
+        <div class="col-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{session('alert')}}
+                <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('alert2'))
+    <div class="col-12">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{session('alert2')}}
+            <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
+
+    @if (session('alert3'))
+    <div class="col-12">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{session('alert3')}}
+            <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
+    
     <div class="row">
         <div class="col-12 mb-3">
             
@@ -22,24 +56,6 @@
             </a>
         </div>
         
-        @if (session('status'))
-            <div class="col-12">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
-        @if (session('alert3'))
-            <div class="col-12">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('alert3') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -58,7 +74,18 @@
                         <tr>
                             <td>{{ $requerimiento->id }}</td>
                             <td>{{ $requerimiento->fecha_requer_comp}}</td>
-                            <td>{{ $requerimiento->estado_requer_comp }}</td>
+                            <td>
+                                @if ($requerimiento->estado_requer_comp === "Pendiente")
+                                <a class="btn btn-warning"  role="button">{{$requerimiento->estado_requer_comp}}</a>
+
+                                @endif
+                                @if ($requerimiento->estado_requer_comp === "Aprobado")
+                                <a class="btn btn-success"  role="button">{{$requerimiento->estado_requer_comp}}</a>
+                                @endif
+                                @if ($requerimiento->estado_requer_comp === "Rechazado")
+                                <a class="btn btn-danger"  role="button">{{$requerimiento->estado_requer_comp}}</a>
+                                @endif
+                            </td>
                             <td>{{ $requerimiento->user->name }}</td>
                             <td style="width: 0%">
                                 <div class="d-flex">

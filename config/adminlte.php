@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>OVERTECH</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/overtech.png',
+    'logo' => '<b>Overtech</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo3.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -150,8 +150,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 

@@ -80,7 +80,7 @@
                             @enderror
                             
                             <label for="fecha_alta_empl" class="form-label mb-1">Fecha Contratación: </label>
-                            <input type="date" class="form-control mb-1" name="fecha_alta_empl" value="{{old('fecha_alta_empl')}}">
+                            <input type="date" class="form-control mb-1 @error('fecha_alta_empl') is-invalid @enderror" name="fecha_alta_empl" value="{{old('fecha_alta_empl')}}">
                             @error('fecha_alta_empl')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

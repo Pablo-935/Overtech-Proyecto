@@ -83,7 +83,7 @@ class EmpleadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(EmpleadoValidacion $request, $id)
     {
         $empleado = Empleado::findOrFail($id);
 
