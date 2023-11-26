@@ -32,11 +32,11 @@ Route::resource('/caja', CajaController::class)->names('caja')->middleware('can:
 
 Route::resource('/ventas', VentaController::class)->names('venta')->middleware('can:lista_ventas');
 Route::put('/anular/{id}', [VentaController::class, 'anular'])->name('anular');
+
 Route::get('/pdfb/{id}', [VentaController::class, 'pdfb'])->name('pdfb');
 Route::get('/pdfa/{id}', [VentaController::class, 'pdfa'])->name('pdfa');
 Route::get('/historial', [VentaController::class, 'historial'])->name('historial');
 Route::put('/cancelar/{id}', [VentaController::class, 'cancelar'])->name('cancelar');
-
 
 Route::resource('/requerimientos', RequerimientoCompraController::class)->names('requerimiento')->middleware('can:lista_requerimientos');
 Route::get('/exportar-requerimientos-pdf/{id}', [RequerimientoCompraController::class, 'exportarRequerimientoPDF'])->name('exportar-requerimientos-pdf');

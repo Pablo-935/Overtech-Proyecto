@@ -232,10 +232,13 @@ if ($cajaAbierta) {
             
             $fechaInicio = $request->input('fecha_inicio');
             $fechaFin = $request->input('fecha_fin');
+            $estado = $request->input("estado_venta");
     
-            $ventasPorDia = DB::table('ventas')
-                ->select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
+            $ventasPorDia = Venta::select(DB::raw('DATE(fecha_venta) as fecha'), DB::raw('COUNT(*) as total_ventas'))
                 ->whereBetween('fecha_venta', [$fechaInicio, $fechaFin])
+                ->when($estado, function ($query) use ($estado) {
+                    return $query->where('estado_venta', $estado);
+                })
                 ->groupBy(DB::raw('DATE(fecha_venta)'))
                 ->orderBy(DB::raw('DATE(fecha_venta)'))
                 ->get();
@@ -250,7 +253,7 @@ if ($cajaAbierta) {
                 'data' => [$labels, $counts]
             ];
     
-            return json_encode($response);
+            return response()->json($response);
         }
     
         return view('panel.venta.lista_venta.grafico_ventas');
@@ -301,4 +304,5 @@ if ($cajaAbierta) {
 
     return back();
 }
+
 }

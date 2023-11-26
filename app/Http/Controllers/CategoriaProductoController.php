@@ -63,7 +63,7 @@ class CategoriaProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(CategoriaValidacion $request, $id)
     {
         $categoria = CategoriaProducto::findOrFail($id);
 

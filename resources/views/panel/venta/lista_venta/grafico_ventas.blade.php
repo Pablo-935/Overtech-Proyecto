@@ -2,7 +2,6 @@
 
 @section('title', 'Gráficos')
 
-{{-- Activamos el plugin de Chartjs --}}
 @section('plugins.Chartjs', true)
 
 @section('content_header')
@@ -24,6 +23,13 @@
                                 <label for="endDate">Fecha de fin:</label>
                                 <input type="date" class="form-control" id="endDate" name="fecha_fin">
                             </div>
+                            <label for="estadoVenta">Estado de Venta:</label>
+                            <select class="form-control" id="estadoVenta" name="estado_venta">
+                                <option value="">Todos</option>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="ANULADO">Anulado</option>
+                                <option value="FACTURADO">Facturado</option>
+                            </select><br>
                             <button type="submit" class="btn btn-primary">Generar Gráfico</button>
                         </form>
                     </div>
@@ -56,17 +62,13 @@ $(function() {
 
         const startDate = $('#startDate').val();
         const endDate = $('#endDate').val();
+        const estadoVenta = $('#estadoVenta').val();
 
-        $.get("{{ route('graficos-ventas') }}", { fecha_inicio: startDate, fecha_fin: endDate }, function(response) {
-            response = JSON.parse(response);
+        $.get("{{ route('graficos-ventas') }}", { fecha_inicio: startDate, fecha_fin: endDate, estado_venta: estadoVenta }, function(response) {
 
             if(response.success) {
                 let labels = response.data[0];
                 let counts = response.data[1];
-
-                // valor falso 0 al inicio
-                labels.unshift('');
-                counts.unshift(0);
 
                 const configChart = {
                     type: 'bar',
@@ -105,9 +107,8 @@ $(function() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-          var fechaActual = new Date().toISOString().split('T')[0];
-
-      document.getElementById('endDate').value = fechaActual;
-    });
+    var fechaActual = new Date().toISOString().split('T')[0];
+    document.getElementById('endDate').value = fechaActual;
+});
 </script>
 @stop
