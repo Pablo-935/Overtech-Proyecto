@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Vista del Cliente Nº . $clientes->id')
+@section('title', 'Vista del Cliente')
 
 @section('content')
     {{-- @if ($errors->any())
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center">
             <div class="col-10 col-md-6 col-lg-6">
-                <h3 class="text-center">Vista de Cliente Nº{{$clientes->id}}</h3>
+                <h3 class="text-center">Vista de Cliente {{$clientes->nombre_cli}}</h3>
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" novalidate>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear Nueva Cliente')
+@section('title', 'Crear Cliente')
 
 @section('content')
     {{-- @if ($errors->any())

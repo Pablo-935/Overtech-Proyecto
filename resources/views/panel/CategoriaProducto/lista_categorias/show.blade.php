@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Vista del Producto Nº . $categorias->id')
+@section('title', 'Vista de Categoría Nº' . $categorias->id)
 
 @section('content')
     {{-- @if ($errors->any())

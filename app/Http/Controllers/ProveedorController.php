@@ -31,15 +31,15 @@ class ProveedorController extends Controller
      */
     public function store(ProveedorValidacion $request)
     {
-        $validar = $request->validate([
-            'nombre_prov' => 'required|string|max:20',
-            'telefono_prov' => 'required|numeric|min_digits:10|max_digits:10',
-            'direccion_prov' => 'required|string',
-            'ubicacion_prov' => 'required|string',
-            'correo_prov' => 'required|string|email',
+        $proveedor = new Proveedor;
 
-        ]);
-        Proveedor::create($request->all());
+        $proveedor->nombre_prov = $request->get('nombre_prov');
+        $proveedor->telefono_prov = $request->get('telefono_prov');
+        $proveedor->direccion_prov = $request->get('direccion_prov');
+        $proveedor->ubicacion_prov = $request->get('ubicacion_prov');
+        $proveedor->correo_prov = $request->get('correo_prov');
+
+        $proveedor->save();
 
         return redirect()->route('proveedor.index')->with('status', 'Proveedor creado satisfactoriamente');
     }
@@ -66,21 +66,17 @@ class ProveedorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(ProveedorValidacion $request,  $id)
     {
-        $validar = $request->validate([
-            'nombre_prov' => 'required|string|max:20',
-            'telefono_prov' => 'required|numeric|min_digits:10|max_digits:10',
-            'direccion_prov' => 'required|string',
-            'ubicacion_prov' => 'required|string',
-            'correo_prov' => 'required|string|email',
-
-        ]);
-        //busqueda del producto
         $proveedor = Proveedor::findOrFail($id);
 
-        //actualizar
-        $proveedor->update($validar);
+        $proveedor->nombre_prov = $request->get('nombre_prov');
+        $proveedor->telefono_prov = $request->get('telefono_prov');
+        $proveedor->direccion_prov = $request->get('direccion_prov');
+        $proveedor->ubicacion_prov = $request->get('ubicacion_prov');
+        $proveedor->correo_prov = $request->get('correo_prov');
+
+        $proveedor->update();
 
         return redirect()->route('proveedor.index')->with('status2', 'Proveedor actualizado satisfactoriamente');
 
