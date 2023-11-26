@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <select id="empleado_id" name="operador" class="form-control d-none"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <select id="empleado_id" name="operador" class="form-control d-"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                         <option value="{{ $user->name }}">{{ $user->name }}</option>
                                     </select>     
                                 </div>
