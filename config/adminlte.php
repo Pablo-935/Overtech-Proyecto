@@ -354,12 +354,12 @@ return [
                     'icon' => 'fas fa-clock',
 
                 ],
-                // [
-                //     'text' => 'Historial de Ventas',
-                //     'route' => 'venta.show',
-                //     'icon' => 'fas fa-list-ul',
+                [
+                    'text' => 'Historial de Ventas',
+                    'route' => 'historial',
+                    'icon' => 'fas fa-list-ul',
 
-                // ],
+                ],
 
             ]
         ],

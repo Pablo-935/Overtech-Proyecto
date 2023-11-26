@@ -200,11 +200,15 @@
         </div>
 
         <div class="row my-2">
-            <a class="btn btn-warning" href="{{route('venta.index')}}" role="button">Volver</a> &nbsp;&nbsp;
+            <a class="btn btn-primary" href="{{route('venta.index')}}" role="button">Volver</a> &nbsp;&nbsp;
             <button type="submit" id="facturar" class="btn btn-success btn-sm ">Facturar</button>
             <button id="anular_boton" type="submit" data-anular-route="{{ route('anular', ['id' => $venta->id]) }}" type="button" class="btn btn-danger ">Anular</button>
             &nbsp;&nbsp;
+            <button id="cancelar_boton" type="submit" data-cancelar-route="{{ route('cancelar', ['id' => $venta->id]) }}" type="button" class="btn btn-warning ">Cancelar</button>
+            &nbsp;&nbsp;
+
         </form>
+
         <a id="facb" href="{{ route('pdfb', $venta->id)}}" class="btn btn-danger ms-5" title="PDF" target="_blank">
             <i class="fas fa-file-pdf">PDF</i>
             </a>
@@ -212,6 +216,7 @@
             <a id="faca" href="{{ route('pdfa', $venta->id)}}" class="btn btn-danger ms-5 d-none" title="PDF" target="_blank">
                 <i class="fas fa-file-pdf">PDF</i>
                 </a>
+                <p id="mensaje" class="text-danger d-none"> Cantidad de existencias insuficientes </p>
         </div>
 
     </div>

@@ -168,23 +168,23 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
 
-    {{-- Datatables --}}
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+{{-- Datatables --}}
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
 
-    {{-- FixedHeader --}}
-    <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+{{-- FixedHeader --}}
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
 
-    {{-- La funcion asset() es una funcion de Laravel PHP que nos dirige a la carpeta "public" --}}
-    {{-- <script src="{{asset('js/table.js')}}"></script> --}}
+{{-- La funcion asset() es una funcion de Laravel PHP que nos dirige a la carpeta "public" --}}
+{{-- <script src="{{asset('js/table.js')}}"></script> --}}
+
+<script>
     
-    <script>
-        
     $(document).ready(function(){
             $('#tabla-productos thead tr').clone(true).addClass('filters').appendTo('#tabla-productos thead');
 
@@ -360,58 +360,12 @@
                 });
             });
 
-   
+
 
     });
 
-
-
-
-
-
-
-
-        // function agregarFila() {
-        //     var table = document.getElementById("miTabla");
-        //     var row = table.insertRow(table.rows.length);
-
-        //     var cell1 = row.insertCell(0);
-        //     var cell2 = row.insertCell(1);
-        //     var cell3 = row.insertCell(2);
-        //     var cell4 = row.insertCell(3);
-
-        //     // Clona el select y sus opciones
-        //     var selectOriginal = document.getElementById("producto_id");
-        //     var nuevoSelect = selectOriginal.cloneNode(true);
-        //     cell1.appendChild(nuevoSelect);
-        //     // Clona el select y sus opciones
-        //     // Crea un ID único para el input de stock
-        //     var uniqueStockId = 'stock_' + (table.rows.length - 1);
-        //     cell2.innerHTML = '<input type="number" class="form-control mb-1" id="' + uniqueStockId + '" name="stock" value="{{old('stock')}}" disabled>'; // Añade el input de stock
-
-        //     cell3.innerHTML = '<input type="number" class="form-control mb-1" name="cantidad_requer_prod[]" value="{{old('cantidad_requer_prod')}}">';
-        //     cell4.innerHTML = '<button type="button" class="btn btn-sm btn-danger text-uppercase" onclick="eliminarFila(this)">Eliminar</button>';
-            
-        //     let inputs = document.getElementById("filas");
-        //     inputs.value = table.rows.length-1;
-
-        //     console.log(inputs.value);
-
-        // }
-
+</script>
+@endsection
 
     
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     document.getElementById('stock_').value = stock;
-        // }
-
-        // function obtenerStock(select) {
-        //     var stock = select.options[select.selectedIndex].getAttribute('data-stock');
-        //     var uniqueStockId = 'stock_' + select.parentNode.parentNode.rowIndex;
-        //     document.getElementById(uniqueStockId).value = stock;
-        //     }
-    </script>
-@endsection
 

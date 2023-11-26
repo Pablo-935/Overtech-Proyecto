@@ -9,6 +9,7 @@ use Illuminate\Validation\Rules\Can;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CajaValidacion;
 
 
 class CajaController extends Controller
@@ -37,7 +38,7 @@ class CajaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CajaValidacion $request)
     {
         $ultimoRegistro = Caja::latest()->first();
 

@@ -23,9 +23,9 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::orderBy('id', 'desc')->get();
+        // $ventas = Venta::orderBy('id', 'desc')->get();
 
-        // $ventas = Venta::where('estado_venta', 'Pendiente')->orderBy('id', 'desc')->get();
+        $ventas = Venta::where('estado_venta', 'Pendiente')->orderBy('id', 'desc')->get();
         return view('panel.venta.lista_venta.index', compact('ventas'));
     }
 
@@ -279,6 +279,26 @@ if ($cajaAbierta) {
         return $pdf->stream('Factura_A.pdf');
     }
 
+    public function historial (){
+        $ventas = Venta::where('estado_venta', '!=', 'Pendiente')->orderBy('id', 'desc')->get();
+        return view('panel.venta.lista_venta.historial', compact('ventas'));
+    }
 
 
+    public function cancelar(Request $request, $id)
+{
+    $venta = Venta::findOrFail($id);
+
+    $venta->dni_venta = $request->input('dni_venta');
+    $venta->fecha_venta = $request->input('fecha_venta');
+    $venta->hora_venta = $request->input('hora_venta');
+    $venta->total_venta = $request->input('total_venta');
+    $venta->estado_venta = $request->filled('estado_venta') ? $request->input('estado_venta') : 'Cancelado';
+    $venta->user_id = $request->input('empleado_id');
+    $venta->caja_id = $request->input('caja_id');
+    $venta->cliente_id = $request->input('cliente_id');
+    $venta->save();
+
+    return back();
+}
 }

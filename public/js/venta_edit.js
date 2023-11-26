@@ -20,6 +20,9 @@ window.addEventListener("DOMContentLoaded", function() {
   let facb = this.document.getElementById("facb");
   let faca = this.document.getElementById("faca");
   let seleccionfac = this.document.getElementById("seleccionfac");
+  let cancelar_boton = document.getElementById("cancelar_boton");
+  let mensaje = document.getElementById("mensaje");
+
 
   
   clientelis
@@ -27,6 +30,7 @@ window.addEventListener("DOMContentLoaded", function() {
   if (estado.innerText == "Anulado") {
       estado.classList.add("badge", "bg-danger");
       anular_boton.classList.add("d-none");
+      cancelar_boton.classList.add("d-none");
       facturar.classList.add("d-none");
       facb.classList.add("d-none");
       faca.classList.add("d-none");
@@ -52,13 +56,30 @@ window.addEventListener("DOMContentLoaded", function() {
   if (estado.innerText == "Facturado") {
       estado.classList.add("badge", "bg-success");
       facturar.classList.add("d-none");
+      cancelar_boton.classList.add("d-none");
       cantidades.forEach(function(cantidad) {
-          cantidad.classList.add("d-none");
+      cantidad.classList.add("d-none");
       });
       botonesEliminar.forEach(function(botonEliminar) {
         botonEliminar.classList.add("d-none");
     });
   }
+
+  if (estado.innerText == "Cancelado") {
+    estado.classList.add("badge", "bg-warning");
+    facturar.classList.add("d-none");
+    anular_boton.classList.add("d-none");
+    facb.classList.add("d-none");
+    faca.classList.add("d-none");
+    cancelar_boton.classList.add("d-none");
+
+    cantidades.forEach(function(cantidad) {
+        cantidad.classList.add("d-none");
+    });
+    botonesEliminar.forEach(function(botonEliminar) {
+      botonEliminar.classList.add("d-none");
+  });
+}
     // actualizar los cálculos cuando cambia la cantidad
     function actualizarCalculos(fila) {
         let cantidadInput = fila.querySelector('input[name="cantidad_prod_venta[]"]');
@@ -129,15 +150,22 @@ window.addEventListener("DOMContentLoaded", function() {
 // Obtén referencias a elementos relevantes
 let form = document.getElementById("form");
 
-// Agrega un evento de clic al botón "Anular"
+
+
+// evento de "Anular"
 document.getElementById("anular_boton").addEventListener("click", function () {
-    // Obtén la ruta de anulación desde el atributo de datos
     let anularRoute = this.getAttribute("data-anular-route");
     
-    // Cambia la acción del formulario para Anular
     form.action = anularRoute;
 });
 
+// evento de "cancelar"
+
+document.getElementById("cancelar_boton").addEventListener("click", function () {
+  let cancelarRoute = this.getAttribute("data-cancelar-route");
+  
+  form.action = cancelarRoute;
+});
 
 
 
@@ -189,23 +217,27 @@ seleccionfac.addEventListener("click", cambiar_factura)
             input.value = 100;
         }
     }
+// Función para verificar el stock y mostrar alerta si la cantidad es mayor que el stock
+function verificarStock(input) {
+  var cantidad = parseInt(input.value, 10);
+  var stock = parseInt($(input).closest('tr').find('td:eq(4)').text(), 10); // Obtener el valor del stock desde la columna correspondiente
 
-    // Función para verificar el stock y mostrar alerta si la cantidad es mayor que el stock
-    function verificarStock(input) {
-        var cantidad = parseInt(input.value, 10);
-        var stock = parseInt($(input).closest('tr').find('td:eq(4)').text(), 10); // Obtener el valor del stock desde la columna correspondiente
+  if (cantidad > stock) {
+      $(input).addClass('border-danger');
+      facturar.classList.add("d-none");
+      mensaje.classList.remove("d-none")
+      cancelar_boton.classList.add("d-none");
 
-        if (cantidad > stock) {
-            // Marcamos la fila como roja
-            $(input).closest('tr').css('background-color', 'red');
-            facturar.classList.add("d-none")
-        } else {
-            // Restauramos el color de fondo original
-            $(input).closest('tr').css('background-color', '');
-            facturar.classList.remove("d-none")
 
-        }
-    }
+  } else {
+      // Quitamos la clase border-danger al input
+      $(input).removeClass('border-danger');
+      facturar.classList.remove("d-none");
+      mensaje.classList.add("d-none")
+      cancelar_boton.classList.remove("d-none");
+
+  }
+}
 
     // Escuchar el evento keyup en los campos de cantidad
     $(document).on('keyup', '.cantidad', function() {

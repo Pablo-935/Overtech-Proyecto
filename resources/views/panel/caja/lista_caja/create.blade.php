@@ -34,14 +34,7 @@
                     <div class="card-body">
                         <form action="{{route('caja.store')}}" method="POST" novalidate>
                             @csrf 
-                            {{-- <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Numero de caja</label>
-                                <input type="text" class="form-control" name="numero_caja" aria-describedby="emailHelp" value="{{ old('numero_caja') }}">
-                              @error('numero_caja')
-                              <p class="text-danger"> {{ $message }} </p>
-                              @enderror
-                              </div> --}}
-        
+
                                 <select id="usuario_id" name="usuario_id" class="form-control mb-1 d-none">
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 </select>
@@ -57,10 +50,10 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Saldo Inicial</label>
-                                <input type="number" id="saldo_inicial" class="form-control" name="saldo_inicial_caja" aria-describedby="emailHelp" value="" placeholder="$ 0.00">
+                                <input type="number" id="saldo_inicial" class="form-control @error('saldo_inicial_caja') is-invalid @enderror" name="saldo_inicial_caja" aria-describedby="emailHelp" value="" placeholder="$ 0.00">
                               @error('saldo_inicial_caja')
-                              <p class="text-danger"> {{ $message }} </p>
-                              @enderror
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
                               </div>
         
                               <div class="mb-3">
@@ -92,9 +85,9 @@
         
                               <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Total Saldo Caja</label>
-                                <input type="number" id="saldo_total" class="form-control" name="total_saldo_caja" aria-describedby="emailHelp" value="" placeholder="$ 0.00">
+                                <input type="number" id="saldo_total" class="form-control @error('total_saldo_caja') is-invalid @enderror" name="total_saldo_caja" aria-describedby="emailHelp" value="" placeholder="$ 0.00">
                               @error('total_saldo_caja')
-                              <p class="text-danger"> {{ $message }} </p>
+                              <div class="invalid-feedback">{{ $message }}</div>
                               @enderror
                               </div>  
 
