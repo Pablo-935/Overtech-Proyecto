@@ -207,16 +207,16 @@ seleccionfac.addEventListener("click", cambiar_factura)
     function limitarRango(input) {
         var valor = parseInt(input.value, 10);
 
-        // Si el valor es menor que 0, establecer en 0
         if (valor < 0 || isNaN(valor)) {
             input.value = 0;
         }
 
-        // Si el valor es mayor que 100, establecer en 100
         if (valor > 100) {
             input.value = 100;
         }
     }
+
+    
 // Función para verificar el stock y mostrar alerta si la cantidad es mayor que el stock
 function verificarStock(input) {
   var cantidad = parseInt(input.value, 10);
