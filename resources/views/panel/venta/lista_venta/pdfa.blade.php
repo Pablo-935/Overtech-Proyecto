@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Factura B</title>
+    <title>Factura A</title>
 
     <link rel="stylesheet" href="{{public_path('vendor/adminlte/dist/css/adminlte.min.css')}}">
     <style>
@@ -44,6 +44,8 @@
                     </thead>
                     <tbody>
                         @foreach($ventaA->DetalleVenta as $detalle)
+                        @if($detalle->cantidad_prod_venta != 0)
+
                         <tr>
                             <td>{{$detalle->producto->codigo_prod }}</td>
                             <td>{{$detalle->producto->nombre_prod }}</td>
@@ -53,7 +55,9 @@
 
                         </tr>
 
+                        @endif
                         @endforeach
+
                     </tbody>
                 </table>
 

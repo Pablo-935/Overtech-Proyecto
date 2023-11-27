@@ -9,7 +9,7 @@ class Compra extends Model
 {   
     protected $table = 'compras';
 
-    protected $fillable = ['num_comp', 'monto_comp', 'fecha_comp', 'hora_comp', 'caja_id', 'proveedor_id', 'requerimiento_compra_id'];
+    protected $fillable = ['num_comp', 'monto_comp', 'fecha_comp', 'hora_comp',  'operador', 'detalle', 'caja_id', 'proveedor_id', 'requerimiento_compra_id'];
     
     public function caja(){
         return $this->belongsTo(Caja::class, 'caja_id');

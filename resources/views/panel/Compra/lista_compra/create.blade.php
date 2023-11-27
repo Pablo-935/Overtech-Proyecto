@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
-                                    <select id="empleado_id" name="operador" class="form-control d-"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <select id="empleado_id" name="operador" class="form-control d-none"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                         <option value="{{ $user->name }}">{{ $user->name }}</option>
                                     </select>     
                                 </div>
@@ -93,7 +93,7 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">Monto</span>
-                                <input type="number" placeholder="$00,000,000" class="form-control @error('monto_comp') is-invalid @enderror" type="number" name="monto_comp" value="{{old('monto_comp')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input type="number" placeholder="$0.00" class="form-control @error('monto_comp') is-invalid @enderror" type="number" name="monto_comp" value="{{old('monto_comp')}}"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 @error('monto_comp')
                                 <div class="invalid-feedback"> {{ $message }} </div>
                                 @enderror

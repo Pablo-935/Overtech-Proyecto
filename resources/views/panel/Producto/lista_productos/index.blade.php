@@ -29,7 +29,9 @@
             <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -38,7 +40,9 @@
             <div class="col-12">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('status3') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -82,10 +86,10 @@
                                         <a href="{{ route('producto.edit', $producto->id) }}" class="btn btn-sm btn-warning text-white text-uppercase mx-1">
                                             Editar
                                         </a>
-                                        <form action="{{ route('producto.destroy', $producto->id) }}" method="POST" class="formulario-eliminar">
+                                        <form action="{{ route('producto.destroy', $producto->id) }}" method="POST" class="formulario-eliminar form_delete">
                                             @csrf 
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger text-uppercase">
+                                            <button type="submit" class="btn btn-sm btn-danger text-uppercase ">
                                                 Eliminar
                                             </button>
                                         </form>
@@ -113,5 +117,39 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/table.js') }}"></script>
+
+    <script>
+
+
+        $('.form_delete').submit(function (e) {
+            e.preventDefault();
+    
+    
+        Swal.fire({
+      title: 'Estas seguro de eliminar este producto ?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado !',
+          '',
+          'success'
+        )
+    
+        this.submit()
+      }
+    })
+    
+        });
+    
+    
+        </script>
+    
 @stop

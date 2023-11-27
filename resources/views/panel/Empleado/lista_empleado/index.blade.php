@@ -26,7 +26,9 @@
             <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('status') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -35,7 +37,9 @@
             <div class="col-12">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('status3') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss='alert' aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         @endif
@@ -77,7 +81,7 @@
                                     <a href="{{ route('empleado.edit', $empleado->id) }}" class="btn btn-sm btn-warning text-white text-uppercase me-1">
                                         Editar
                                     </a>
-                                    <form action="{{ route('empleado.destroy', $empleado->id) }}" method="POST" class="formulario-eliminar">
+                                    <form action="{{ route('empleado.destroy', $empleado->id) }}" method="POST" class="formulario-eliminar form_delete">
                                         @csrf 
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger text-uppercase">
@@ -111,5 +115,39 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
     {{-- La funcion asset() es una funcion de Laravel PHP que nos dirige a la carpeta "public" --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{asset('js/table.js')}}"></script>
+
+
+    <script>
+
+
+        $('.form_delete').submit(function (e) {
+            e.preventDefault();
+    
+    
+        Swal.fire({
+      title: 'Estas seguro de eliminar este Empleado ?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado !',
+          '',
+          'success'
+        )
+    
+        this.submit()
+      }
+    })
+    
+        });
+    
+    
+        </script>
 @stop

@@ -297,6 +297,13 @@ return [
             'can' => 'lista_cotizaciones'
         ],
         [
+            'text' => 'Lista de Empleados',
+            'route' => 'empleado.index',
+            'icon' => 'fas fa-briefcase',
+            'can' => 'lista_empleados'
+        ],
+
+        [
             'text'       => 'Lista de Proveedores',
             'route'        => 'proveedor.index',
             'icon'        => 'fas fa-ship',
@@ -314,28 +321,23 @@ return [
 
 
         [
-            'text' => 'Lista de Categorias',
-            'route' => 'categoria.index',
-            'icon' => 'fas fa-folder', 
-            'can' => 'lista_categorias'
-
+            'text' => 'Caja',
+            'icon' => 'fas fa-cash-register',
+            'can' => 'lista_cajas',
+            'submenu' => [
+                [
+                    'text' => 'Abrir Caja',
+                    'route' => 'caja.create',
+                    'icon' => 'fas fa-calculator',
+                ],
+                [
+                    'text' => 'Historial de Caja',
+                    'route' => 'caja.index',
+                    'icon' => 'fas fa-clock',
+                ],
+            ]
         ],
-
-        [
-            'text' => 'Lista de Productos',
-            'route' => 'producto.index',
-            'icon' => 'fas fa-cube', 
-            'can' => 'lista_productos'
-
-        ],
-
-        [
-            'text' => 'Lista de Empleados',
-            'route' => 'empleado.index',
-            'icon' => 'fas fa-briefcase',
-            'can' => 'lista_empleados'
-        ],
-
+  
 
 
         [
@@ -364,22 +366,21 @@ return [
             ]
         ],
 
+
         [
-            'text' => 'Caja',
-            'icon' => 'fas fa-cash-register',
-            'can' => 'lista_cajas',
-            'submenu' => [
-                [
-                    'text' => 'Abrir Caja',
-                    'route' => 'caja.create',
-                    'icon' => 'fas fa-calculator',
-                ],
-                [
-                    'text' => 'Historial de Caja',
-                    'route' => 'caja.index',
-                    'icon' => 'fas fa-clock',
-                ],
-            ]
+            'text' => 'Lista de Categorias',
+            'route' => 'categoria.index',
+            'icon' => 'fas fa-folder', 
+            'can' => 'lista_categorias'
+
+        ],
+
+        [
+            'text' => 'Lista de Productos',
+            'route' => 'producto.index',
+            'icon' => 'fas fa-cube', 
+            'can' => 'lista_productos'
+
         ],
 
         [
@@ -387,6 +388,12 @@ return [
             'route' => 'requerimiento.index',
             'icon' => 'fa fa-clipboard',
             'can' => 'lista_requerimientos'
+        ],
+        [
+            'text' => 'Lista de Compras',
+            'route' => 'compra.index',
+            'icon' => 'fa fa-store',
+            'can' => 'lista_compras'
         ],
 
         [
@@ -397,12 +404,7 @@ return [
         ],
 
 
-        [
-            'text' => 'Lista de Compras',
-            'route' => 'compra.index',
-            'icon' => 'fa fa-store',
-            'can' => 'lista_compras'
-        ],
+ 
 
     ],
 

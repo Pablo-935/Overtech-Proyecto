@@ -17,6 +17,8 @@ return new class extends Migration
             $table->decimal('monto_comp', 10, 2);
             $table->date('fecha_comp');
             $table->time('hora_comp');
+            $table->string('operador');
+            $table->string('detalle');
 
             $table->unsignedBigInteger('caja_id')->nullable();
             $table->unsignedBigInteger('proveedor_id')->nullable();
@@ -33,6 +35,7 @@ return new class extends Migration
                             ->onUpdate('cascade');
 
             $table->timestamps();
+            
         });
     }
 

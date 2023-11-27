@@ -47,8 +47,8 @@
                     
                         <div class="form-group">
                             <label for="body">Mensaje: </label>
-                            <div style="height: 300px" name="body" id="body"  class="form-control"></div>
-                        </div>
+                            <textarea style="height: 300px" name="body" id="body"  class="form-control"></textarea>
+                        </div>
         
                         <button type="submit" class="btn btn-success">Notificar</button>
                     </form>
@@ -62,11 +62,11 @@
     </html>
 
     <script>
-window.addEventListener("DOMContentLoaded", function() {
-        var quill = new Quill('#body', {
-          theme: 'snow' // Puedes elegir otros temas según tus preferencias
-        });
-    });
+// window.addEventListener("DOMContentLoaded", function() {
+//         var quill = new Quill('#body', {
+//           theme: 'snow' // Puedes elegir otros temas según tus preferencias
+//         });
+//     });
 
       </script>
 

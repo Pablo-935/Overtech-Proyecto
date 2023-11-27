@@ -26,9 +26,9 @@
                             <label for="estadoVenta">Estado de Venta:</label>
                             <select class="form-control" id="estadoVenta" name="estado_venta">
                                 <option value="">Todos</option>
-                                <option value="PENDIENTE">Pendiente</option>
-                                <option value="ANULADO">Anulado</option>
-                                <option value="FACTURADO">Facturado</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Anulado">Anulado</option>
+                                <option value="Facturado">Facturado</option>
                             </select><br>
                             <button type="submit" class="btn btn-primary">Generar Gráfico</button>
                         </form>
@@ -69,6 +69,9 @@ $(function() {
             if(response.success) {
                 let labels = response.data[0];
                 let counts = response.data[1];
+
+                labels.unshift('');
+                counts.unshift(0);
 
                 const configChart = {
                     type: 'bar',

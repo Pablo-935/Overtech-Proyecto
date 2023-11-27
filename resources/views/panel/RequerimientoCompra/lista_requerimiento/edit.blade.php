@@ -120,65 +120,6 @@
 
 
 @section('js')
-    {{-- <script src=""{{asset('js/eliminar.js')}}""></script> --}}
-    <script>
-        $(document).ready(function(){
+<script src="{{ asset('js/requerimiento_edit.js') }}"></script>
 
-            let tabla = document.getElementById("miTabla");
-            let inputs = document.getElementById("filas");
-            inputs.value = tabla.rows.length-1;
-
-            $('.eliminar').on('click', function(e){
-                if (tabla.rows.length > 2) {
-                    const id = $(this).data('id');
-                    $.ajax({
-                            url: `{{ env('APP_URL') }}/panel/detalleRequerimientos/${id}`,
-                            type: 'DELETE',
-                            data: {
-                                _token: '{{ csrf_token() }}',
-                            },
-                                // id: id},
-                            dataType: 'json',
-                            success: function(response) {
-                                console.log(response);
-                            
-                            },
-                            error: function (error) { 
-                                consola.log('Error')
-                        }
-                    });
-                } else {
-                    alert("Debe haber al menos una fila.");
-                }
-            });
-
-            $(document).on('change', '.cantidad', function () {
-                let cantidad = parseInt($(this).val());
-                if (isNaN(cantidad) || cantidad < 1) {
-                    $(this).val(1);
-                }
-            });
-
-        });
-
-    
-
-        // Crear formulario
-                // let formulario = document.createElement('form');
-                // formulario.id = 'confirmacionEliminarForm';
-                // formulario.method = 'POST';
-
-                // formulario.append($('<input>', {
-                //     'type': 'hidden',
-                //     'name': '_token',
-                //     'value': '{{ csrf_token() }}' // Ajusta según tu aplicación
-                // }));
-
-                // Agregar un campo oculto para el método DELETE
-                // formulario.append($('<input>', {
-                //     'type': 'hidden',
-                //     'name': '_method',
-                //     'value': 'DELETE'
-                // }));
-    </script>
 @stop

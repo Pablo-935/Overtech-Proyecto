@@ -19,7 +19,9 @@ $('#proveedores').select2(
 
 
 
-window.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function(){
+    
+
     
 
 $('#producto_id').val(null).trigger('change');
@@ -61,9 +63,6 @@ if (estadoCaja === 'Si') {
     $('#mensaje2').text('La caja está Cerrada');
     $('#mensaje2').removeClass('d-none');
 }
-
-
-
 
 
 });

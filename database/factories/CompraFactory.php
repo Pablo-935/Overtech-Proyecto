@@ -27,7 +27,8 @@ class CompraFactory extends Factory
             'monto_comp' => $this->faker->randomFloat(2, 100, 10000),
             'fecha_comp' => $this->faker->date(),
             'hora_comp' => $this->faker->time(),
-    
+            'operador' => $this->faker->firstName(),
+            'detalle' => $this->faker->paragraph(),
             'caja_id' => $caja->id,
             'proveedor_id' => $proveedor->id,
             'requerimiento_compra_id' => $requerimientoCompra->id,

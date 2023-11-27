@@ -25,8 +25,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
 
   
-  clientelis
-  facb
+
   if (estado.innerText == "Anulado") {
       estado.classList.add("badge", "bg-danger");
       anular_boton.classList.add("d-none");
@@ -235,11 +234,26 @@ function verificarStock(input) {
 
     // Escuchar el evento keyup en los campos de cantidad
     $(document).on('keyup', '.cantidad', function() {
-        limitarRango(this);
         verificarStock(this);
     });
 
 
 
+    // ======ELIMINAR FILA Y SETEAR VALOR EN 0 =================
+
+
+$('.eliminar-fila').click(function () {
+  var fila = $(this).closest('tr');
+
+  let cantidadInput = fila.find('input[name^="cantidad_prod_venta"]');
+  cantidadInput.val(0);
+
+  actualizarCalculos(fila[0]); 
+
+  actualizarTotal();
+
+  fila.hide();
+});
+//
 
 });

@@ -123,7 +123,7 @@
 
 
     Swal.fire({
-  title: 'Estas seguro de eliminar este producto ?',
+  title: 'Estas seguro de eliminar esta cotizacion ?',
   text: "",
   icon: 'warning',
   showCancelButton: true,
